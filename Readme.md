@@ -498,9 +498,12 @@ Figura 4.2: Pruebas de comandos con la aplicación Serial Bluetooth Terminal.
 
 ## 4.2 Cumplimiento de requisitos
 Finalizado este trabajo, es posible confirmar los requisitos cumplidos en la Tabla 2.1 previamente establecidos.
+
 Acceso
+
 - 1.1 El sistema permitirá el acceso mediante BLE.
 - 1.2 En caso de acceso permitido, el sistema guardará qué usuario root ingresó.
+
 Indicadores
 - 2.1 El sistema contará con un indicador luminoso (luz estroboscópica) para indicar que hay una alerta.
 - 2.2 El sistema contará con un buzzer (sirena) para indicar la activación de la alarma.
@@ -509,22 +512,29 @@ Indicadores
 - 2.5 El sistema enviará un mensaje a la policía, a todos los usuarios y a la central mediante GSM para indicar qué usuario activó la alarma mediante llamada.
 - 2.6 El sistema enviará un mensaje a la policía, a todos los usuarios y a la central mediante GSM para indicar que la alarma se activó mediante botón de pánico.
 - 2.7 El sistema contará con un led para indicar el estado de la alarma (armada o desarmada).
+
 Interruptores/Botones
 - 3.1 El sistema contará con un botón para accionar la alarma de forma manual (botón de pánico).
+
 Memoria
 - 4.1 El sistema contará con una memoria para almacenar datos.
 - 4.2 La memoria almacenará la lista de números telefónicos autorizados.
 - 4.3 La memoria almacenará las coordenadas (configuradas por la central) de la ubicación de la alarma.
+
 Comunicación audio
 - 5.1 El sistema contará con un buzzer (sirena) para transmitir la alerta.
+
 Comunicación BLE
 - 6.1 El personal autorizado enviado por la central se podrá vincular con el sistema mediante BLE.
+
 Comunicación GSM
 - 7.1 El sistema se comunicará con los usuarios mediante la red GSM (vía SMS).
 - 7.2 El sistema se comunicará con la policía mediante la red GSM (vía SMS).
 - 7.3 El sistema se comunicará con la central mediante la red GSM (vía SMS).
+
 Sensores
 - 8.1 El sistema contará con un sensor lumínico para validar la luz de día.
+
 Entrega
 - 9.1 La entrega del proyecto está prevista para el mes de marzo de 2026.
 
