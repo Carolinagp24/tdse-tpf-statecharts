@@ -125,6 +125,9 @@ En la realidad de hoy en día y en el contexto de la Ciudad Autónoma de Buenos 
 Según estadísticas de la página de la Ciudad de Buenos Aires, las comunas en donde más delitos se presentan son en aquellas en las que hay villas. Particularmente, en la Comuna 1 es en la que más delitos hubo en diciembre de 2024 y en la que se asienta la Villa 31, la más poblada de la ciudad. En la Figura 1.1 se detalla la distribución de delitos por comuna.
 
 <p align="center">
+  <img src="./img/mapa_violencia.png" alt="mapa_violencia_caba" width="500">
+</p>
+<p align="center">
   <em>Figura 1.1: Mapa del delito por comuna. Colores claros indican menos delito, oscuros indican alto.</em>
 </p>
 
