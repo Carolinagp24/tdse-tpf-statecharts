@@ -296,6 +296,8 @@ A continuación, en la Figura 3.2, se expone un esquema de conexiones entre la p
 ### 3.1.1 Hardware del módulo GSM
 Se presenta en la Tabla 3.1 la conexión entre pines del módulo GSM y la placa NUCLEO.
 
+<div align="center">
+
 | NUCLEO-F103RB | GSM |
 | :---- | :---- |
 |PB5|RING|
@@ -311,6 +313,7 @@ Se presenta en la Tabla 3.1 la conexión entre pines del módulo GSM y la placa 
 |PB11|TXD|
 |GND|GND|
 
+</div>
 <p align="center">
   <em>Tabla 3.1: interconexión de pines del módulo GSM.</em>
 </p>
@@ -326,6 +329,8 @@ Compañía telefónica: el módulo posee un LED que indica si está en correcto 
 
 En la Tabla 3.2 se detallan las interconexiones de pines para el módulo HM-10.
 
+<div align="center">
+
 | NUCLEO-F103RB | HM-10 |
 | :---- | :---- |
 |PB4|STATE|
@@ -335,6 +340,7 @@ En la Tabla 3.2 se detallan las interconexiones de pines para el módulo HM-10.
 |4 V|VCC|
 |-|EN|
 
+</div>
 <p align="center">
   <em>Tabla 3.2: interconexión de pines del módulo HM-10.</em>
 </p>
@@ -354,13 +360,12 @@ Un flujo común de comandos sería: admin > fiuba > add 1122334455 > out. En est
 Al momento de trabajar con este módulo no surgieron problemas considerables. Lo que sí sucedió fue que a medida que desarrollamos el código para los comandos, nos percatamos de que era poco óptimo estar distinguiendo mayúsculas y minúsculas, así que fue validado para que eso no fuera un problema. También se tuvo en cuenta el orden de ingreso de datos para que luego del comando admin solo se espere fiuba y cualquier otro comando se tome como contraseña incorrecta.
 Sí fue parte de la experiencia haber recibido un módulo en mal estado y haber tenido que probar una gran variedad de soluciones para un módulo que finalmente fue descubierto que estaba dañado porque no permitía la conexión.
 
-
-
-
 ### 3.1.3 Hardware del módulo sensor de luz LDR
 
 En la Tabla 3.3 se detallan las interconexiones de pines para el sensor de luz.
 
+<div align="center">
+	
 | NUCLEO-F103RB | SENSOR DE LUZ LDR |
 | :---- | :---- |
 |5 V|VCC|
@@ -368,6 +373,7 @@ En la Tabla 3.3 se detallan las interconexiones de pines para el sensor de luz.
 |PA1|DO|
 |-|AO|
 
+</div>
 <p align="center">
   <em>Tabla 3.3: interconexión de pines del módulo sensor de luz LDR.</em>
 </p>
@@ -381,6 +387,8 @@ El único problema que surgió con este módulo fue la adquisición de un dispos
 
 En la Tabla 3.4 se detallan las interconexiones de pines para la memoria EEPROM.
 
+<div align="center">
+	
 | NUCLEO-F103RB | MEMORIA EEPROM |
 | :---- | :---- |
 |3.3 V|VCC|
@@ -388,6 +396,7 @@ En la Tabla 3.4 se detallan las interconexiones de pines para la memoria EEPROM.
 |PB6|SCL|
 |PB7|SDA|
 
+</div>
 <p align="center">
   <em>Tabla 3.4: interconexión de pines de la memoria EEPROM.</em>
 </p>
@@ -409,13 +418,10 @@ Figura 3.4: bucle while  del main.c.
 ### 3.2.2 Botón de pánico
 
 Para la implementación del botón de pánico se decidió implementar un código antirrebote. Para esto se definen cuatro estados: ST_BTN_PANIC_UP, ST_BTN_PANIC_FALLING, ST_BTN_PANIC_DOWN y ST_BTN_PANIC_RISING. A continuación se los explica a cada uno y en la Figura 3.5 se expone el código en cuestión.
-ST_BTN_PANIC_UP: el sistema está en reposo esperando acciones en el pin. Si la tensión baja (o sea, alguien empezó a presionar el botón), almacena el momento en el que se comenzó a presionar con HAL_GetTick() y lo guarda para la lógica con el siguiente estado.
-
-ST_BTN_PANIC_FALLING: el sistema espera un determinado tiempo DELAY_BOTON_MS. Si luego de ese tiempo el botón sigue presionado, se descarta la idea de que pueda haber sido una presión en falso o algo similar y se confirma la presión mediante ev_sys_panic_pressed = true.
-
-ST_BTN_PANIC_DOWN: la alerta fue enviada y ahora el sistema queda a la espera de que se suelte el botón.
-
-ST_BTN_PANIC_RISING: es la misma lógica que para ST_BTN_PANIC_FALLING pero a la inversa. Ahora se está esperando el tiempo DELAY_BOTON_MS pero para confirmar que el botón haya sido soltado de manera correcta.
+- ST_BTN_PANIC_UP: el sistema está en reposo esperando acciones en el pin. Si la tensión baja (o sea, alguien empezó a presionar el botón), almacena el momento en el que se comenzó a presionar con HAL_GetTick() y lo guarda para la lógica con el siguiente estado.
+- ST_BTN_PANIC_FALLING: el sistema espera un determinado tiempo DELAY_BOTON_MS. Si luego de ese tiempo el botón sigue presionado, se descarta la idea de que pueda haber sido una presión en falso o algo similar y se confirma la presión mediante ev_sys_panic_pressed = true.
+- ST_BTN_PANIC_DOWN: la alerta fue enviada y ahora el sistema queda a la espera de que se suelte el botón.
+- ST_BTN_PANIC_RISING: es la misma lógica que para ST_BTN_PANIC_FALLING pero a la inversa. Ahora se está esperando el tiempo DELAY_BOTON_MS pero para confirmar que el botón haya sido soltado de manera correcta.
 
 Figura 3.5: lógica del sistema antirrebote del botón de pánico.
 
@@ -454,20 +460,17 @@ Figura 3.9: primera parte del código del GSM.
 Figura 3.10: segunda parte del código del GSM.
 ### 3.2.6 Gestión de mensajes SMS
 La gestión de los mensajes SMS se expone en código en la Figura 3.11, 3.12 y 3.13. A continuación, una breve descripción del comportamiento.
-SMS_IDLE: Cuando el sistema está en reposo, el código se fija si el puntero de la cola se movió (sms_tail != sms_head). En caso de haber un mensaje esperando, se activa. El retardo de 4 segundos es para asegurar que la red celular esté estable previo al arranque. Se envía el comando “AT+CMGS=”...”” con el número del usuario que se extrae de la cola. Se inicializan las flags y pasa al estado SMS_SEND_CMD.
-SMS_SEND_CMD: Se envían los datos del modem al sistema de forma asincrónica para no pausar la ejecución del código. Luego de llamar a la función pasa al estado SMS_WAIT_TX_CMD.
-SMS_WAIT_TX_CMD: Espera a que HAL_UART_Transmit_IT() termine de enviar lo solicitado para pasar al estado SMS_WAIT_PROMPT.
-SMS_WAIT_PROMPT: El módulo GSM debe responder que está listo para recibir el texto, así que la NUCLEO se queda esperando que el módulo envíe el símbolo ‘>’ (flag_gms_prompt == 1). Una vez enviado el símbolo, se procede a copiar el mensaje al buffer (si la longitud del mensaje supera los cien caracteres, solo se copiarán los primeros cien) y se agrega el caracter “0x1A” que es el comando CTRL+Z para indicarle al módulo que envíe el mensaje y pasar al estado SMS_SEND_MSG. Si el tiempo de espera para enviar el símbolo ‘>’  supera los tres segundos, la tarea se descarta y regresa a SMS_IDLE.
-SMS_SEND_MSG: Se envía el mensaje al sistema de forma asincrónica para no pausar la ejecución del código. Luego de llamar a la función pasa al estado SMS_WAIT_TX_MSG.
-SMS_WAIT_TX_MSG: Espera a que HAL_UART_Transmit_IT() termine de enviar lo solicitado para pasar al estado SMS_WAIT_OK.
-SMS_WAIT_OK: Se espera el OK del módulo o un mensaje de error. Si no hubo problemas, se descarta ese mensaje de la fila (sms_tail++) y vuelve a SMS_IDLE para cerrar el ciclo. En caso de tildarse, se esperan 12 segundos y si no responde en ese tiempo, se aborta la tarea para no quedarse bloqueado.
+- SMS_IDLE: Cuando el sistema está en reposo, el código se fija si el puntero de la cola se movió (sms_tail != sms_head). En caso de haber un mensaje esperando, se activa. El retardo de 4 segundos es para asegurar que la red celular esté estable previo al arranque. Se envía el comando “AT+CMGS=”...”” con el número del usuario que se extrae de la cola. Se inicializan las flags y pasa al estado SMS_SEND_CMD.
+- SMS_SEND_CMD: Se envían los datos del modem al sistema de forma asincrónica para no pausar la ejecución del código. Luego de llamar a la función pasa al estado SMS_WAIT_TX_CMD.
+- SMS_WAIT_TX_CMD: Espera a que HAL_UART_Transmit_IT() termine de enviar lo solicitado para pasar al estado SMS_WAIT_PROMPT.
+- SMS_WAIT_PROMPT: El módulo GSM debe responder que está listo para recibir el texto, así que la NUCLEO se queda esperando que el módulo envíe el símbolo ‘>’ (flag_gms_prompt == 1). Una vez enviado el símbolo, se procede a copiar el mensaje al buffer (si la longitud del mensaje supera los cien caracteres, solo se copiarán los primeros cien) y se agrega el caracter “0x1A” que es el comando CTRL+Z para indicarle al módulo que envíe el mensaje y pasar al estado SMS_SEND_MSG. Si el tiempo de espera para enviar el símbolo ‘>’  supera los tres segundos, la tarea se descarta y regresa a SMS_IDLE.
+- SMS_SEND_MSG: Se envía el mensaje al sistema de forma asincrónica para no pausar la ejecución del código. Luego de llamar a la función pasa al estado SMS_WAIT_TX_MSG.
+- SMS_WAIT_TX_MSG: Espera a que HAL_UART_Transmit_IT() termine de enviar lo solicitado para pasar al estado SMS_WAIT_OK.
+- SMS_WAIT_OK: Se espera el OK del módulo o un mensaje de error. Si no hubo problemas, se descarta ese mensaje de la fila (sms_tail++) y vuelve a SMS_IDLE para cerrar el ciclo. En caso de tildarse, se esperan 12 segundos y si no responde en ese tiempo, se aborta la tarea para no quedarse bloqueado.
 
+Figura 3.11: primera parte del código gestor de mensajes de texto.
 
-
-
-		Figura 3.11: primera parte del código gestor de mensajes de texto.
-
-		Figura 3.12: segunda parte del código gestor de mensajes de texto.
+Figura 3.12: segunda parte del código gestor de mensajes de texto.
 
 Figura 3.13: tercera parte del código gestor de mensajes de texto.
 
@@ -613,7 +616,9 @@ Figura 4.11: Captura de pantalla del código fuente con el Sleep Mode implementa
 
 ## 4.4 Documentación del desarrollo realizado  
 En la Tabla 4.1 se presenta un resumen de los parámetros considerados más importantes a la hora de revisar el proyecto para facilitar discernir el propósito, objetivos y los pasos que seguimos en la elaboración de nuestro trabajo práctico.
-Tabla 4.1: Parámetros que sintetizan lo más importante del proyecto.
+
+<div align="center">
+
 | Parámetro | Referencia |
 | :---- | :---- |
 |Propósito del proyecto|1.1|
@@ -625,6 +630,11 @@ Tabla 4.1: Parámetros que sintetizan lo más importante del proyecto.
 |Esquema de cableado|Fig. 3.2|
 |Pruebas de funcionamiento|4.1|
 |Mediciones|4.3|
+
+</div>
+<p align="center">
+  <em>Tabla 4.1: Parámetros que sintetizan lo más importante del proyecto.</em>
+</p>
 
 # CAPÍTULO 5 
 # Conclusiones
