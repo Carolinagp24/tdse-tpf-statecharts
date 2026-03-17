@@ -65,6 +65,7 @@ A ambos les agradecemos por la motivación genuina por los sistemas embebidos qu
 - [Introducción específica](#introducción-específica)
   - [2.1 Requisitos](#21-requisitos)
   - [2.2 Casos de uso](#22-casos-de-uso)
+  	- [2.2.1 Diagramas de secuencia del sistema](#221-diagramas-de-secuencia-del-sistema)
   - [2.3 Descripción módulos del sistema](#23-descripción-módulos-del-sistema)
     - [2.3.1 Alimentación](#231-alimentación)
     - [2.3.2 Microcontrolador](#232-microcontrolador)
@@ -125,7 +126,7 @@ En la realidad de hoy en día y en el contexto de la Ciudad Autónoma de Buenos 
 Según estadísticas de la página de la Ciudad de Buenos Aires, las comunas en donde más delitos se presentan son en aquellas en las que hay villas. Particularmente, en la Comuna 1 es en la que más delitos hubo en diciembre de 2024 y en la que se asienta la Villa 31, la más poblada de la ciudad. En la Figura 1.1 se detalla la distribución de delitos por comuna.
 
 <p align="center">
-  <img src="./img/mapa_violencia.png" alt="mapa_violencia_caba" width="500">
+  <img src="./img/mapa_violencia.png" alt="mapa_violencia_caba" width="400">
 </p>
 <p align="center">
   <em>Figura 1.1: Mapa del delito por comuna. Colores claros indican menos delito, oscuros indican alto.</em>
@@ -217,13 +218,44 @@ En las tablas 2.2, 2.3 y 2.4 se presentan tres casos de uso para ejemplificar un
   <em>Tabla 2.4: casos de uso: el personal autorizado se conecta mediante BLE al sistema (llamada).</em>
 </p>
 
+### 2.2.1 Diagramas de secuencia del sistema
+Previo a empezar a programar el código del sistema, se decidio modelar diagramas de secuancia para cada caso de uso. Esto ayudará a comprender mejor el funcionamiento del sistema planteado en la sección 2.2 y así poder implementar el código de cada sensor y actuador con mayor facilidad.
+
+En la Figura 2.1 se observa el diagrama de secuancias para el caso de activación de la alarma por llamada.
+<p align="center">
+  <img src="./img/gsm_mode.png" alt="Modo gsm" width="600">
+</p>
+<p align="center">
+  <em>Figura 2.1: Diagrama de secuancias para el caso de activación por red GSM.</em>
+</p>
+
+En la Figura 2.2 se observa el diagrama de secuancias para el caso de activación de la alarma por botón de pánico.
+
+<p align="center">
+  <img src="./img/Panic_button.png" alt="Modo panic button" width="600">
+</p>
+<p align="center">
+  <em>Figura 2.2: Diagrama de secuancias para el caso de activación por botón de pánico.</em>
+</p>
+
+En la Figura 2.3 se observa el diagrama de secuancias para el caso de conexón de personal autorizado al sistema mediante Bluetooth.
+
+<p align="center">
+  <img src="./img/Modo_ble.png" alt="Modo admin" width="600">
+</p>
+<p align="center">
+  <em>Figura 2.3: Diagrama de secuancias para el caso de conexión de personal autorizado.</em>
+</p>
 
 ## 2.3 Descripción módulos del sistema
 ### 2.3.1 Alimentación
-Para la alimentación de todo el sistema se usó una fuente de 12 V y 10 A. Pero para la compatibilidad fue adquirido el módulo XL4015. En la Figura 2.1 se observa el módulo elegido para regular la tensión de entrada a una tensión que el módulo GSM pueda trabajar (4 V), además de soportar hasta 5 A y tener consigo en esta placa unos capacitores de desacople. A este regulador se conecta el módulo GSM y el módulo BLE en paralelo.
+Para la alimentación de todo el sistema se usó una fuente de 12 V y 10 A. Pero para la compatibilidad fue adquirido el módulo XL4015. En la Figura 2.4 se observa el módulo elegido para regular la tensión de entrada a una tensión que el módulo GSM pueda trabajar (4 V), además de soportar hasta 5 A y tener consigo en esta placa unos capacitores de desacople. A este regulador se conecta el módulo GSM y el módulo BLE en paralelo.
 
 <p align="center">
-  <em>Figura 2.1: módulo regulador de tensión.</em>
+  <img src="./img/reg_tension.png" alt="regulador_de_tensión" width="350">
+</p>
+<p align="center">
+  <em>Figura 2.4: módulo regulador de tensión.</em>
 </p>
 
 ### 2.3.2 Microcontrolador
@@ -236,40 +268,53 @@ TXD/RXD: Son las señales que se utilizan para la comunicación serial mediante 
 Se tuvo que hacer un divisor resistivo entre el pin de RX de esta placa y el pin TX de la Núcleo, ya que el nivel alto lógico del módulo gsm es 2,8 V y de la placa Núcleo es 3,3 V.
 NET: es el punto de conexión para la antena GSM. Se usó una de 6 dBi para que la señal se pueda recepcionar sin problemas.
 El funcionamiento de este módulo consta de conectarse a la red 2G para actuar como si fuera un celular (desde el punto de vista de la comunicación). Recibe llamadas que corta luego de un RING si el usuario que llama está en la whitelist, entonces se activa la alarma. También envía mensajes SMS para notificar a la policía y central . Su elección recae en la simpleza del funcionamiento, ya que la prioridad fue atenernos a las funcionalidades pensadas para el trabajo y el módulo en cuestión se ajustaba de manera perfecta para cumplir con estos requisitos.
-Se tiene en cuenta que la red 2G está siendo apagada lentamente pero en ese caso se podrá implementar esta alarma usando el módulo  SIM7000G que se observa en la Figura 2.2 . Aunque, mientras eso no ocurra, por costo y utilidad, esta opción es la mejor.
+Se tiene en cuenta que la red 2G está siendo apagada lentamente pero en ese caso se podrá implementar esta alarma usando el módulo  SIM7000G que se observa en la Figura 2.5 . Aunque, mientras eso no ocurra, por costo y utilidad, esta opción es la mejor.
 
 <p align="center">
-  <em>Figura 2.2: Módulo GSM.</em>
+  <img src="./img/gsm.png" alt="modulo_gsm" width="350">
+</p>
+
+<p align="center">
+  <em>Figura 2.5: Módulo GSM.</em>
 </p>
 
 ### 2.3.4 Memoria EEPROM AT24C256
 Se optó por la EEPROM externa (AT24C256) al descartar otras alternativas por riesgos críticos.
 Una opción era la tarjeta SIM pero leer contactos mediante comandos AT es un proceso demasiado lento que retrasaría inaceptablemente el disparo de la alarma durante una emergencia.
-La otra era la memoria del STM32 y este microcontrolador no tiene EEPROM real. Se usaría la memoria Flash que se observa en la Figura 2.3 para guardar datos lo cual reduciría la vida útil de la placa (soporta pocas escrituras) y genera un alto riesgo de corromper el código principal si se corta la luz mientras se guarda un número.
+La otra era la memoria del STM32 y este microcontrolador no tiene EEPROM real. Se usaría la memoria Flash que se observa en la Figura 2.6 para guardar datos lo cual reduciría la vida útil de la placa (soporta pocas escrituras) y genera un alto riesgo de corromper el código principal si se corta la luz mientras se guarda un número.
 
 <p align="center">
-  <em>Figura 2.3: Memoria EEPROM AT24C256.</em>
+  <img src="./img/memoria_eeprom.png" alt="modulo_memoria" width="350">
+</p>
+<p align="center">
+  <em>Figura 2.6: Memoria EEPROM AT24C256.</em>
 </p>
 
 ### 2.3.5 Módulo Bluetooth
 Para la conexión del personal autorizado, ya sea un técnico de la empresa para instalar la alarma o un vecino de alto rango con acceso a la alta y baja de usuarios, se utilizó un Módulo HM-10 (módulo Bluetooth). Sus pines son los siguientes:
 VCC/GND: se alimenta, por lo general, con 3,3 V a  6 V.
 TXD/RXD: por los que se da la comunicación serial. El TX del módulo en cuestión va al RX de la placa NUCLEO-F103RB y el RX del módulo, al TX de la placa.
-El HM-10 trabaja respetando el estándar BLE (Bluetooth Low Energy), lo que permite gozar del bajo consumo de energía. Recibe comandos AT para el ingreso como administrador y comandos para la alta y baja de números telefónicos. Envía confirmaciones de acceso, estado de la memoria y logs de quién ingresó al sistema mediante ese módulo. El módulo HM-10- observado en la Figura 2.4 fue elegido por su característica de bajo consumo principalmente, y también por la retroalimentación que este módulo proporciona al interactuar con él.
+El HM-10 trabaja respetando el estándar BLE (Bluetooth Low Energy), lo que permite gozar del bajo consumo de energía. Recibe comandos AT para el ingreso como administrador y comandos para la alta y baja de números telefónicos. Envía confirmaciones de acceso, estado de la memoria y logs de quién ingresó al sistema mediante ese módulo. El módulo HM-10- observado en la Figura 2.7 fue elegido por su característica de bajo consumo principalmente, y también por la retroalimentación que este módulo proporciona al interactuar con él.
 
 <p align="center">
-  <em>Figura 2.4: módulo HM-10.</em>
+  <img src="./img/modulo_ble.png" alt="modulo_ble" width="350">
+</p>
+<p align="center">
+  <em>Figura 2.7: Módulo Bluetooth HM-10.</em>
 </p>
 
 ### 2.3.6 Módulo sensor de luz
-Para determinar en qué momento del día se activa la alarma, fue necesario contar con el  sensor de luz observado en la Figura 2.5 para que envíe la información a la placa NUCLEO-F103RB y active (o no) la luz estroboscópica. Los pines que incluye se enumeran a continuación:
+Para determinar en qué momento del día se activa la alarma, fue necesario contar con el  sensor de luz observado en la Figura 2.8 para que envíe la información a la placa NUCLEO-F103RB y active (o no) la luz estroboscópica. Los pines que incluye se enumeran a continuación:
 VCC/GND: se alimenta, por lo general, con 3,3 V o 5 V.
 DO: es el Digital Output, el cual entrega un pulso alto o bajo que se calibra con un potenciómetro que incluye el módulo. Es importante definir el umbral según la ubicación de la alarma.
 AO: es el Analog Output, el cual entrega una tensión variable y proporcional a la intensidad de la luz.
 El funcionamiento se basa en que la resistencia del sensor disminuye a medida que la luz que recibe el sensor aumenta. El propio módulo transforma esta información en una señal eléctrica. Lo que recibe es luz ambiental y envía un valor lógico que la placa NUCLEO F103RB usa para validar si es de día o de noche. Fue seleccionado este módulo sin excesivo análisis ya que es un dispositivo común en la industria y era de público conocimiento que cumplía con lo básico necesario para el proyecto.
 
 <p align="center">
-  <em>Figura 2.5: módulo sensor de luz.</em>
+  <img src="./img/sensor_luz.png" alt="sensor_luz" width="350">
+</p>
+<p align="center">
+  <em>Figura 2.8: módulo sensor de luz.</em>
 </p>
 
 ### 2.3.7 Indicadores
@@ -350,12 +395,11 @@ En la Tabla 3.2 se detallan las interconexiones de pines para el módulo HM-10.
 
 El módulo HM-10 es el encargado de comunicar a los técnicos de la empresa y a los usuarios de alto rango con la alarma. Mediante la aplicación Serial Bluetooth Terminal se establece la conexión del teléfono con el módulo mediante Bluetooth. Esta aplicación permite el envío de cadenas de texto, las cuales fueron previamente cargadas en el código de la placa NUCLEO como comandos. El HM-10 recibe lo que se envía por este programa y lo transmite mediante su pin TX a la placa. Ésta recibe la cadena de texto, la compara con los comandos pre-cargados y, si corresponde a un comando, queda esperando los pasos a seguir. Los comandos en cuestión son:
 
-
-Admin: nombre de usuario de quien se quiera conectar
-Fiuba: contraseña de quien se quiera conectar
-Add: añadir número a la whitelist
-Del: eliminar número de la whitelist
-Out: terminar la conexión
+- Admin: nombre de usuario de quien se quiera conectar
+- Fiuba: contraseña de quien se quiera conectar
+- Add: añadir número a la whitelist
+- Del: eliminar número de la whitelist
+- Out: terminar la conexión
 Cabe destacar que ningún comando es case-sensitive.
 Un flujo común de comandos sería: admin > fiuba > add 1122334455 > out. En este caso, se ingresó a la administración de la alarma mediante los datos de alta admin y fiuba. Luego, se añadió al número de ejemplo 1122334455 a la whitelist y por último se terminó la conexión.
 
@@ -543,7 +587,7 @@ Entrega
 
 
 Se adjunta el link a un video probando las funcionalidades de la alarma vecinal:
-Video
+[Video](https://drive.google.com/file/d/1uOZZpbqjF8vDs1e2KLbU4mORA51s-HUG/view?usp=sharing)
 
 ## 4.3 Análisis de Ejecución y Consumo Energético
 El presente apartado detalla las métricas de rendimiento y el perfil de consumo eléctrico del sistema. La evaluación responde a los requerimientos técnicos de la arquitectura de hardware y software del proyecto.
@@ -589,9 +633,9 @@ Figura 4.8: Captura de pantalla para el tiempo de ejecución en estrés.
 #### 4.3.2.1 Análisis Matemático y Conversión Temporal 
 La arquitectura del microcontrolador opera a una frecuencia fija de 72 MHz. Esta velocidad de procesamiento equivale a 72.000 ciclos de reloj por cada milisegundo (o 72 ciclos por cada microsegundo).
 Los valores máximos registrados son visibles en tiempo real mediante las Live Expressions del debugger STM32CubeIDE.
-Cálculo del WCET total del sistema : WCET = 10 + 10 + 36 + 142 + 9 + 327 + 2 + 55 + 43 + 48 + 32 + 9 = 723 µs = 0,723 ms .
-Tiempo máximo de ejecución registrado (WCET): 0,723 milisegundos.
-Condiciones de la prueba de estrés: El sistema procesó la activación de la alarma por botón físico y por llamada, se completó con el envío de los mensajes, conexiones BLE y comandos donde se da de alta y de baja un número en la whitelist.
+- Cálculo del WCET total del sistema : WCET = 10 + 10 + 36 + 142 + 9 + 327 + 2 + 55 + 43 + 48 + 32 + 9 = 723 µs = 0,723 ms .
+- Tiempo máximo de ejecución registrado (WCET): 0,723 milisegundos.
+- Condiciones de la prueba de estrés: El sistema procesó la activación de la alarma por botón físico y por llamada, se completó con el envío de los mensajes, conexiones BLE y comandos donde se da de alta y de baja un número en la whitelist.
 
 
 
