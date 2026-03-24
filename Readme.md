@@ -332,13 +332,27 @@ Para la interconexión de todo lo mencionado anteriormente se utilizaron placas 
 Como ha sido mencionado previamente en el apartado 2.3.9, placas experimentales, cables Dupont y soldaduras han sido utilizadas para lograr la comunicación entre módulos. En la Figura 3.1 se presenta una imagen real de la interconexión en cuestión para visualizar la complejidad del desafío. No se pretende que el lector pueda distinguir los motivos de cada conexión, sino que pueda visualizar a grandes rasgos la electrónica del trabajo.
 
 <p align="center">
-  <em>Figura 3.1: vista general del producto.</em>
+  <img src="./img/placa.jpeg" alt="Placa" width="600">
 </p>
 
-A continuación, en la Figura 3.2, se expone un esquema de conexiones entre la placa NUCLEO y los módulos incluidos.
+<p align="center">
+  <em>Figura 3.1: Vista general del producto.</em>
+</p>
+
+En la Figura 3.2 se observa la vista lateral de la placa. Se agregó un puerto USB tipo C para poder alimentar el sistema con un cargador tipo C (el más usado actualmente). Así mismo, se incluye cuatro separadores de plástico para placas con el fin de lograr un mejor soporte.
 
 <p align="center">
-  <em>Figura 3.2: Esquema de cableado entre placa y módulos.</em>
+  <img src="./img/placa_lateral.jpeg" alt="Placa lateral" width="600">
+</p>
+
+<p align="center">
+  <em>Figura 3.2: Vista lateral del producto.</em>
+</p>
+
+A continuación, en la Figura 3.3, se expone un esquema de conexiones entre la placa NUCLEO y los módulos incluidos.
+
+<p align="center">
+  <em>Figura 3.3: Esquema de cableado entre placa y módulos.</em>
 </p>
 
 ### 3.1.1 Hardware del módulo GSM
@@ -457,29 +471,39 @@ Para nuestra fortuna, no tuvimos problemas con este componente del trabajo, más
 Si bien la electrónica para este trabajo fue prioridad y una cuestión a la cual hubo que prestar sumo detalle, nada hubiera funcionado sin un código que genere exactamente la lógica requerida. A continuación se presentan fragmentos de código que consideramos importantes para el desarrollo de este trabajo.
 ### 3.2.1 Main
 Esta función, que es la principal del sistema, se encarga de hacer funcionar la alarma en su totalidad. No conoce las lógicas de los periféricos, pero sabe a qué funciones invocar para que éstos se activen. El código se puede separar en dos grandes partes: previa y posterior al while. La gran distinción entre estas secciones es que el código previo se ejecuta una sola vez al prender la alarma, mientras que lo que está dentro del while (Super-loop) se ejecuta muchas veces por segundo siempre y cuando la alarma tenga energía. 
-En la Figura 3.3 se observan los llamados a funciones para inicializar los sensores, actuadores, memoria y sistema. Seguidamente, el código entra en un bucle while  como se observa en la Figura 3.4 que realiza constantemente los llamados a funciones de actualización ‘update’ para cada módulo.
-Figura 3.3: código del main con funciones de inicialización.
+En la Figura 3.4 se observan los llamados a funciones para inicializar los sensores, actuadores, memoria y sistema. Seguidamente, el código entra en un bucle while  como se observa en la Figura 3.5 que realiza constantemente los llamados a funciones de actualización ‘update’ para cada módulo.
 
-Figura 3.4: bucle while  del main.c.
+<p align="center">
+  <em>Figura 3.4: código del main con funciones de inicialización.</em>
+</p>
+
+
+<p align="center">
+  <em>Figura 3.5: bucle while  del main.c.</em>
+</p>
 
 ### 3.2.2 Botón de pánico
 
-Para la implementación del botón de pánico se decidió implementar un código antirrebote. Para esto se definen cuatro estados: ST_BTN_PANIC_UP, ST_BTN_PANIC_FALLING, ST_BTN_PANIC_DOWN y ST_BTN_PANIC_RISING. A continuación se los explica a cada uno y en la Figura 3.5 se expone el código en cuestión.
+Para la implementación del botón de pánico se decidió implementar un código antirrebote. Para esto se definen cuatro estados: ST_BTN_PANIC_UP, ST_BTN_PANIC_FALLING, ST_BTN_PANIC_DOWN y ST_BTN_PANIC_RISING. A continuación se los explica a cada uno y en la Figura 3.6 se expone el código en cuestión.
 - ST_BTN_PANIC_UP: el sistema está en reposo esperando acciones en el pin. Si la tensión baja (o sea, alguien empezó a presionar el botón), almacena el momento en el que se comenzó a presionar con HAL_GetTick() y lo guarda para la lógica con el siguiente estado.
 - ST_BTN_PANIC_FALLING: el sistema espera un determinado tiempo DELAY_BOTON_MS. Si luego de ese tiempo el botón sigue presionado, se descarta la idea de que pueda haber sido una presión en falso o algo similar y se confirma la presión mediante ev_sys_panic_pressed = true.
 - ST_BTN_PANIC_DOWN: la alerta fue enviada y ahora el sistema queda a la espera de que se suelte el botón.
 - ST_BTN_PANIC_RISING: es la misma lógica que para ST_BTN_PANIC_FALLING pero a la inversa. Ahora se está esperando el tiempo DELAY_BOTON_MS pero para confirmar que el botón haya sido soltado de manera correcta.
 
-Figura 3.5: lógica del sistema antirrebote del botón de pánico.
 
+<p align="center">
+  <em>Figura 3.6: lógica del sistema antirrebote del botón de pánico.</em>
+</p>
 	
 
 ### 3.2.3 Sensor de luz
 La lógica del sensor de luz es sencilla: en el pin físico se interpreta un valor lógico y se relaciona con noche o día. Si el sensor manda un nivel alto, la variable booleana is_dark se pone en true.
-Ahora bien, para evitar que cualquier reflejo o luz efímera active al sensor sin sentido (y, por consecuencia, prenda a la luz estroboscópica y consuma energía), se definió un tiempo de espera de 2 segundos. Si hay luz, solo si pasan esos 2 segundos seguidos de oscuridad la máquina pasa al estado ST_LDR_NIGHT y ev_sys_day_mode se pone en true. Lo mismo sucede en el pasaje de noche a día. Esta lógica vuelve “inteligente” al sistema, ya que no podrá ser fácilmente engañado por alguien malintencionado, ni tampoco el sistema podrá creer que es de día por la propia retroalimentación de la luz estroboscópica. En la Figura 3.6 puede verse con más detalle el código en cuestión.
+Ahora bien, para evitar que cualquier reflejo o luz efímera active al sensor sin sentido (y, por consecuencia, prenda a la luz estroboscópica y consuma energía), se definió un tiempo de espera de 2 segundos. Si hay luz, solo si pasan esos 2 segundos seguidos de oscuridad la máquina pasa al estado ST_LDR_NIGHT y ev_sys_day_mode se pone en true. Lo mismo sucede en el pasaje de noche a día. Esta lógica vuelve “inteligente” al sistema, ya que no podrá ser fácilmente engañado por alguien malintencionado, ni tampoco el sistema podrá creer que es de día por la propia retroalimentación de la luz estroboscópica. En la Figura 3.7 puede verse con más detalle el código en cuestión.
 
-Figura 3.6: Código del sensor de luz.
 
+<p align="center">
+  <em>Figura 3.7: Código del sensor de luz.</em>
+</p>
 
 ### 3.2.4 Módulo Bluetooth
 El código de este módulo puede desglosarse en 3 categorías o capas.
@@ -487,13 +511,18 @@ Chequeo de conexión: si el sistema detecta algo raro, con cmd_ble_force_lock pu
 Autenticación: en el estado ST_AUTH_LOCKED el sistema está cerrado. Se “despierta” solo si recibe la palabra “ADMIN” y queda a la espera de otra. Cualquier palabra que no sea “ADMIN” en primer lugar, dispara un parpadeo de led. Luego, pasa al estado ST_AUTH_WAITING_PASS en el que espera la contraseña. Solo con la palabra “FIUBA” se otorga acceso y enciende fijamente un led en cuestión. Si la clave no es la correcta, se reinicia el proceso en cuestión.
 Comandos: una vez ingresado correctamente con los datos mencionados previamente, se puede gestionar la whitelist con comandos “ADD” y “DEL”, los cuales agregan o eliminan respectivamente a los números que se escriban posteriormente a los comandos. Agregar o quitar números modifica la memoria EEPROM. El comando “OUT” permite cerrar la sesión.
 Cabe destacar que, gracias a las funciones String_Trim_Right  y  String_To_Upper no importa si el usuario escribe con un espacio al final o en mayúsculas o minúsculas, siempre que la palabra sea correcta, se ingresará.
-En la Figura 3.7 y en la Figura 3.8 se puede apreciar el código.
+En la Figura 3.8 y en la Figura 3.9 se puede apreciar el código.
 
-Figura 3.7: primera parte del código del módulo HM-10
+<p align="center">
+  <em>Figura 3.8: primera parte del código del módulo HM-10.</em>
+</p>
 
-Figura 3.8: segunda parte del código del módulo HM-103.2.5 Módulo GSM
+<p align="center">
+  <em>Figura 3.9: segunda parte del código del módulo HM-10.</em>
+</p>
+
 ### 3.2.5 Módulo GSM
-El módulo GSM es el encargado de gestionar las llamadas recibidas. En la Figura 3.9 se expone el código que lo controla, y a continuación una breve explicación.
+El módulo GSM es el encargado de gestionar las llamadas recibidas. En la Figura 3.10 y la Figura 3.11 se expone el código que lo controla, y a continuación una breve explicación.
 El sistema se encuentra en reposo hasta que flag_llamada_entrante se pone en 1. Esto sucede cuando el módulo GSM recibe una llamada. Internamente, investigamos y el módulo GSM envía por puerto serial la cadena de texto “+CLIP” que contiene al número de origen.
 sys_ocupado_sms: antes de procesar se verifica que la placa no esté ocupada enviando mensajes de texto mediante if (!sys_ocupado_sms).
 while: se hace una disección de la información que envía el módulo. Comienza a leer desde la posición 8 (llamada_entrante_buffer[8+i]) que es donde empiezan las comillas del número telefónico. Se copian los caracteres hasta el final de las comillas o carácter nulo. Finalmente se agrega un \0 para que la cadena sea válida en lenguaje C.
@@ -501,12 +530,16 @@ Whitelist: se llama a es_numero_autorizado, se busca al número en la EEPROM y s
 memset: se ejecuta ese código para borrar el búfer de recepción (llamada_entrante_buffer).
 Comando ATH: apenas se detecta la llamada, el sistema envía el comando ATH para que la alarma sea gratuita para el vecino (corta antes de que el módem atienda).
 
-Figura 3.9: primera parte del código del GSM.
+<p align="center">
+  <em>Figura 3.10: primera parte del código del GSM.</em>
+</p>
 
+<p align="center">
+  <em>Figura 3.11: segunda parte del código del GSM.</em>
+</p>
 
-Figura 3.10: segunda parte del código del GSM.
 ### 3.2.6 Gestión de mensajes SMS
-La gestión de los mensajes SMS se expone en código en la Figura 3.11, 3.12 y 3.13. A continuación, una breve descripción del comportamiento.
+La gestión de los mensajes SMS se expone en código en la Figura 3.12, 3.13 y 3.14. A continuación, una breve descripción del comportamiento.
 - SMS_IDLE: Cuando el sistema está en reposo, el código se fija si el puntero de la cola se movió (sms_tail != sms_head). En caso de haber un mensaje esperando, se activa. El retardo de 4 segundos es para asegurar que la red celular esté estable previo al arranque. Se envía el comando “AT+CMGS=”...”” con el número del usuario que se extrae de la cola. Se inicializan las flags y pasa al estado SMS_SEND_CMD.
 - SMS_SEND_CMD: Se envían los datos del modem al sistema de forma asincrónica para no pausar la ejecución del código. Luego de llamar a la función pasa al estado SMS_WAIT_TX_CMD.
 - SMS_WAIT_TX_CMD: Espera a que HAL_UART_Transmit_IT() termine de enviar lo solicitado para pasar al estado SMS_WAIT_PROMPT.
@@ -515,12 +548,17 @@ La gestión de los mensajes SMS se expone en código en la Figura 3.11, 3.12 y 3
 - SMS_WAIT_TX_MSG: Espera a que HAL_UART_Transmit_IT() termine de enviar lo solicitado para pasar al estado SMS_WAIT_OK.
 - SMS_WAIT_OK: Se espera el OK del módulo o un mensaje de error. Si no hubo problemas, se descarta ese mensaje de la fila (sms_tail++) y vuelve a SMS_IDLE para cerrar el ciclo. En caso de tildarse, se esperan 12 segundos y si no responde en ese tiempo, se aborta la tarea para no quedarse bloqueado.
 
-Figura 3.11: primera parte del código gestor de mensajes de texto.
+<p align="center">
+  <em>Figura 3.12: primera parte del código gestor de mensajes de texto.</em>
+</p>
 
-Figura 3.12: segunda parte del código gestor de mensajes de texto.
+<p align="center">
+  <em>Figura 3.13: segunda parte del código gestor de mensajes de texto.</em>
+</p>
 
-Figura 3.13: tercera parte del código gestor de mensajes de texto.
-
+<p align="center">
+  <em>Figura 3.14: tercera parte del código gestor de mensajes de texto.</em>
+</p>
 
 # CAPÍTULO 4 
 # Ensayos y resultados
@@ -531,13 +569,15 @@ Durante el desarrollo de este trabajo fueron realizándose pruebas a medida que 
 - Módulo HM-10: la prueba que se hizo inicialmente que también fue útil ya que hizo notar un mal funcionamiento del dispositivo. A un protoboard fue conectado el módulo para unir pines de tensión y tierra con las conexiones correspondientes. Luego, descargamos la aplicación Serial Bluetooth Terminal para iniciar la conexión. Al momento de buscar el dispositivo HM-10, no figuraba en la lista. Cambiamos de dispositivo y logramos visualizar su nombre en la lista y establecer la conexión. El LED de conexión del módulo cambió su estado de buscando conexión a conectado de manera acorde. En la Figura 4.1 se muestra una captura de pantalla de la interfaz de la aplicación mencionada y el dispositivo en cuestión.
 
 
-
-Figura 4.1: dispositivo encontrado en la aplicación Serial Bluetooth Terminal.
+<p align="center">
+  <em>Figura 4.1: dispositivo encontrado en la aplicación Serial Bluetooth Terminal.</em>
+</p>
 
 - Módulo HM-10: otra de las pruebas que se realizó con este módulo fue el ingreso de las credenciales autorizadas con nombre de usuario y contraseña. Se probaron casos en los que el usuario ingresa primeramente un nombre no válido, también una contraseña no válida, y también los comandos para añadir y eliminar números de la whitelist y cerrar la sesión. Todo eso puede apreciarse en la Figura 4.2. Cabe mencionar que las pruebas fueron comparadas con el estado de un LED amarillo que se condecía con el estado de la conexión. La evidencia de esto último puede verse en el video al final de este capítulo.
 
-
-Figura 4.2: Pruebas de comandos con la aplicación Serial Bluetooth Terminal.
+<p align="center">
+  <em>Figura 4.2: Pruebas de comandos con la aplicación Serial Bluetooth Terminal.</em>
+</p>
 
 - Módulo GSM: la prueba que se realizó con este módulo fue el reconocimiento del chip insertado. Para que la conexión pudiera considerarse como realizada, el LED integrado al módulo debía dejar de parpadear cada segundo y pasar a parpadear cada 3 segundos. Probamos con chips de la compañía Movistar y esto nunca sucedía, hasta que investigando los posibles motivos nos percatamos de que Movistar no opera más sus redes 2G, tipo de red crucial para el funcionamiento de este módulo. Migramos a un chip de la compañía Claro y la conexión se dio con éxito en el primer intento. Avanzados con el desarrollo del trabajo se realizaron numerosas pruebas del envío de los mensajes SMS. El éxito de esto puede verse en el video mencionado reiteradamente.
 
@@ -599,20 +639,28 @@ Las pruebas de consumo de corriente sobre la placa NUCLEO-F103RB, realizadas con
   - Estado activo: 21,7 mA
   - Evidencia adjunta en la Figura 4.3 y la Figura 4.4:
 
-Figura 4.3: Medición de la placa a 5 V en estado activo.
+<p align="center">
+  <em>Figura 4.3: Medición de la placa a 5 V en estado activo.</em>
+</p>
 
 
-Figura 4.4: Medición de la placa a 5 V en estado de reposo.
+<p align="center">
+  <em>Figura 4.4: Medición de la placa a 5 V en estado de reposo.</em>
+</p>
 
 - Consumo sobre la línea de 3,3 V (Microcontrolador STM32):
   - Estado de reposo: 16,7 mA
   - Estado activo: 15,5 mA
   - Evidencia adjunta en la Figura 4.5 y la Figura 4.5:
  
-Figura 4.5: Medición de la placa a 3,3 V en estado activo.
+<p align="center">
+  <em>Figura 4.5: Medición de la placa a 3,3 V en estado activo.</em>
+</p>
 
+<p align="center">
+  <em>Figura 4.6: Medición de la placa a 3,3 V en estado de reposo.</em>
+</p>
 
-Figura 4.6: Medición de la placa a 3,3 V en estado de reposo.
 
 #### 4.3.1.1 Análisis del módulo GSM (SIM800L)
 Como se carece de un osciloscopio se omite la medición de los picos transitorios de consumo del módulo GSM SIM800L.
@@ -623,12 +671,15 @@ Para un registro preciso de la energía de este componente, el procedimiento te�
 Para la evaluación temporal del Worst Case Execution Time (WCET) el análisis se aplica con el registro interno DWT del microcontrolador a 72 MHz para registrar los ciclos de reloj exactos del sistema.
 En la Figura 4.7 se observa la evidencia para el tiempo en reposo.
 
-Figura 4.7: Captura de pantalla para el tiempo de ejecución en reposo.
+<p align="center">
+  <em>Figura 4.7: Captura de pantalla para el tiempo de ejecución en reposo.</em>
+</p>
 
 En la Figura 4.8 se observa la evidencia para el tiempo en estrés (WCET).
 
-Figura 4.8: Captura de pantalla para el tiempo de ejecución en estrés.
-
+<p align="center">
+  <em>Figura 4.8: Captura de pantalla para el tiempo de ejecución en estrés.</em>
+</p>
 
 #### 4.3.2.1 Análisis Matemático y Conversión Temporal 
 La arquitectura del microcontrolador opera a una frecuencia fija de 72 MHz. Esta velocidad de procesamiento equivale a 72.000 ciclos de reloj por cada milisegundo (o 72 ciclos por cada microsegundo).
