@@ -252,10 +252,10 @@ En la Figura 2.3 se observa el diagrama de secuancias para el caso de conexón d
 Para la alimentación de todo el sistema se usó un cargador de celular de la marca Motorola®️, un módulo de carga rápida PD/QC USB C y un módulo regulador de tensión LM2596. Particularmente se optó por un cargador con la opción de "carga rápida" para poder entregar tensión y corrientes específicas y para mayor portabilidad física de la placa. La tensión de entrada elegida fue de 9 V, ya que la diferencia mínima requerida entre la entrada del LM2596 y su salida debe ser de 1,5 V, y la salida fue regulada a 4 V. En cuanto a la corriente, el cargador puede entregar hasta 3 A, así que fue más que suficiente para suplir el máximo consumo del módulo GSM (2 A). Para poder obtener esta tensión y corriente fue necesaria la adquisición del módulo de carga rápida mencionado, que funciona emulando al módulo interno de un celular moderno solicitando el poder para una carga específicamente rápida que requiera esos valores. Éste último puede apreciarse en la Figura 2.4. Por otro lado, en la Figura 2.5. se observa el módulo LM2596, que fue el encargado de recibir los 9 V del módulo de carga rápida y convertirlos a 4 V, tensión utilizada para alimentar directamente al módulo GSM, BLE y LDR.
 
 <p align="center">
-  <img src="./img/carga_rapida.png" alt="módulo de carga rápida PD_QC USB C" width="350">
+  <img src="./img/carga_rapida.png" alt="módulo_de_carga_rápida_PD_QC_USB_C" width="350">
 </p>
 <p align="center">
-  <em>Figura 2.4: módulo regulador de tensión.</em>
+  <em>Figura 2.4: módulo de carga rápida PD QC USB C.</em>
 </p>
 
 <p align="center">
