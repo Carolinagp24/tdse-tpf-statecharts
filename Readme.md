@@ -252,10 +252,17 @@ En la Figura 2.3 se observa el diagrama de secuancias para el caso de conexón d
 Para la alimentación de todo el sistema se usó un cargador de celular de la marca Motorola®️, un módulo de carga rápida PD/QC USB C y un módulo regulador de tensión LM2596. Particularmente se optó por un cargador con la opción de "carga rápida" para poder entregar tensión y corrientes específicas y para mayor portabilidad física de la placa. La tensión de entrada elegida fue de 9 V, ya que la diferencia mínima requerida entre la entrada del LM2596 y su salida debe ser de 1,5 V, y la salida fue regulada a 4 V. En cuanto a la corriente, el cargador puede entregar hasta 3 A, así que fue más que suficiente para suplir el máximo consumo del módulo GSM (2 A). Para poder obtener esta tensión y corriente fue necesaria la adquisición del módulo de carga rápida mencionado, que funciona emulando al módulo interno de un celular moderno solicitando el poder para una carga específicamente rápida que requiera esos valores. Éste último puede apreciarse en la Figura 2.4. Por otro lado, en la Figura 2.5. se observa el módulo LM2596, que fue el encargado de recibir los 9 V del módulo de carga rápida y convertirlos a 4 V, tensión utilizada para alimentar directamente al módulo GSM, BLE y LDR.
 
 <p align="center">
-  <img src="./img/reg_tension.png" alt="regulador_de_tensión" width="350">
+  <img src="./img/carga_rapida.png" alt="módulo de carga rápida PD_QC USB C" width="350">
 </p>
 <p align="center">
   <em>Figura 2.4: módulo regulador de tensión.</em>
+</p>
+
+<p align="center">
+  <img src="./img/reg_tension.jpg" alt="regulador_de_tensión" width="350">
+</p>
+<p align="center">
+  <em>Figura 2.5: módulo regulador de tensión.</em>
 </p>
 
 ### 2.3.2 Microcontrolador
@@ -263,48 +270,48 @@ Como controlador principal del sistema se utilizó la placa NUCLEO-F103B. Cuenta
 
 ### 2.3.3 Módulo GSM
 Para recibir llamadas telefónicas de los usuarios (para su activación) y enviar mensajes de texto conteniendo información sobre la alerta, se utilizó un Módulo GSM/GPRS (SIM800L). Consta de un slot para colocar un chip de celular y pines para las siguientes conexiones:
-VCC/GND: requiere una alimentación entre 3,4 V y 4,4 V. En la implementación se coloca lo más cercano posible un capacitor de 1000 Fpara soportar los picos de corriente de 2 A que consume el módulo durante la transmisión a la red.
+VCC/GND: requiere una alimentación entre 3,4 V y 4,4 V. En la implementación se coloca lo más cercano posible un capacitor de 1000 μF para soportar los picos de corriente de 2 A que consume el módulo durante la transmisión a la red.
 TXD/RXD: Son las señales que se utilizan para la comunicación serial mediante comandos AT.
 Se tuvo que hacer un divisor resistivo entre el pin de RX de esta placa y el pin TX de la Núcleo, ya que el nivel alto lógico del módulo gsm es 2,8 V y de la placa Núcleo es 3,3 V.
 NET: es el punto de conexión para la antena GSM. Se usó una de 6 dBi para que la señal se pueda recepcionar sin problemas.
 El funcionamiento de este módulo consta de conectarse a la red 2G para actuar como si fuera un celular (desde el punto de vista de la comunicación). Recibe llamadas que corta luego de un RING si el usuario que llama está en la whitelist, entonces se activa la alarma. También envía mensajes SMS para notificar a la policía y central . Su elección recae en la simpleza del funcionamiento, ya que la prioridad fue atenernos a las funcionalidades pensadas para el trabajo y el módulo en cuestión se ajustaba de manera perfecta para cumplir con estos requisitos.
-Se tiene en cuenta que la red 2G está siendo apagada lentamente pero en ese caso se podrá implementar esta alarma usando el módulo  SIM7000G que se observa en la Figura 2.5 . Aunque, mientras eso no ocurra, por costo y utilidad, esta opción es la mejor.
+Se tiene en cuenta que la red 2G está siendo apagada lentamente pero en ese caso se podrá implementar esta alarma usando el módulo  SIM800L que se observa en la Figura 2.6 . Aunque, mientras eso no ocurra, por costo y utilidad esta opción es la mejor.
 
 <p align="center">
   <img src="./img/gsm.png" alt="modulo_gsm" width="350">
 </p>
 
 <p align="center">
-  <em>Figura 2.5: Módulo GSM.</em>
+  <em>Figura 2.6: Módulo GSM.</em>
 </p>
 
 ### 2.3.4 Memoria EEPROM AT24C256
 Se optó por la EEPROM externa (AT24C256) al descartar otras alternativas por riesgos críticos.
 Una opción era la tarjeta SIM pero leer contactos mediante comandos AT es un proceso demasiado lento que retrasaría inaceptablemente el disparo de la alarma durante una emergencia.
-La otra era la memoria del STM32 y este microcontrolador no tiene EEPROM real. Se usaría la memoria Flash que se observa en la Figura 2.6 para guardar datos lo cual reduciría la vida útil de la placa (soporta pocas escrituras) y genera un alto riesgo de corromper el código principal si se corta la luz mientras se guarda un número.
+La otra era la memoria del STM32 y este microcontrolador no tiene EEPROM real. Se usaría la memoria Flash que se observa en la Figura 2.7 para guardar datos lo cual reduciría la vida útil de la placa (soporta pocas escrituras) y genera un alto riesgo de corromper el código principal si se corta la luz mientras se guarda un número.
 
 <p align="center">
   <img src="./img/memoria_eeprom.png" alt="modulo_memoria" width="350">
 </p>
 <p align="center">
-  <em>Figura 2.6: Memoria EEPROM AT24C256.</em>
+  <em>Figura 2.7: Memoria EEPROM AT24C256.</em>
 </p>
 
 ### 2.3.5 Módulo Bluetooth
 Para la conexión del personal autorizado, ya sea un técnico de la empresa para instalar la alarma o un vecino de alto rango con acceso a la alta y baja de usuarios, se utilizó un Módulo HM-10 (módulo Bluetooth). Sus pines son los siguientes:
 VCC/GND: se alimenta, por lo general, con 3,3 V a  6 V.
 TXD/RXD: por los que se da la comunicación serial. El TX del módulo en cuestión va al RX de la placa NUCLEO-F103RB y el RX del módulo, al TX de la placa.
-El HM-10 trabaja respetando el estándar BLE (Bluetooth Low Energy), lo que permite gozar del bajo consumo de energía. Recibe comandos AT para el ingreso como administrador y comandos para la alta y baja de números telefónicos. Envía confirmaciones de acceso, estado de la memoria y logs de quién ingresó al sistema mediante ese módulo. El módulo HM-10- observado en la Figura 2.7 fue elegido por su característica de bajo consumo principalmente, y también por la retroalimentación que este módulo proporciona al interactuar con él.
+El HM-10 trabaja respetando el estándar BLE (Bluetooth Low Energy), lo que permite gozar del bajo consumo de energía. Recibe comandos AT para el ingreso como administrador y comandos para la alta y baja de números telefónicos. Envía confirmaciones de acceso, estado de la memoria y logs de quién ingresó al sistema mediante ese módulo. El módulo HM-10 observado en la Figura 2.8 fue elegido por su característica de bajo consumo principalmente, y también por la retroalimentación que este módulo proporciona al interactuar con él.
 
 <p align="center">
   <img src="./img/modulo_ble.png" alt="modulo_ble" width="350">
 </p>
 <p align="center">
-  <em>Figura 2.7: Módulo Bluetooth HM-10.</em>
+  <em>Figura 2.8: Módulo Bluetooth HM-10.</em>
 </p>
 
 ### 2.3.6 Módulo sensor de luz
-Para determinar en qué momento del día se activa la alarma, fue necesario contar con el  sensor de luz observado en la Figura 2.8 para que envíe la información a la placa NUCLEO-F103RB y active (o no) la luz estroboscópica. Los pines que incluye se enumeran a continuación:
+Para determinar en qué momento del día se activa la alarma, fue necesario contar con el sensor de luz observado en la Figura 2.9 para que envíe la información a la placa NUCLEO-F103RB y active (o no) la luz estroboscópica. Los pines que incluye se enumeran a continuación:
 VCC/GND: se alimenta, por lo general, con 3,3 V o 5 V.
 DO: es el Digital Output, el cual entrega un pulso alto o bajo que se calibra con un potenciómetro que incluye el módulo. Es importante definir el umbral según la ubicación de la alarma.
 AO: es el Analog Output, el cual entrega una tensión variable y proporcional a la intensidad de la luz.
@@ -314,7 +321,7 @@ El funcionamiento se basa en que la resistencia del sensor disminuye a medida qu
   <img src="./img/sensor_luz.png" alt="sensor_luz" width="350">
 </p>
 <p align="center">
-  <em>Figura 2.8: módulo sensor de luz.</em>
+  <em>Figura 2.9: módulo sensor de luz.</em>
 </p>
 
 ### 2.3.7 Indicadores
@@ -324,12 +331,20 @@ Para confirmar que las conexiones estuvieran correctas a medida que se desarroll
 Se hizo uso de una aplicación celular llamada “Serial Bluetooth Terminal” para validar el buen funcionamiento del módulo HM-10 y evaluar el estado y avance del código implementado. Fue exclusivamente necesaria (y lo es hasta el día de hoy) para poder interactuar con el módulo en cuestión, ya que permitió enviar comandos para acceder al módulo, dar de alta/baja números y salir del módulo.
 
 ### 2.3.9 Conexionado
-Para la interconexión de todo lo mencionado anteriormente se utilizaron placas experimentales, cables Dupont y parte del trenzado perteneciente al cable UTP. Durante el proyecto, sí fueron utilizadas las llamadas Protoboards para la prueba temporal y puramente experimental de conexiones específicas.
+Para la interconexión de todo lo mencionado anteriormente se utilizó:
+
+- Placa experimental de 10 cm de ancho y 20 cm de largo.
+- Parte del trenzado perteneciente al cable UTP.
+- Cable AWG 24.
+- Tiras de pines macho y hembra.
+- Estaño resinado 60/40.
+
+Durante el desarrollo del proyecto, sí se hizo uso de las llamadas "Protoboards" para la prueba temporal y puramente experimental de conexiones específicas.
 
 # CAPÍTULO 3 
 # Diseño e implementación
 ## 3.1 Diseño del Hardware
-Como ha sido mencionado previamente en el apartado 2.3.9, placas experimentales, cables Dupont y soldaduras han sido utilizadas para lograr la comunicación entre módulos. En la Figura 3.1 se presenta una imagen real de la interconexión en cuestión para visualizar la complejidad del desafío. No se pretende que el lector pueda distinguir los motivos de cada conexión, sino que pueda visualizar a grandes rasgos la electrónica del trabajo.
+Como ha sido mencionado previamente en el apartado 2.3.9, una placa experimental, cables y tiras de pines entre otras cosas han sido utilizadas para lograr la comunicación entre módulos. En la Figura 3.1 se presenta una imagen real del posicionamiento de los módulos interconectados en la placa experimental para visualizar la complejidad del desafío. Cada elemento está ubicado estratégicamente según su cercanía con los pines de la placa NUCLEO con los que interactúa. No se pretende que el lector pueda distinguir detalles, sino que pueda visualizar a grandes rasgos la optimización del espacio de trabajo.
 
 <p align="center">
   <img src="./img/placa.jpeg" alt="Placa" width="600">
@@ -339,7 +354,7 @@ Como ha sido mencionado previamente en el apartado 2.3.9, placas experimentales,
   <em>Figura 3.1: Vista general del producto.</em>
 </p>
 
-En la Figura 3.2 se observa la vista lateral de la placa. Se agregó un puerto USB tipo C para poder alimentar el sistema con un cargador tipo C (el más usado actualmente). Así mismo, se incluye cuatro separadores de plástico para placas con el fin de lograr un mejor soporte.
+En la Figura 3.2 se observa la vista lateral de la placa. Se incluye cuatro separadores de plástico para placas con el fin de lograr un mejor soporte.
 
 <p align="center">
   <img src="./img/placa_lateral.jpeg" alt="Placa lateral" width="600">
@@ -382,10 +397,12 @@ Se presenta en la Tabla 3.1 la conexión entre pines del módulo GSM y la placa 
 
 El módulo GSM es el encargado de gestionar las llamadas de auxilio para la activación de alarma y los mensajes de texto enviados a la policía, central y usuarios admitidos. Este módulo funciona con tensión entre 3,8 V y 4,4 V. Posee una ranura para insertar un chip de alguna compañía telefónica, característica que hace que exista un número de teléfono al cual llamar para que el módulo interactúe con la alarma. La implementación del módulo GSM en este trabajo se basa en que cuando un usuario contacta a la alarma, su llamada llega al módulo como la interrupción más importante, esto se valida mediante el pin RING, corta la llamada, se almacena el número telefónico en cuestión. Acto seguido, ese número es enviado por el puerto serie al microcontrolador de la placa NUCLEO, en donde se compara con los números pertenecientes a la whitelist previamente confeccionada. En caso de ser parte de esa lista, NUCLEO comunica al módulo GSM los números a quienes enviar los mensajes de alerta (policía y central), todo a través de comunicación serial. En caso de no pertenecer, el sistema solo corta la llamada para no interrumpir su funcionamiento.
 #### 3.1.1.1 Problemas con el módulo GSM
-Se comprendió el funcionamiento del módulo casi en su totalidad, pero hubo dos grandes problemas a los cuales nos enfrentamos al momento de desarrollar su rol en el trabajo:
+Se comprendió el funcionamiento del módulo casi en su totalidad, pero hubo tres grandes problemas a los cuales nos enfrentamos al momento de desarrollar su rol en el trabajo:
 Saldo del chip prepago: al ejecutar pruebas al momento del desarrollo nos encontramos con la realidad económica que podría suponer un producto así. Cada prueba costó aproximadamente 0,35 USD y al ser un chip prepago, el saldo terminó de consumirse sin previo aviso (dejando de enviar mensajes de texto, pero sí recibiendo llamadas) e implicó un problema de mayor porte hasta finalmente poder localizar la fuente del mal funcionamiento temporal. En un producto final sería un chip con plan de mensajes ilimitado a cualquier compañía, que hoy en día el plan más básico lo posee.
 
 Compañía telefónica: el módulo posee un LED que indica si está en correcto funcionamiento una vez instalado el chip. Este LED debe parpadear cada 3 segundos una vez esté conectado a la red. Nuestras pruebas fueron inicialmente con un chip de la compañía Movistar, pero el LED nunca comenzaba a parpadear como corresponde. Pensamos que era algo electrónico de la placa y todas las mediciones de tensión y corriente eran las correctas, luego de una investigación, concluimos que la solución más propensa a funcionar era cambiar de compañía a Claro. Esto derivó a buscar soluciones en código y en conexiones físicas, sólo para reducir el problema a la compatibilidad del módulo con chips de ciertas compañías. El cambio funcionó como solución ya que el módulo GSM funciona con red 2G, y Movistar ha desmantelado ese tipo de redes (aunque decían que la tenían activa), mientras que Claro no.
+
+Potencia de la antena por defecto: con todas las conexiones bien hechas y sin problemas de código, el sistema podía andar casi en su totalidad, faltando el envío del SMS por parte del GSM. Esto, en la última etapa del desarrollo experimental, se debió al pobre poder de la antena solenoidal que incluye el módulo una vez adquirido. Hubo que acercar todo el sistema a una ventana para poder tener una recepción que permitiera el envío de este mensaje, ya que la ubicación del módulo respecto del aire libre es clave cuando una antena está en el camino.
 
 ### 3.1.2 Hardware del módulo HM-10
 
