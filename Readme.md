@@ -152,9 +152,18 @@ Es un led que se queda prendido siempre que el gsm esté conectado a la red y en
 ### 6.1 Diagramas de Secuencia
 Los diagramas de secuencia ilustran la interacción temporal entre los módulos:
 
-* **Activación GSM:** `(Imagen pendiente: ./img/seq_gsm.png)`
-* **Activación Botón:** `(Imagen pendiente: ./img/seq_panic.png)`
-* **Acceso Técnico:** `(Imagen pendiente: ./img/seq_ble.png)`
+* **Interacción entre los sensores y el sistema:** 
+<p align="center">
+  <img src="./img/sensor_to_system.png" alt="FSM GSM">
+</p>
 
----
+* **Interacción desde el módulo GSM hacia el sistema:** 
+<p align="center">
+  <img src="./img/gsm_to_system.png" alt="FSM GSM">
+</p>
+
+* **Interacción desde el sistema hacia el módulo GSM:** <p align="center">
+  <img src="./img/system_to_gsm.png" alt="FSM GSM">
+</p>
+
 
