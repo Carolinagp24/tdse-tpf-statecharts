@@ -14,7 +14,7 @@
   <strong>86.65/TA134 Taller de Sistemas Embebidos</strong>
 </p>
 
-# Memoria del Trabajo Final: **Alarma Vecinal IoT**
+# Memoria del Trabajo Final: **Alarma Vecinal **
 
 <table align="center">
   <tr>
@@ -42,21 +42,17 @@
 ---
 
 ##  Índice General
-1. [Resumen / Abstract](#resumen--abstract)
+1. [Resumen ](#resumen)
 2. [Estado de Implementación](#estado-de-implementación)
 3. [Arquitectura del Sistema](#arquitectura-del-sistema)
 4. [Lógica de Control (FSM)](#lógica-de-control-fsm)
-5. [Hardware y Módulos](#hardware-y-módulos)
-6. [Diseño del Firmware](#diseño-del-firmware)
-7. [Ensayos y Resultados](#ensayos-y-resultados)
-8. [Conclusiones y Futuro](#conclusiones-y-futuro)
+
 
 ---
 
-##  Resumen / Abstract
-**Resumen:** En el presente trabajo se diseñó e implementó una alarma vecinal para solucionar la problemática de inseguridad en barrios de la Ciudad de Buenos Aires. Mediante un módulo GSM y un botón de pánico, los usuarios pueden activar alertas sonoras y lumínicas. El sistema permite el mantenimiento vía BLE con doble factor de autenticación y gestión de whitelist en una memoria EEPROM externa.
+##  Resumen 
+En el presente trabajo se diseñó e implementó una alarma vecinal para solucionar la problemática de inseguridad en barrios de la Ciudad de Buenos Aires. Mediante un módulo GSM y un botón de pánico, los usuarios pueden activar alertas sonoras y lumínicas. El sistema permite el mantenimiento vía BLE con doble factor de autenticación y gestión de whitelist en una memoria EEPROM externa.
 
-**Abstract:** This paper describes the design and implementation of a neighborhood alarm system aimed at addressing security concerns in Buenos Aires. By utilizing a GSM module and a panic button, users can trigger audible and visual alerts. The system supports maintenance via BLE with dual-factor authentication and whitelist management using an external EEPROM.
 
 ---
 
@@ -80,29 +76,69 @@
 ##  Lógica de Control (FSM)
 Aquí se detallan las máquinas de estados finitos que gobiernan el comportamiento del sistema.
 
-### 4.1 FSM Principal (Sistema Global)
-Gestiona el paso entre los modos de reposo, alerta activa y administración.
+### 3.1 FSM del sitema (Sistema Global)
+Gestiona el paso entre alarma activa, mandar alertas y administración de la whitlist.
 
 <p align="center">
-  <img src="./img/fsm_main.png" alt="FSM Principal">
+  <img src="./img/system.png" alt="FSM del sistema">
 </p>
 
-### 4.2 FSM Módulo GSM
+
+### 3.2 FSM del botón de pánico
+Lógica de antirebotes físicos del botón de activación de la alarma.
+
+<p align="center">
+  <img src="./img/sensor_panic_button.png" alt="FSM BLE">
+</p>
+
+
+
+
+### 3.3 FSM del sensor LDR
+Lógica de validación del estado de la luz ambiental para saber si la luz estroboscópica es necesaria ser activada.
+
+<p align="center">
+  <img src="./img/sensor_ldr.png" alt="FSM BLE">
+</p>
+
+
+### 3.4 FSM del dispositivo GSM (sim800l)
 Controla la inicialización del módulo, el registro en la red y la gestión de llamadas entrantes.
 
 <p align="center">
-  <img src="./img/fsm_gsm.png" alt="FSM GSM">
+  <img src="./img/gsm.png" alt="FSM GSM">
 </p>
 
-### 4.3 FSM Modo Administrador (BLE)
-Lógica de autenticación y gestión de la base de datos de usuarios (Whitelist).
+### 3.5 FSM del dispositivo BLE
+Gestiona usuarios que puede editar la whitlist.
 
 <p align="center">
-  <img src="./img/fsm_admin.png" alt="FSM BLE">
+  <img src="./img/ble.png" alt="FSM GSM">
+</p>
+
+
+### 3.6 FSM del dispositivo BLE
+Gestiona usuarios que puede editar la whitlist.
+
+<p align="center">
+  <img src="./img/ble.png" alt="FSM GSM">
+</p>
+
+### 3.7 FSM del dispositivo BLE
+Gestiona usuarios que puede editar la whitlist.
+
+<p align="center">
+  <img src="./img/ble.png" alt="FSM GSM">
 </p>
 
 
 
+### 3.8 FSM del dispositivo BLE
+Gestiona usuarios que puede editar la whitlist.
+
+<p align="center">
+  <img src="./img/ble.png" alt="FSM GSM">
+</p>
 
 ##  Diseño del Firmware
 ### 6.1 Diagramas de Secuencia
