@@ -1,10 +1,16 @@
 <p align="center">
-  <img src="./img/logo-fiuba.png" alt="Logo FIUBA" width="200">
+  <img src="./img/logo-fiuba.png" alt="image1">
 </p>
 
 <p align="center">
-  <strong>UNIVERSIDAD DE BUENOS AIRES</strong><br>
-  <strong>Facultad de Ingeniería</strong><br>
+  <strong>UNIVERSIDAD DE BUENOS AIRES</strong>
+</p>
+
+<p align="center">
+  <strong>Facultad de Ingeniería</strong>
+</p>
+
+<p align="center">
   <strong>86.65/TA134 Taller de Sistemas Embebidos</strong>
 </p>
 
@@ -35,7 +41,7 @@
 
 ---
 
-## 📑 Índice General
+##  Índice General
 1. [Resumen / Abstract](#resumen--abstract)
 2. [Estado de Implementación](#estado-de-implementación)
 3. [Arquitectura del Sistema](#arquitectura-del-sistema)
@@ -47,7 +53,7 @@
 
 ---
 
-## 📝 Resumen / Abstract
+##  Resumen / Abstract
 **Resumen:** En el presente trabajo se diseñó e implementó una alarma vecinal para solucionar la problemática de inseguridad en barrios de la Ciudad de Buenos Aires. Mediante un módulo GSM y un botón de pánico, los usuarios pueden activar alertas sonoras y lumínicas. El sistema permite el mantenimiento vía BLE con doble factor de autenticación y gestión de whitelist en una memoria EEPROM externa.
 
 **Abstract:** This paper describes the design and implementation of a neighborhood alarm system aimed at addressing security concerns in Buenos Aires. By utilizing a GSM module and a panic button, users can trigger audible and visual alerts. The system supports maintenance via BLE with dual-factor authentication and whitelist management using an external EEPROM.
@@ -98,7 +104,7 @@ Lógica de autenticación y gestión de la base de datos de usuarios (Whitelist)
 
 
 
-## 📂 Diseño del Firmware
+##  Diseño del Firmware
 ### 6.1 Diagramas de Secuencia
 Los diagramas de secuencia ilustran la interacción temporal entre los módulos:
 
