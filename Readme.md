@@ -64,10 +64,10 @@ En el presente trabajo se diseñó e implementó una alarma vecinal para solucio
 | **Núcleo Base (STM32F103)** | 🟢 | Periféricos y SysTick configurados. |
 | **Módulo GSM (SIM800L)** | 🟢 | Llamadas y envío de SMS operativos. |
 | **Gestión BLE (HM-10)** | 🟡 | En fase de diseño del diagrama de estados . |
-| **Memoria EEPROM (I2C)** | 🟡 | Depende del módulo BLE |
+| **Memoria EEPROM (I2C)** | 🟡 | Depende del módulo BLE. |
 | **Sensor LDR** | 🟢 | Calibración de umbral nocturno lista. |
 | **Botón de Pánico** | 🟢 | Interrupción externa configurada. |
-| **Modo Bajo Consumo** | 🟢 |hecho |
+| **Modo Bajo Consumo** | 🟢 |Hecho |
 
 > **Leyenda:** 🟢 Completo | 🟡 En Desarrollo | 🔴 Pendiente
 
