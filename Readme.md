@@ -166,4 +166,11 @@ Los diagramas de secuencia ilustran la interacción temporal entre los módulos:
   <img src="./img/system_to_gsm.png" alt="FSM GSM">
 </p>
 
+* **Interacción desde el módulo BLE hacia el sistema:** 
+<p align="center">
+  <img src="./img/BLE_to_SYS.png" alt="FSM BLE">
+</p>
 
+* **Interacción desde el sistema hacia el módulo BLE:** <p align="center">
+  <img src="./img/SYS_to_BLE.png" alt="FSM BLE">
+</p>
