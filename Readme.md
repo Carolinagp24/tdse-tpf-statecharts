@@ -39,13 +39,13 @@
   <em>Este trabajo fue realizado en la Ciudad Autónoma de Buenos Aires, entre diciembre de 2025 y marzo de 2026.</em>
 </p>
 
-# RESUMEN
+# Resume
 En el presente trabajo se diseñó e implementó una alarma vecinal. Se pretendía solucionar la problemática de inseguridad en barrios comprometidos de la Ciudad de Buenos Aires o sus alrededores.
 Mediante un módulo GSM y un botón de pánico se logró que los usuarios puedan hacer sonar una alarma sonora y con luz estroboscópica para notificar a la policía y a la central inmediatamente. Para su mantenimiento, un vecino encargado puede conectarse a través del módulo BLE con doble factor de autenticación.
 La importancia de este trabajo radica en la consolidación de lo aprendido en la materia en cuestión en un trabajo integral de este calibre, además de solucionar potencial y parcialmente el problema de la inseguridad ya mencionado. El actual trabajo es una buena representación de lo aprendido durante la cursada del Taller de Sistemas Embebidos ya que involucra el manejo de la placa STM para comunicar módulos entre sí, vinculando así la implementación de un código con la interconexión de los distintos elementos que componen al sistema.
 En esta Memoria se encontrará la motivación del proyecto, diseños de partes y la propuesta de posibles mejoras a implementar.
 
-# ABSTRACT
+# Abstract
 This paper describes the design and implementation of a neighborhood alarm system aimed at addressing security concerns in high-risk areas of the City of Buenos Aires. By utilizing a GSM module and a panic button, users can trigger an audible alarm and a strobe light to notify both the neighborhood and a central station. For maintenance purposes, technicians can connect via a BLE (Bluetooth Low Energy) module using their personal credentials.
 The significance of this project lies in the consolidation of the knowledge acquired throughout the course into a comprehensive technical application, while offering a potential solution to the aforementioned security issues. This project serves as a robust representation of the learning outcomes from the Embedded Systems course, as it involves programming an STM board to manage inter-module communication, effectively linking software implementation with the interconnection of diverse hardware components.
 This report details the project’s motivation, component designs, and proposes future enhancements.
@@ -112,12 +112,14 @@ A ambos les agradecemos por la motivación genuina por los sistemas embebidos qu
 
 | Revisión | Cambios realizados | Fecha |
 | --- | --- | --- |
-| 1.0 |Creación del documento | 24/02/2026 |
+| 1.0 | Creación del documento | 24/02/2026 |
 | 1.1 | Agregado de capítulos 1 y 2 |  24/02/2026 |
 | 1.2 | Agregado parcial de capítulo 3 | 25/02/2026 |
 | 1.3 | Capítulo 3 completo y parcialmente el capítulo 4 | 26/02/2026|
-| 1.4 | Terminado el documento | 27/02/2026 |
-| 1.5 | Versión final con detalles corregidos | /03/2026 |
+| 1.4 | Terminado el documento para la primer entrega | 27/02/2026 |
+| 1.5 | Versión final con detalles corregidos para la primer entrega| 15/03/2026 |
+| 1.6 | Adaptación de la Sección 3.1 y Sección 2.3.9 a la nueva versión de la placa  | 20/04/2026 |
+| 1.6 | Adaptación de la Sección 3.2 a la nueva versión del código  | 22/05/2026 |
 
 # CAPÍTULO 1 
 # Introducción general
@@ -219,99 +221,112 @@ En las tablas 2.2, 2.3 y 2.4 se presentan tres casos de uso para ejemplificar un
 </p>
 
 ### 2.2.1 Diagramas de secuencia del sistema
-Previo a empezar a programar el código del sistema, se decidio modelar diagramas de secuancia para cada caso de uso. Esto ayudará a comprender mejor el funcionamiento del sistema planteado en la sección 2.2 y así poder implementar el código de cada sensor y actuador con mayor facilidad.
+Previo a empezar a programar el código del sistema, se decidio modelar diagramas de secuancia para las interacciones.
 
-En la Figura 2.1 se observa el diagrama de secuancias para el caso de activación de la alarma por llamada.
+* **Interacción entre los sensores y el sistema:** 
 <p align="center">
-  <img src="./img/gsm_mode.png" alt="Modo gsm" width="600">
+  <img src="./img/sensor_to_system.png" alt="SENSTOSYS">
 </p>
 <p align="center">
-  <em>Figura 2.1: Diagrama de secuancias para el caso de activación por red GSM.</em>
-</p>
-
-En la Figura 2.2 se observa el diagrama de secuancias para el caso de activación de la alarma por botón de pánico.
-
-<p align="center">
-  <img src="./img/Panic_button.png" alt="Modo panic button" width="600">
-</p>
-<p align="center">
-  <em>Figura 2.2: Diagrama de secuancias para el caso de activación por botón de pánico.</em>
+  <em>Figura 2.1: diagrama de secuencias de la interacción entre los sensores y el sistema.</em>
 </p>
 
-En la Figura 2.3 se observa el diagrama de secuancias para el caso de conexón de personal autorizado al sistema mediante Bluetooth.
+* **Interacción desde el módulo GSM hacia el sistema:** 
+<p align="center">
+  <img src="./img/gsm_to_system.png" alt="GSMTOSYS">
+</p>
+<p align="center">
+  <em>Figura 2.2: diagrama de secuencias de la interacción desde el módulo GSM hacia el sistema.</em>
+</p>
 
-<p align="center">
-  <img src="./img/Modo_ble.png" alt="Modo admin" width="600">
+* **Interacción desde el sistema hacia el módulo GSM:** <p align="center">
+  <img src="./img/system_to_gsm.png" alt="SYSTOGSM">
 </p>
 <p align="center">
-  <em>Figura 2.3: Diagrama de secuancias para el caso de conexión de personal autorizado.</em>
+  <em>Figura 2.3: diagrama de secuencias de la interacción desde el sistema hacia el módulo GSM.</em>
 </p>
+
+* **Interacción desde el módulo BLE hacia el sistema:** 
+<p align="center">
+  <img src="./img/BLE_to_SYS.png" alt="BLETOSYS">
+</p>
+<p align="center">
+  <em>Figura 2.4: diagrama de secuencias de la interacción desde el módulo BLE hacia el sistema.</em>
+</p>
+
+* **Interacción desde el sistema hacia el módulo BLE:** <p align="center">
+  <img src="./img/SYS_to_BLE.png" alt="SYSTOBLE">
+</p>
+<p align="center">
+  <em>Figura 2.5: diagrama de secuencias de la interacción desde el sistema hacia el módulo BLE.</em>
+</p>
+
 
 ## 2.3 Descripción módulos del sistema
 ### 2.3.1 Alimentación
-Para la alimentación de todo el sistema se usó un cargador de celular de la marca Motorola®️, un módulo de carga rápida PD/QC USB C y un módulo regulador de tensión LM2596. Particularmente se optó por un cargador con la opción de "carga rápida" para poder entregar tensión y corrientes específicas y para mayor portabilidad física de la placa. La tensión de entrada elegida fue de 9 V, ya que la diferencia mínima requerida entre la entrada del LM2596 y su salida debe ser de 1,5 V, y la salida fue regulada a 4 V. En cuanto a la corriente, el cargador puede entregar hasta 3 A, así que fue más que suficiente para suplir el máximo consumo del módulo GSM (2 A). Para poder obtener esta tensión y corriente fue necesaria la adquisición del módulo de carga rápida mencionado, que funciona emulando al módulo interno de un celular moderno solicitando el poder para una carga específicamente rápida que requiera esos valores. Éste último puede apreciarse en la Figura 2.4. Por otro lado, en la Figura 2.5. se observa el módulo LM2596, que fue el encargado de recibir los 9 V del módulo de carga rápida y convertirlos a 4 V, tensión utilizada para alimentar directamente al módulo GSM, BLE y LDR.
+Para la alimentación de todo el sistema se usó un cargador de celular de la marca Motorola®️, un módulo de carga rápida PD/QC USB C y un módulo regulador de tensión LM2596. Particularmente se optó por un cargador con la opción de "carga rápida" para poder entregar tensión y corrientes específicas y para mayor portabilidad física de la placa. La tensión de entrada elegida fue de 9 V, ya que la diferencia mínima requerida entre la entrada del LM2596 y su salida debe ser de 1,5 V, y la salida fue regulada a 4 V. En cuanto a la corriente, el cargador puede entregar hasta 3 A, así que fue más que suficiente para suplir el máximo consumo del módulo GSM (2 A). Para poder obtener esta tensión y corriente fue necesaria la adquisición del módulo de carga rápida mencionado, que funciona emulando al módulo interno de un celular moderno solicitando el poder para una carga específicamente rápida que requiera esos valores. Éste último puede apreciarse en la Figura 2.6. Por otro lado, en la Figura 2.7. se observa el módulo LM2596, que fue el encargado de recibir los 9 V del módulo de carga rápida y convertirlos a 4 V, tensión utilizada para alimentar directamente al módulo GSM, BLE y LDR.
 
 <p align="center">
   <img src="./img/carga_rapida.png" alt="módulo_de_carga_rápida_PD_QC_USB_C" width="350">
 </p>
 <p align="center">
-  <em>Figura 2.4: módulo de carga rápida PD QC USB C.</em>
+  <em>Figura 2.6: módulo de carga rápida PD QC USB C.</em>
 </p>
 
 <p align="center">
   <img src="./img/reg_tension.jpg" alt="regulador_de_tensión" width="350">
 </p>
 <p align="center">
-  <em>Figura 2.5: módulo regulador de tensión.</em>
+  <em>Figura 2.7: módulo regulador de tensión.</em>
 </p>
 
 ### 2.3.2 Microcontrolador
 Como controlador principal del sistema se utilizó la placa NUCLEO-F103B. Cuenta con los pines, cantidad de memoria y periféricos de sobra para lo que fue el desarrollo del proyecto. La elección de esta placa fue basada en lo mencionado recientemente.
 
 ### 2.3.3 Módulo GSM
-Para recibir llamadas telefónicas de los usuarios (para su activación) y enviar mensajes de texto conteniendo información sobre la alerta, se utilizó un Módulo GSM/GPRS (SIM800L). Consta de un slot para colocar un chip de celular y pines para las siguientes conexiones:
+Para recibir llamadas telefónicas de los usuarios (para su activación) y enviar mensajes de texto conteniendo información sobre la alerta, se utilizó un Módulo GSM/GPRS (SIM800L) que se presenta en la Figura 2.8. Consta de un slot para colocar un chip de celular y pines para las siguientes conexiones:
 VCC/GND: requiere una alimentación entre 3,4 V y 4,4 V. En la implementación se coloca lo más cercano posible un capacitor de 1000 μF para soportar los picos de corriente de 2 A que consume el módulo durante la transmisión a la red.
 TXD/RXD: Son las señales que se utilizan para la comunicación serial mediante comandos AT.
-Se tuvo que hacer un divisor resistivo entre el pin de RX de esta placa y el pin TX de la Núcleo, ya que el nivel alto lógico del módulo gsm es 2,8 V y de la placa Núcleo es 3,3 V.
+Se tuvo que hacer un divisor resistivo entre el pin de RX de esta placa y el pin TX de la Núcleo, ya que el nivel alto lógico del módulo GSM es 2,8 V y de la placa Núcleo es 3,3 V.
 NET: es el punto de conexión para la antena GSM. Se usó una de 6 dBi para que la señal se pueda recepcionar sin problemas.
 El funcionamiento de este módulo consta de conectarse a la red 2G para actuar como si fuera un celular (desde el punto de vista de la comunicación). Recibe llamadas que corta luego de un RING si el usuario que llama está en la whitelist, entonces se activa la alarma. También envía mensajes SMS para notificar a la policía y central . Su elección recae en la simpleza del funcionamiento, ya que la prioridad fue atenernos a las funcionalidades pensadas para el trabajo y el módulo en cuestión se ajustaba de manera perfecta para cumplir con estos requisitos.
-Se tiene en cuenta que la red 2G está siendo apagada lentamente pero en ese caso se podrá implementar esta alarma usando el módulo  SIM800L que se observa en la Figura 2.6 . Aunque, mientras eso no ocurra, por costo y utilidad esta opción es la mejor.
+Se tiene en cuenta que la red 2G está siendo apagada lentamente pero en ese caso se podrá implementar esta alarma usando el módulo  SIM7000G. Aunque, mientras eso no ocurra, por costo y utilidad esta opción es la mejor.
 
 <p align="center">
   <img src="./img/gsm.png" alt="modulo_gsm" width="350">
 </p>
 
 <p align="center">
-  <em>Figura 2.6: Módulo GSM.</em>
+  <em>Figura 2.8: Módulo GSM.</em>
 </p>
 
 ### 2.3.4 Memoria EEPROM AT24C256
 Se optó por la EEPROM externa (AT24C256) al descartar otras alternativas por riesgos críticos.
 Una opción era la tarjeta SIM pero leer contactos mediante comandos AT es un proceso demasiado lento que retrasaría inaceptablemente el disparo de la alarma durante una emergencia.
-La otra era la memoria del STM32 y este microcontrolador no tiene EEPROM real. Se usaría la memoria Flash que se observa en la Figura 2.7 para guardar datos lo cual reduciría la vida útil de la placa (soporta pocas escrituras) y genera un alto riesgo de corromper el código principal si se corta la luz mientras se guarda un número.
+La otra era la memoria del STM32 y este microcontrolador no tiene EEPROM real. Se usaría la memoria Flash que se observa en la Figura 2.9 para guardar datos lo cual reduciría la vida útil de la placa (soporta pocas escrituras) y genera un alto riesgo de corromper el código principal si se corta la luz mientras se guarda un número.
 
 <p align="center">
   <img src="./img/memoria_eeprom.png" alt="modulo_memoria" width="350">
 </p>
 <p align="center">
-  <em>Figura 2.7: Memoria EEPROM AT24C256.</em>
+  <em>Figura 2.9: Memoria EEPROM AT24C256.</em>
 </p>
 
 ### 2.3.5 Módulo Bluetooth
 Para la conexión del personal autorizado, ya sea un técnico de la empresa para instalar la alarma o un vecino de alto rango con acceso a la alta y baja de usuarios, se utilizó un Módulo HM-10 (módulo Bluetooth). Sus pines son los siguientes:
 VCC/GND: se alimenta, por lo general, con 3,3 V a  6 V.
 TXD/RXD: por los que se da la comunicación serial. El TX del módulo en cuestión va al RX de la placa NUCLEO-F103RB y el RX del módulo, al TX de la placa.
-El HM-10 trabaja respetando el estándar BLE (Bluetooth Low Energy), lo que permite gozar del bajo consumo de energía. Recibe comandos AT para el ingreso como administrador y comandos para la alta y baja de números telefónicos. Envía confirmaciones de acceso, estado de la memoria y logs de quién ingresó al sistema mediante ese módulo. El módulo HM-10 observado en la Figura 2.8 fue elegido por su característica de bajo consumo principalmente, y también por la retroalimentación que este módulo proporciona al interactuar con él.
+El HM-10 trabaja respetando el estándar BLE (Bluetooth Low Energy), lo que permite gozar del bajo consumo de energía. Recibe comandos AT para el ingreso como administrador y comandos para la alta y baja de números telefónicos. Envía confirmaciones de acceso, estado de la memoria y logs de quién ingresó al sistema mediante ese módulo. El módulo HM-10 observado en la Figura 2.10 fue elegido por su característica de bajo consumo principalmente, y también por la retroalimentación que este módulo proporciona al interactuar con él.
 
 <p align="center">
   <img src="./img/modulo_ble.png" alt="modulo_ble" width="350">
 </p>
 <p align="center">
-  <em>Figura 2.8: Módulo Bluetooth HM-10.</em>
+  <em>Figura 2.10: Módulo Bluetooth HM-10.</em>
 </p>
 
 ### 2.3.6 Módulo sensor de luz
-Para determinar en qué momento del día se activa la alarma, fue necesario contar con el sensor de luz observado en la Figura 2.9 para que envíe la información a la placa NUCLEO-F103RB y active (o no) la luz estroboscópica. Los pines que incluye se enumeran a continuación:
+Para determinar en qué momento del día se activa la alarma, fue necesario contar con el sensor de luz observado en la Figura 2.11 para que envíe la información a la placa NUCLEO-F103RB y active (o no) la luz estroboscópica. Los pines que incluye se enumeran a continuación:
 VCC/GND: se alimenta, por lo general, con 3,3 V o 5 V.
 DO: es el Digital Output, el cual entrega un pulso alto o bajo que se calibra con un potenciómetro que incluye el módulo. Es importante definir el umbral según la ubicación de la alarma.
 AO: es el Analog Output, el cual entrega una tensión variable y proporcional a la intensidad de la luz.
@@ -321,7 +336,7 @@ El funcionamiento se basa en que la resistencia del sensor disminuye a medida qu
   <img src="./img/sensor_luz.png" alt="sensor_luz" width="350">
 </p>
 <p align="center">
-  <em>Figura 2.9: módulo sensor de luz.</em>
+  <em>Figura 2.11: módulo sensor de luz.</em>
 </p>
 
 ### 2.3.7 Indicadores
@@ -354,7 +369,7 @@ Como ha sido mencionado previamente en el apartado 2.3.9, una placa experimental
   <em>Figura 3.1: Vista general del producto.</em>
 </p>
 
-En la Figura 3.2 se observa la vista lateral de la placa. Se incluye cuatro separadores de plástico para placas con el fin de lograr un mejor soporte.
+En la Figura 3.2 se observa la vista lateral de la placa. Se incluyen cuatro separadores de plástico para placas con el fin de lograr un mejor soporte.
 
 <p align="center">
   <img src="./img/placa_lateral.jpeg" alt="Placa lateral" width="600">
@@ -430,9 +445,9 @@ El módulo HM-10 es el encargado de comunicar a los técnicos de la empresa y a 
 - Fiuba: contraseña de quien se quiera conectar
 - Add: añadir número a la whitelist
 - Del: eliminar número de la whitelist
-- Out: terminar la conexión
-Cabe destacar que ningún comando es case-sensitive.
-Un flujo común de comandos sería: admin > fiuba > add 1122334455 > out. En este caso, se ingresó a la administración de la alarma mediante los datos de alta admin y fiuba. Luego, se añadió al número de ejemplo 1122334455 a la whitelist y por último se terminó la conexión.
+- Out: terminar la conexión.
+
+Cabe destacar que ningún comando es case-sensitive. Un flujo común de comandos sería: *admin > fiuba > add 1122334455 > out*. En este caso, se ingresó a la administración de la alarma mediante los datos de alta admin y fiuba. Luego, se añadió al número de ejemplo 1122334455 a la whitelist y por último se terminó la conexión.
 
 #### 3.1.2.1 Problemas con el módulo HM-10
 Al momento de trabajar con este módulo no surgieron problemas considerables. Lo que sí sucedió fue que a medida que desarrollamos el código para los comandos, nos percatamos de que era poco óptimo estar distinguiendo mayúsculas y minúsculas, así que fue validado para que eso no fuera un problema. También se tuvo en cuenta el orden de ingreso de datos para que luego del comando admin solo se espere fiuba y cualquier otro comando se tome como contraseña incorrecta.
@@ -487,95 +502,320 @@ Para nuestra fortuna, no tuvimos problemas con este componente del trabajo, más
 ## 3.2 Diseño del Firmware
 Si bien la electrónica para este trabajo fue prioridad y una cuestión a la cual hubo que prestar sumo detalle, nada hubiera funcionado sin un código que genere exactamente la lógica requerida. A continuación se presentan fragmentos de código que consideramos importantes para el desarrollo de este trabajo.
 ### 3.2.1 Main
-Esta función, que es la principal del sistema, se encarga de hacer funcionar la alarma en su totalidad. No conoce las lógicas de los periféricos, pero sabe a qué funciones invocar para que éstos se activen. El código se puede separar en dos grandes partes: previa y posterior al while. La gran distinción entre estas secciones es que el código previo se ejecuta una sola vez al prender la alarma, mientras que lo que está dentro del while (Super-loop) se ejecuta muchas veces por segundo siempre y cuando la alarma tenga energía. 
-En la Figura 3.4 se observan los llamados a funciones para inicializar los sensores, actuadores, memoria y sistema. Seguidamente, el código entra en un bucle while  como se observa en la Figura 3.5 que realiza constantemente los llamados a funciones de actualización ‘update’ para cada módulo.
-
-<p align="center">
-  <em>Figura 3.4: código del main con funciones de inicialización.</em>
-</p>
+Esta función, que es la principal del sistema, se encarga de hacer funcionar la alarma en su totalidad. El código se divide en dos grandes partes: la inicialización de bajo nivel y el super-loop. La gran distinción entre estas secciones es que el código previo al while se ejecuta una sola vez al prender la alarma, inicializando a los periféricos (ver las líneas funciones terminadas en `Init`) mientras que lo que está dentro del while (super-loop) se ejecuta muchas veces por segundo siempre y cuando la alarma tenga energía. Luego, se invoca a `app_init()` que inicializa las máquinas de estado de todos los módulos.
+Por último, en el bucle while se repite la llamada a `app_update()`. Esta función implementa un ejecutador cíclico que se ejecuta cada 1 milisegundo, invocando a las funciones de actualización de cada sensor y actuador sin utilizar retardos bloqueantes, permitiendo que el sistema sea realmente concurrente.
 
 
-<p align="center">
-  <em>Figura 3.5: bucle while  del main.c.</em>
-</p>
+```c
+int main(void)
+{
+
+  HAL_Init();
+
+  SystemClock_Config();
+
+  MX_GPIO_Init();
+  MX_DMA_Init();
+  MX_USART2_UART_Init();
+  MX_USART1_UART_Init();
+  MX_USART3_UART_Init();
+  MX_I2C1_Init();
+
+  app_init();
+
+  while (1)
+  {
+    app_update();
+  }
+}
+```
 
 ### 3.2.2 Botón de pánico
 
-Para la implementación del botón de pánico se decidió implementar un código antirrebote. Para esto se definen cuatro estados: ST_BTN_PANIC_UP, ST_BTN_PANIC_FALLING, ST_BTN_PANIC_DOWN y ST_BTN_PANIC_RISING. A continuación se los explica a cada uno y en la Figura 3.6 se expone el código en cuestión.
-- ST_BTN_PANIC_UP: el sistema está en reposo esperando acciones en el pin. Si la tensión baja (o sea, alguien empezó a presionar el botón), almacena el momento en el que se comenzó a presionar con HAL_GetTick() y lo guarda para la lógica con el siguiente estado.
-- ST_BTN_PANIC_FALLING: el sistema espera un determinado tiempo DELAY_BOTON_MS. Si luego de ese tiempo el botón sigue presionado, se descarta la idea de que pueda haber sido una presión en falso o algo similar y se confirma la presión mediante ev_sys_panic_pressed = true.
-- ST_BTN_PANIC_DOWN: la alerta fue enviada y ahora el sistema queda a la espera de que se suelte el botón.
-- ST_BTN_PANIC_RISING: es la misma lógica que para ST_BTN_PANIC_FALLING pero a la inversa. Ahora se está esperando el tiempo DELAY_BOTON_MS pero para confirmar que el botón haya sido soltado de manera correcta.
+Para la implementación del botón de pánico se decidió implementar un código antirrebote. Para esto se definen cuatro estados: ST_BTN_PANIC_UP, ST_BTN_PANIC_FALLING, ST_BTN_PANIC_DOWN y ST_BTN_PANIC_RISING. A continuación se los explica a cada uno y se expone el código en cuestión.
 
+- ST_BTN_PANIC_UP: el sistema está en reposo esperando acciones en el pin. Si la tensión baja (o sea, alguien empezó a presionar el botón), pasa al siguiente estado.
+- ST_BTN_PANIC_FALLING: el sistema descuenta un contador durante `DEBOUNCE_MS`. Si en lo que dura `DBOUNCE_MS` el botón se suelta, se descarta como ruido y vuelve al reposo. Si el tiempo se cumple y sigue presionado, se confirma la acción y se encola el evento `EV_SYS_PANIC_BTN_PRESSED` mediante `put_event_task_system(EV_SYS_PANIC_BTN_PRESSED)`
+- ST_PANIC_BTN_DOWN / RISING: la misma lógica que relaciona a los dos primeros estados se aplica a la inversa. El sistema espera que el botón sea soltado y requiere que permanezca en estado alto durante `DEBOUNCE_MS` para confirmar que fue liberado en la realidad.
 
-<p align="center">
-  <em>Figura 3.6: lógica del sistema antirrebote del botón de pánico.</em>
-</p>
+```c
+case ST_PANIC_BTN_UP:
+    if (presionado || bsp_gpio_panic_btn_isr_triggered()) {
+        tick_panic_btn = DEBOUNCE_MS;
+        fsm_panic_btn  = ST_PANIC_BTN_FALLING;
+    }
+    break;
+
+case ST_PANIC_BTN_FALLING:
+    if (!presionado) {
+        fsm_panic_btn = ST_PANIC_BTN_UP;
+    }
+    else if (tick_panic_btn > 0) {
+        tick_panic_btn--;
+    }
+    else {
+        put_event_task_system(EV_SYS_PANIC_BTN_PRESSED);
+        fsm_panic_btn = ST_PANIC_BTN_DOWN;
+    }
+    break;
+
+case ST_PANIC_BTN_DOWN:
+    if (!presionado) {
+        tick_panic_btn = DEBOUNCE_MS;
+        fsm_panic_btn  = ST_PANIC_BTN_RISING;
+    }
+    break;
+
+case ST_PANIC_BTN_RISING:
+    if (presionado) {
+        fsm_panic_btn = ST_PANIC_BTN_DOWN;
+    }
+    else if (tick_panic_btn == 0) {
+        put_event_task_system(EV_SYS_PANIC_BTN_RELEASED);
+        fsm_panic_btn = ST_PANIC_BTN_UP;
+    }
+    else {
+        tick_panic_btn--;
+    }
+    break;
+
+default:
+    sensor_panic_btn_init();
+    break;
+```
 	
 
 ### 3.2.3 Sensor de luz
-La lógica del sensor de luz es sencilla: en el pin físico se interpreta un valor lógico y se relaciona con noche o día. Si el sensor manda un nivel alto, la variable booleana is_dark se pone en true.
-Ahora bien, para evitar que cualquier reflejo o luz efímera active al sensor sin sentido (y, por consecuencia, prenda a la luz estroboscópica y consuma energía), se definió un tiempo de espera de 2 segundos. Si hay luz, solo si pasan esos 2 segundos seguidos de oscuridad la máquina pasa al estado ST_LDR_NIGHT y ev_sys_day_mode se pone en true. Lo mismo sucede en el pasaje de noche a día. Esta lógica vuelve “inteligente” al sistema, ya que no podrá ser fácilmente engañado por alguien malintencionado, ni tampoco el sistema podrá creer que es de día por la propia retroalimentación de la luz estroboscópica. En la Figura 3.7 puede verse con más detalle el código en cuestión.
+La lógica del sensor LDR es sencilla: interpreta un valor lógico del pin físico para determinar si es de día o de noche. Sin embrago, por más que la lógica no suponga problemas, tuvo que ser considerada la problemática relacionada a los reflejos efímeros, luces de autos o sombras momentáneas que puedan activar el sensor sin sentido (y enciendan la luz estroboscópica sin motivo real). Para evitar esto, se definió una ventana temporal de validación de 1000 milisegundos. La máquina de estados verifica que la lectura se mantenga estable durante esos 1000 ticks consecutivos en los estados de transición (`ST_LDR_GOING_NIGHT` o `ST_LDR_GOING_DAY`). Si la luz varía antes de cumplirse el tiempo, el sistema lo considera una anomalía y vuelve al estado anterior. Esta lógica hace que el sistema posea cierta "inteligencia", ya que además evita la retroalimentación de la propia luz de la alarma. En caso de que efectivamente la alarma esté en presencia de día o noche, el código maneja el cambio de estado a `ST_LDR_DAY` y `ST_LDR_NIGHT` respectivamente. Se expone el fragmento de código relacionado a lo mencionado sobre la lógica de código del sensor de luz LDR.
 
+```c
+case ST_LDR_DAY:
+    if (noche) {
+        tick_ldr = DEBOUNCE_LDR_MS;
+        fsm_ldr  = ST_LDR_GOING_NIGHT;
+    }
+    break;
 
-<p align="center">
-  <em>Figura 3.7: Código del sensor de luz.</em>
-</p>
+    case ST_LDR_GOING_NIGHT:
+    if (!noche) {
+        fsm_ldr = ST_LDR_DAY;
+    }
+    else if (tick_ldr > 0) {
+        tick_ldr--;
+    }
+    else {
+        put_event_task_system(EV_SYS_LDR_NIGHT);
+        fsm_ldr = ST_LDR_NIGHT;
+    }
+    break;
+
+    case ST_LDR_NIGHT:
+    if (!noche) {
+        tick_ldr = DEBOUNCE_LDR_MS;
+        fsm_ldr  = ST_LDR_GOING_DAY;
+    }
+    break;
+
+    case ST_LDR_GOING_DAY:
+    if (noche) {
+        fsm_ldr = ST_LDR_NIGHT;
+    }
+    else if (tick_ldr > 0) {
+        tick_ldr--;
+    }
+    else {
+        put_event_task_system(EV_SYS_LDR_DAY);
+        fsm_ldr = ST_LDR_DAY;
+    }
+    break;
+
+    default:
+      sensor_ldr_init();
+      break;
+```
 
 ### 3.2.4 Módulo Bluetooth
-El código de este módulo puede desglosarse en 3 categorías o capas.
-Chequeo de conexión: si el sistema detecta algo raro, con cmd_ble_force_lock puede cerrar forzadamente la sesión por protección. También, se lee un pin físico del módulo HM-10 (BLE_STATE_Pin). Si el técnico o algún usuario admitido apaga su Bluetooth o se aleja demasiado, el sistema detecta esa caída de señal y bloquea la sesión por seguridad. Por último, si el sistema está ocupado mandando un SMS (sym_ocupado_sms), bloquea los comandos por una cuestión de recursos del microcontrolador. La única orden que se permite es “SILENCE”.
-Autenticación: en el estado ST_AUTH_LOCKED el sistema está cerrado. Se “despierta” solo si recibe la palabra “ADMIN” y queda a la espera de otra. Cualquier palabra que no sea “ADMIN” en primer lugar, dispara un parpadeo de led. Luego, pasa al estado ST_AUTH_WAITING_PASS en el que espera la contraseña. Solo con la palabra “FIUBA” se otorga acceso y enciende fijamente un led en cuestión. Si la clave no es la correcta, se reinicia el proceso en cuestión.
-Comandos: una vez ingresado correctamente con los datos mencionados previamente, se puede gestionar la whitelist con comandos “ADD” y “DEL”, los cuales agregan o eliminan respectivamente a los números que se escriban posteriormente a los comandos. Agregar o quitar números modifica la memoria EEPROM. El comando “OUT” permite cerrar la sesión.
-Cabe destacar que, gracias a las funciones String_Trim_Right  y  String_To_Upper no importa si el usuario escribe con un espacio al final o en mayúsculas o minúsculas, siempre que la palabra sea correcta, se ingresará.
-En la Figura 3.8 y en la Figura 3.9 se puede apreciar el código.
+El código del módulo HM-10 fue pensado y estructurado para operar mediante una máquina de estados y transmisión DMA por el puerto `USART1`, lo que permite recibir comandos sin saturar el microcontrolador. Su seguridad se basa en una autenticación de doble factor (2FA) y control por eventos. Es posible interpretar 3 capas importantes.
 
-<p align="center">
-  <em>Figura 3.8: primera parte del código del módulo HM-10.</em>
-</p>
+* Chequeo y seguridad: en vez de leer pines físicos de estado, el módulo reacciona a los eventos internos URC (Unsolicites Result Code) (`OK+CONN` para conexión exitosa y `OK+LOST` para pérdida de conexión). Además, si la alarma principal se dispara, el sistema central envía un evento `EV_BLE_FORCE_CLOSE` que obliga a la máquina de estados a cortar cualquier sesión de mantenimiento activa por precaución. El siguiente fragmento de código muestra perfectamente cómo el sistema prioriza un evento de seguridad (la alarma disparándose) antes de hacer cualquier otra cosa con el Bluetooth.
 
-<p align="center">
-  <em>Figura 3.9: segunda parte del código del módulo HM-10.</em>
-</p>
+```c
+if (any_event_task_ble()) {
+  task_ble_ev_t ev = get_event_task_ble();
+  if (ev == EV_BLE_FORCE_CLOSE) {
+    fsm_ble  = ST_BLE_DISCONNECTING;
+    tick_ble = BLE_DISCONNECT_TIMEOUT_MS;
+    return;
+  }
+}
+```
+
+* Autenticación doble: al conectarse un dispositivo, el sistema exige un usuario (validado ignorando mayúsculas) y luego una contraseña (respetando case-sensitive). Estos controles son aislados en el archivo `auth_utils.c` explorado a continuación. Puede notarse la buena práctica de *early return* por longitud al validar la autenticación.
+
+```c
+bool auth_user_match(const char *input, const char *expected)
+{
+  if (input == NULL || expected == NULL)
+      return false;
+
+  size_t len_in = strlen(input);
+  size_t len_exp = strlen(expected);
+  if (len_in != len_exp)
+      return false;
+
+  for (size_t i = 0; i < len_in; i++)
+  {
+      if (to_lower_ascii(input[i]) != to_lower_ascii(expected[i]))
+          return false;
+  }
+  return true;
+}
+
+bool auth_pass_match(const char *input, const char *expected)
+{
+  if (input == NULL || expected == NULL)
+      return false;
+
+  size_t len_in = strlen(input);
+  size_t len_exp = strlen(expected);
+  if (len_in != len_exp)
+      return false;
+
+  return (strcmp(input, expected) == 0);
+}
+```
+
+* Comandos de sesión: una vez autenticado (o sea, el usuario es el líder de la red de vecinos o cualquier usuario con privilegios), el usuario puede gestionar la whitelist con los comandos `ADD`, `DEL` y `LIST`. Los cambios exitosos mandan un evento hacia la EEPROM para su guardado asincrónico **no volátil**. En el código que sigue, se puede apreciar la función `handle_session_command` completa y exacta que se diseñó para procesar los comandos `ADD`, `DEL`, `LIST` y `OUT`.
+
+```c
+static FSM_STATUS_BLE handle_session_command(const char *linea)
+{
+    if (starts_with_ci(linea, "ADD ")) {
+        const char *numero = linea + 4;
+        uint8_t res = neighbourhood_caller_add(numero);
+        if (res == 0) {
+            bsp_uart_ble_tx_str(RSP_OK_ADD);
+        } else if (res == 1) {
+            bsp_uart_ble_tx_str(RSP_ERR_EXISTS);
+        } else if (res == 2) {
+            bsp_uart_ble_tx_str(RSP_ERR_FULL);
+        } else {
+            bsp_uart_ble_tx_str(RSP_ERR_INV_FMT);
+        }
+        return ST_BLE_SESSION;
+    }
+    else if (starts_with_ci(linea, "DEL ")) {
+        const char *numero = linea + 4;
+        uint8_t res = neighbourhood_caller_remove(numero);
+        if (res == 0) {
+            bsp_uart_ble_tx_str(RSP_OK_DEL);
+        } else if (res == 1) {
+            bsp_uart_ble_tx_str(RSP_ERR_NOT_FOUND);
+        } else {
+            bsp_uart_ble_tx_str(RSP_ERR_INV_FMT);
+        }
+        return ST_BLE_SESSION;
+    }
+    else if (starts_with_ci(linea, "LIST")) {
+        serialize_and_send_whitelist();
+        return ST_BLE_SESSION;
+    }
+    else if (starts_with_ci(linea, "OUT")) {
+        bsp_uart_ble_tx_str(RSP_BYE);
+        return ST_BLE_DISCONNECTING;
+    }
+    bsp_uart_ble_tx_str(RSP_ERR_CMD);
+    return ST_BLE_SESSION;
+}
+```
 
 ### 3.2.5 Módulo GSM
-El módulo GSM es el encargado de gestionar las llamadas recibidas. En la Figura 3.10 y la Figura 3.11 se expone el código que lo controla, y a continuación una breve explicación.
-El sistema se encuentra en reposo hasta que flag_llamada_entrante se pone en 1. Esto sucede cuando el módulo GSM recibe una llamada. Internamente, investigamos y el módulo GSM envía por puerto serial la cadena de texto “+CLIP” que contiene al número de origen.
-sys_ocupado_sms: antes de procesar se verifica que la placa no esté ocupada enviando mensajes de texto mediante if (!sys_ocupado_sms).
-while: se hace una disección de la información que envía el módulo. Comienza a leer desde la posición 8 (llamada_entrante_buffer[8+i]) que es donde empiezan las comillas del número telefónico. Se copian los caracteres hasta el final de las comillas o carácter nulo. Finalmente se agrega un \0 para que la cadena sea válida en lenguaje C.
-Whitelist: se llama a es_numero_autorizado, se busca al número en la EEPROM y si el número (guardado en numero_entrante) coincide con alguno de la lista, se guarda quién fue el activador (ev_numero_activador) y la alerta se activa mediante ev_panico_llamada = true.
-memset: se ejecuta ese código para borrar el búfer de recepción (llamada_entrante_buffer).
-Comando ATH: apenas se detecta la llamada, el sistema envía el comando ATH para que la alarma sea gratuita para el vecino (corta antes de que el módem atienda).
+El módulo GSM es el encargado de proveer la conectividad a larga distancia, gestionando tanto la recepción de llamadas para activar la alarma como el envío de mensajes de texto (SMS) de alerta a la comunidad y contactos seleccionados. Toda la comunicación con el módulo SIM800L se realiza a través del puerto USART3 utilizando una máquina de estados y transferencias DMA directas a memoria (`ReceiveToIdle`), garantizando que la CPU nunca se bloquee esperando respuestas de la red celular.
 
-<p align="center">
-  <em>Figura 3.10: primera parte del código del GSM.</em>
-</p>
+El funcionamiento del módulo puede dividirse en dos grandes aspectos.
 
-<p align="center">
-  <em>Figura 3.11: segunda parte del código del GSM.</em>
-</p>
+* Gestión de llamadas (activación): en estado de reposo, el sistema realiza un sondeo (polling) continuo de la red. Al detectar una llamada entrante (evento `RING`), el sistema no atiende inmediatamente. En su lugar, espera el identificador de llamadas mediante el comando `+CLIP`:. El número recibido es normalizado (removiendo códigos de país como el "+54") y comparado con la whitelist en RAM. Si el vecino está autorizado, el sistema dispara la alerta central y envía instantáneamente el comando `ATH` para cortar la llamada. Esta lógica asegura que el vecino pueda activar la alarma sin consumir saldo de su línea telefónica.
 
-### 3.2.6 Gestión de mensajes SMS
-La gestión de los mensajes SMS se expone en código en la Figura 3.12, 3.13 y 3.14. A continuación, una breve descripción del comportamiento.
-- SMS_IDLE: Cuando el sistema está en reposo, el código se fija si el puntero de la cola se movió (sms_tail != sms_head). En caso de haber un mensaje esperando, se activa. El retardo de 4 segundos es para asegurar que la red celular esté estable previo al arranque. Se envía el comando “AT+CMGS=”...”” con el número del usuario que se extrae de la cola. Se inicializan las flags y pasa al estado SMS_SEND_CMD.
-- SMS_SEND_CMD: Se envían los datos del modem al sistema de forma asincrónica para no pausar la ejecución del código. Luego de llamar a la función pasa al estado SMS_WAIT_TX_CMD.
-- SMS_WAIT_TX_CMD: Espera a que HAL_UART_Transmit_IT() termine de enviar lo solicitado para pasar al estado SMS_WAIT_PROMPT.
-- SMS_WAIT_PROMPT: El módulo GSM debe responder que está listo para recibir el texto, así que la NUCLEO se queda esperando que el módulo envíe el símbolo ‘>’ (flag_gms_prompt == 1). Una vez enviado el símbolo, se procede a copiar el mensaje al buffer (si la longitud del mensaje supera los cien caracteres, solo se copiarán los primeros cien) y se agrega el caracter “0x1A” que es el comando CTRL+Z para indicarle al módulo que envíe el mensaje y pasar al estado SMS_SEND_MSG. Si el tiempo de espera para enviar el símbolo ‘>’  supera los tres segundos, la tarea se descarta y regresa a SMS_IDLE.
-- SMS_SEND_MSG: Se envía el mensaje al sistema de forma asincrónica para no pausar la ejecución del código. Luego de llamar a la función pasa al estado SMS_WAIT_TX_MSG.
-- SMS_WAIT_TX_MSG: Espera a que HAL_UART_Transmit_IT() termine de enviar lo solicitado para pasar al estado SMS_WAIT_OK.
-- SMS_WAIT_OK: Se espera el OK del módulo o un mensaje de error. Si no hubo problemas, se descarta ese mensaje de la fila (sms_tail++) y vuelve a SMS_IDLE para cerrar el ciclo. En caso de tildarse, se esperan 12 segundos y si no responde en ese tiempo, se aborta la tarea para no quedarse bloqueado.
+* Gestión de mensajes SMS (alerta): cuando la alarma es disparada (ya sea por el botón de pánico o por una llamada), el sistema central hace que se notifiquen a los contactos de emergencia. La máquina de estados transiciona a un modo iterativo: selecciona el primer destinatario, envía el comando `AT+CMGS` y aguarda asincrónicamente el símbolo prompt (`>`). Una vez inyectado el texto y el carácter de control, la máquina de estados espera la confirmación de la red (`+CMGS:`) antes de avanzar al siguiente número de la lista, procesando toda la cola de mensajes sin detener la ejecución de las luces estroboscópicas ni la sirena.
 
-<p align="center">
-  <em>Figura 3.12: primera parte del código gestor de mensajes de texto.</em>
-</p>
+Se pretende que el siguiente fragmento de código aporte claridad al entendimiento del comportamiento general recién estudiado, mas no necesariamente todos los comandos mencionados.
 
-<p align="center">
-  <em>Figura 3.13: segunda parte del código gestor de mensajes de texto.</em>
-</p>
+```c
+case ST_GSM_SMS_TEXT_WAITING:
+    cargar_rx_burst(hay_burst, rx, &rx_len);
+    if (rx_len > 0u && strstr(rx, "+CMGS:"))
+    {
+      bsp_uart_gsm_burst_consume();
+      burst_consumido = 1u;
+      if (op_sms_has_next())
+      {
+        op_sms_advance();
+        op_bsp_uart_gsm_tx(CMD_CMGS);
+        tick_gsm = GSM_CMGS_PROMPT_TIMEOUT_MS;
+        fsm_gsm = ST_GSM_SMS_CMGS_WAITING;
+      }
+      else
+      {
+        tick_gsm = GSM_IDLE_NET_TICK_MS;
+        fsm_gsm = ST_GSM_IDLE_NET;
+      }
+    }
+    else if (tick_gsm == 0)
+    {
+      tick_gsm = GSM_IDLE_NET_TICK_MS;
+      fsm_gsm = ST_GSM_IDLE_NET;
+    }
+    else
+    {
+      tick_gsm--;
+    }
+    break;
+```
 
-<p align="center">
-  <em>Figura 3.14: tercera parte del código gestor de mensajes de texto.</em>
-</p>
+
+### 3.2.7 Memoria EEPROM
+
+El almacenamiento de la whitelist (lista de vecinos autorizados) requiere de memoria no volátil para no perder los datos ante cortes de energía. Para ello se utilizó una memoria EEPROM externa. El diseño de este código se centró en evitar que los tiempos físicos de escritura del chip frenen o intercedan con el planificador cíclico del sistema. Sin embargo, es una realidad que escribir datos en una memoria EEPROM es un proceso eléctricamente lento. Es por eso que al hacer la incorporación de la memoria al proyecto, tuvimos que investigar lo siguiente. El chip requiere un tiempo de escritura interno de aproximadamente 6 milisegundos por cada página de datos. Si el microcontrolador utilizara funciones bloqueantes tradicionales (como un `HAL_Delay` o un while de espera), el sistema entero se congelaría durante ese tiempo. Si un vecino presionara el botón de pánico exactamente en esos 6 milisegundos, la alarma no lo detectaría y sería catastrófico .Para solucionar esto, el código se divide en dos etapas.
+
+* Lectura en el arranque (bloqueante): cuando la alarma recién se enciende y entra a `eeprom_init()`, es seguro detener el procesador porque el bucle principal aún no comenzó. En esta etapa, el sistema lee toda la memoria, verifica mediante un cálculo CRC16 que los datos no estén corruptos, y vuelca la lista de vecinos autorizados a la memoria RAM, donde el acceso es instantáneo.
+
+* Escritura en ejecución (no bloqueante): una vez que la alarma está operando, si el administrador agrega o elimina un vecino por Bluetooth de la whitelist, la memoria debe actualizarse sin frenar los sensores. Este es el momento en el cual entra en acción la máquina de estados junto con el controlador DMA (Direct Memory Access).
+
+Se pretende concluir la idea con el fragmento de código presentado a continuación, que refleja todas estas cuestiones mencionadas.
+
+```c
+case ST_EEPROM_KICKOFF_PAGE:
+    op_kickoff_current_page();
+    fsm_eeprom = ST_EEPROM_WRITING;
+    break;
+    
+case ST_EEPROM_WRITING:
+    if (bsp_eeprom_tx_done())
+    {
+        tick_eeprom = EEPROM_TWR_MS;
+        fsm_eeprom = ST_EEPROM_WAIT_TWR;
+    }
+    break;
+
+case ST_EEPROM_WAIT_TWR:
+    if (tick_eeprom > 0)
+    {
+        tick_eeprom--;
+    }
+    else
+    {
+        current_page++;
+        if (current_page < EEPROM_TOTAL_PAGES)
+        {
+            fsm_eeprom = ST_EEPROM_BUILD_PAGE;
+        }
+        else
+        {
+            fsm_eeprom = ST_EEPROM_IDLE;
+        }
+    }
+    break;
+```
 
 # CAPÍTULO 4 
 # Ensayos y resultados
