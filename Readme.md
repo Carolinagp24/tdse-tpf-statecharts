@@ -817,6 +817,10 @@ case ST_EEPROM_WAIT_TWR:
     break;
 ```
 
+## 3.3 WCET y consumo
+
+YERSON
+
 # CAPÍTULO 4 
 # Ensayos y resultados
 ## 4.1 Desarrollo y pruebas de funcionamiento
