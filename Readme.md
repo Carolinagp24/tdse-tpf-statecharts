@@ -250,7 +250,7 @@ En las tablas 2.2, 2.3 y 2.4 se presentan tres casos de uso para ejemplificar un
 
 ### 2.2.1 Diagramas de secuencia del sistema
 
-Previo a empezar a programar el código del sistema, se decidió modelar diagramas de secuencia para las interacciones.
+Previo a empezar a programar el código del sistema, se decidió modelar diagramas de secuencia para las interacciones. Éstos se muestran en las figuras 2.1, 2.2, 2.3, 2.4 y 2.5.
 
 - **Interacción entre los sensores y el sistema:**
 <p align="center">
