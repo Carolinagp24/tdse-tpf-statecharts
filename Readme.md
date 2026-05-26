@@ -1071,7 +1071,7 @@ Con período de tick: $T$ $= 1 ms = 1000 µs$ , el factor de utilización es:
 
 $$U=\sum_{i=0}^{N-1}\frac{\text{wcet\\_max}[i]}{T}$$
 
-Mapeando los índices de la captura contra el `enum Wcet_Id` de [App/Inc/wcet.h](App/Inc/wcet.h):
+Mapeando los índices de la captura contra el `enum Wcet_Id` de [App/Inc/wcet.h](App/Inc/wcet.h) (como se ve en la Tabla 4.1):
 
 | Índice | Tarea (`Wcet_Id`)                | `wcet_max[i]` (µs) | Contribución a U (`/1000`) |
 | :----: | -------------------------------- | :----------------: | :------------------------: |
@@ -1086,6 +1086,10 @@ Mapeando los índices de la captura contra el `enum Wcet_Id` de [App/Inc/wcet.h]
 |   8    | `WCET_ACT_LED_ALARM`             |         2          |           0,002            |
 |   9    | `WCET_ACT_LED_NETWORK`           |         2          |           0,002            |
 |        | **Σ tiempo de cómputo por tick** |     **200 µs**     |         **0,200**          |
+
+<p align="center">
+  <em>Tabla 4.2: mapeo de índices de captura con `enum Wcet_Id`.</em>
+</p>
 
 $$U = \frac{4 + 4 + 72 + 51 + 51 + 9 + 3 + 2 + 2 + 2}{1000} = \frac{200}{1000} = 0{,}20 = \mathbf{20}\text{ por ciento}$$
 
@@ -1132,7 +1136,7 @@ El cálculo del factor de uso demuestra que, fuera de los eventos de crisis (don
 
 ## 4.4 Documentación del desarrollo realizado
 
-En la Tabla 4.1 se presenta un resumen de los parámetros considerados más importantes a la hora de revisar el proyecto para facilitar discernir el propósito, objetivos y los pasos que seguimos en la elaboración de nuestro trabajo práctico.
+En la Tabla 4.2 se presenta un resumen de los parámetros considerados más importantes a la hora de revisar el proyecto para facilitar discernir el propósito, objetivos y los pasos que seguimos en la elaboración de nuestro trabajo práctico.
 
 <div align="center">
 
@@ -1149,7 +1153,7 @@ En la Tabla 4.1 se presenta un resumen de los parámetros considerados más impo
 
 </div>
 <p align="center">
-  <em>Tabla 4.1: parámetros que sintetizan lo más importante del proyecto.</em>
+  <em>Tabla 4.2: parámetros que sintetizan lo más importante del proyecto.</em>
 </p>
 
 # CAPÍTULO 5
