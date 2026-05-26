@@ -1073,6 +1073,8 @@ $$U=\sum_{i=0}^{N-1}\frac{\text{wcet\\_max}[i]}{T}$$
 
 Mapeando los índices de la captura contra el `enum Wcet_Id` de [App/Inc/wcet.h](App/Inc/wcet.h) (como se ve en la Tabla 4.1):
 
+<div align="center">
+
 | Índice | Tarea (`Wcet_Id`)                | `wcet_max[i]` (µs) | Contribución a U (`/1000`) |
 | :----: | -------------------------------- | :----------------: | :------------------------: |
 |   0    | `WCET_SENSOR_BTN_PANIC`          |         4          |           0,004            |
@@ -1086,6 +1088,8 @@ Mapeando los índices de la captura contra el `enum Wcet_Id` de [App/Inc/wcet.h]
 |   8    | `WCET_ACT_LED_ALARM`             |         2          |           0,002            |
 |   9    | `WCET_ACT_LED_NETWORK`           |         2          |           0,002            |
 |        | **Σ tiempo de cómputo por tick** |     **200 µs**     |         **0,200**          |
+
+</div>
 
 <p align="center">
   <em>Tabla 4.2: mapeo de índices de captura con `enum Wcet_Id`.</em>
