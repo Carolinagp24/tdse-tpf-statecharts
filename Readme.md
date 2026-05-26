@@ -134,7 +134,7 @@ A ambos les agradecemos por la motivación genuina por los sistemas embebidos qu
 | 1.1      | Agregado de capítulos 1 y 2                                                 | 24/02/2026 |
 | 1.2      | Agregado parcial de capítulo 3                                              | 25/02/2026 |
 | 1.3      | Capítulo 3 completo y parcialmente el capítulo 4                            | 26/02/2026 |
-| 1.4      | Terminado el documento para la primer entrega                               | 27/02/2026 |
+| 1.4      | Terminado el documento para la primera entrega                              | 27/02/2026 |
 | 1.5      | Versión final con detalles corregidos para la primer entrega                | 15/03/2026 |
 | 1.6      | Adaptación de la Sección 3.1 y Sección 2.3.9 a la nueva versión de la placa | 20/04/2026 |
 | 1.6      | Adaptación de la Sección 3.2 a la nueva versión del código                  | 22/05/2026 |
@@ -164,14 +164,14 @@ El hecho de haber elegido las villas como mercado fue producto de reconocer que 
 
 La solución al problema de la inseguridad en las villas no se soluciona exclusivamente con una alarma vecinal, pero sí se puede reducir considerablemente la costumbre delictiva que está presente y en crecimiento en esas partes de la ciudad.
 Nuestro producto fue pensado y diseñado para ahuyentar y alertar. Posee un botón de pánico accesible para cualquier persona que esté pasando por una situación de inseguridad o para cualquier testigo de alguna. La funcionalidad que fue añadida pensando en los posibles escenarios de delincuencia fue la posibilidad de que algún vecino realice una llamada al número asociado a la alarma y active la alarma remotamente. Esto fue implementado debido a que muchas situaciones delictivas se ven, pero no se enfrentan por miedo a involucrarse. De esta manera, creemos que haber implementado la funcionalidad mencionada, hará que muchas acciones delictivas puedan frenar antes de tiempo o mitigar sus efectos.
-Además, la alarma vecinal posee una luz estroboscópica y alarma sonora. Ambas son para alertar al vecindario y ahuyentar al delincuente. La luz únicamente se prende si hay muy baja iluminación, ya que sino sería un gasto de recursos sin sentido. Cabe destacar que al tener como prioridad que se cree una red segura entre vecinos, los usuarios habilitados para llamar son exclusivamente miembros de la calle donde está instalada esta y deben ser incluidos en una whitelist que genera la central. Al momento de la instalación, el técnico podrá conectarse vía Bluetooth a la alarma con su usuario y contraseña y cargar esa lista. Privilegios de administrador serán otorgados a miembros específicos de cada comunidad para poder agregar o quitar miembros de esa lista, para así afianzar todavía más la confianza entre la red del barrio.
+Además, la alarma vecinal posee una luz estroboscópica y alarma sonora. Ambas son para alertar al vecindario y ahuyentar al delincuente. La luz únicamente se prende si hay muy baja iluminación, ya que sino sería un gasto de recursos sin sentido. Cabe destacar que al tener como prioridad que se cree una red segura entre vecinos, los usuarios habilitados para llamar son exclusivamente miembros de la calle donde está instalada esta y deben ser incluidos en una _whitelist_ que genera la central. Al momento de la instalación, el técnico podrá conectarse vía Bluetooth a la alarma con su usuario y contraseña y cargar esa lista. Privilegios de administrador serán otorgados a miembros específicos de cada comunidad para poder agregar o quitar miembros de esa lista, para así afianzar todavía más la confianza entre la red del barrio.
 
 ## 1.3 Análisis de sistemas similares al desarrollado
 
 Existen empresas como [Global Alarmas](https://www.globalalarmas.com.ar/), [Hexacom](https://www.hexaweb.com.ar), [Alerta Vecinal](https://www.alertavecinal.com.ar/), [Safecity](https://www.safecity.com.ar/) y [Verisure](https://www.verisure.com.ar/lp/m/alarmas-verisure.php?gclsrc=aw.ds&gad_source=1&gad_campaignid=16807715275&gbraid=0AAAAACw3x7gDQtUTIJ1kMgXgV-eUjKPse&gclid=CjwKCAjwidXQBhAZEiwA4egw6Dm8fulJ9y4MthYVCVP8YGjSlg73vU4ggWRfdBkmUxDC_UMnSvwsyxoCJXEQAvD_BwE) que ofrecen a grandes rasgos lo mismo que nuestra solución. Habiendo más de un competidor, fue importante para nosotros pensar en alguna característica distintiva que destaque entre las demás. El carácter de red vecinal profunda que promete nuestro producto es, en parte, lo que hace que nuestra alarma vecinal no solo sea una herramienta, sino un símbolo de seguridad comunitaria.
-Entre algunas de las funcionalidades que se ofrecen por estas empresas en sus productos se encuentran: sirena de luz, alerta sonora, botonera y panel de control, rastreo vehicular, emisores de humo denso, whitelist, aplicación móvil y control remoto, entre otras.
+Entre algunas de las funcionalidades que se ofrecen por estas empresas en sus productos se encuentran: sirena de luz, alerta sonora, botonera y panel de control, rastreo vehicular, emisores de humo denso, _whitelist_, aplicación móvil y control remoto, entre otras.
 Cabe mencionar que solo una de estas empresas, Alerta Vecinal, está dedicada exclusivamente al desarrollo de alarmas para comunidades y no para domicilios particulares.
-Si bien ya existen alarmas con listas tipo whitelist, nuestro concepto de whitelist descentralizada (que usuarios dentro de la red puedan operar con ella) hace que el sentimiento de comunidad sea más fuerte si se elige nuestra propuesta, además de que la construcción y mantenimiento de la alarma es muy baja. Se suma el hecho de que se puede reportar un acto ilícito de manera silenciosa y anónima mediante una llamada telefónica, solo la central sabrá qué número de la whitelist activó la alarma. Muchas alarmas ofrecen protección exclusivamente a uno mismo, mientras que nosotros brindamos la posibilidad de cuidarnos entre todos.
+Si bien ya existen alarmas con listas tipo _whitelist_, nuestro concepto de _whitelist_ descentralizada (que usuarios dentro de la red puedan operar con ella) hace que el sentimiento de comunidad sea más fuerte si se elige nuestra propuesta, además de que la construcción y mantenimiento de la alarma es muy baja. Se suma el hecho de que se puede reportar un acto ilícito de manera silenciosa y anónima mediante una llamada telefónica, solo la central sabrá qué número de la _whitelist_ activó la alarma. Muchas alarmas ofrecen protección exclusivamente a uno mismo, mientras que nosotros brindamos la posibilidad de cuidarnos entre todos.
 Por otro lado, el uso de la interfaz Bluetooth para el vecino encargado es un enfoque moderno y que facilita la instalación y mantenimiento de alarmas en puntos estratégicos y peligrosos, ya que a veces puede ser complicado operar en ciertos puntos.
 Por último, el sensor de luz no es un detalle menor, ya que con esa simple incorporación el barrio consume electricidad para la iluminación únicamente cuando es necesario, y eso se ve reflejado en ahorros de energía eléctrica considerables.
 
@@ -186,13 +186,13 @@ En la Tabla 2.1 se detalla la lista de requisitos a cumplimentar, con el objetiv
 | Grupo                 | ID  | Descripción                                                                                                                                                 |
 | :-------------------- | :-- | :---------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Acceso                | 1.1 | El sistema permitirá el acceso mediante BLE.                                                                                                                |
-|                       | 1.2 | En caso de acceso permitido, el sistema guardará qué usuario root ingresó.                                                                                  |
+|                       | 1.2 | En caso de acceso permitido, el sistema guardará qué usuario _root_ ingresó.                                                                                  |
 | Indicadores           | 2.1 | El sistema contará con un indicador luminoso (luz estroboscópica) para indicar que hay una alerta.                                                          |
 |                       | 2.2 | El sistema contará con un buzzer (sirena) para indicar la activación de la alarma.                                                                          |
 |                       | 2.3 | El sistema contará con LED para indicar el estado de la red en el módulo GSM                                                                               |
 |                       | 2.4 | El sistema enviará un mensaje a la policía, a todos los usuarios y a la central mediante GSM para indicar qué usuario activó la alarma mediante llamada.    |
 |                       | 2.5 | El sistema enviará un mensaje a la policía, a todos los usuarios y a la central mediante GSM para indicar que la alarma se activó mediante botón de pánico. |
-|                       | 2.6 | El sistema contará con un led para indicar el estado de la alarma (armada o desarmada).                                                                     |
+|                       | 2.6 | El sistema contará con un LED para indicar el estado de la alarma (armada o desarmada).                                                                     |
 | Interruptores/Botones | 3.1 | El sistema contará con un botón para accionar la alarma de forma manual (botón de pánico).                                                                  |
 | Memoria               | 4.1 | El sistema contará con una memoria para almacenar datos.                                                                                                    |
 |                       | 4.2 | La memoria almacenará la lista de números telefónicos autorizados.                                                                                          |
@@ -215,7 +215,7 @@ En las tablas 2.2, 2.3 y 2.4 se presentan tres casos de uso para ejemplificar un
 | Elemento          | Definición                                                                                                                                                                                                                                                                                                                                                              |
 | :---------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Disparador        | El usuario llama al número de la alarma.                                                                                                                                                                                                                                                                                                                                |
-| Precondiciones    | El sistema está encendido (led de estado armado), las luces estroboscópicas apagadas y buzzer inactivo.                                                                                                                                                                                                                                                                 |
+| Precondiciones    | El sistema está encendido (LED de estado armado), las luces estroboscópicas apagadas y buzzer inactivo.                                                                                                                                                                                                                                                                 |
 | Flujo principal   | El usuario llama al número guardado (previamente en su lista de contactos) de la alarma, el sistema corta la llamada, valida que el usuario esté registrado. En caso de estar registrado, enciende la sirena, la luz estroboscópica (si es de noche) y notifica a la policía, a los usuarios y a la central que se activó la alarma mediante llamada (y quién lo hizo). |
 | Flujo alternativo | A. El usuario no está registrado, el sistema corta la llamada y revisa en su memoria si el número está en la base de datos. Al no encontrarlo, mantiene las precondiciones en el mismo estado y notifica a la central el número que fue utilizado.                                                                                                                      |
 |                   | B. Múltiples usuarios llaman, el sistema recibe la llamada pues corta todas a la brevedad. El sistema activó la alarma en la primera llamada, y mientras más llamadas lleguen en los próximos 60 segundos, no reacciona más que enviando los números de las redundantes llamadas a la central.                                                                          |
@@ -227,7 +227,7 @@ En las tablas 2.2, 2.3 y 2.4 se presentan tres casos de uso para ejemplificar un
 | Elemento          | Definición                                                                                                                                                                                                                                                     |
 | :---------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Disparador        | El usuario presiona el botón de pánico.                                                                                                                                                                                                                        |
-| Precondiciones    | El sistema está encendido (led de estado armado), las luces estroboscópicas apagadas y buzzer inactivo.                                                                                                                                                        |
+| Precondiciones    | El sistema está encendido (LED de estado armado), las luces estroboscópicas apagadas y buzzer inactivo.                                                                                                                                                        |
 | Flujo principal   | El usuario presiona el botón de pánico ubicado debajo de la alarma. Se enciende la sirena, la luz estroboscópica (si es de noche) y se notifica a la policía, a los usuarios y a la central que se activó la alarma mediante botón de pánico.                  |
 | Flujo alternativo | A. El usuario presiona el botón cuando ya hay una llamada activa, la alarma se activa pero por la llamada previa. Los usuarios y la policía reciben el mensaje de que la alarma fue activada por llamada, mientras que la central recibe las dos activaciones. |
 |                   | B. El usuario presiona el botón cuando ya está sonando la alarma. La central es la única notificada y el estado de la alarma no cambia.                                                                                                                        |
@@ -239,7 +239,7 @@ En las tablas 2.2, 2.3 y 2.4 se presentan tres casos de uso para ejemplificar un
 | Elemento          | Definición                                                                                                                                                                                                                                                                             |
 | :---------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Disparador        | El personal autorizado se conecta mediante BLE.                                                                                                                                                                                                                                        |
-| Precondiciones    | El sistema está encendido (led de estado armado), las luces estroboscópicas apagadas y buzzer inactivo.                                                                                                                                                                                |
+| Precondiciones    | El sistema está encendido (LED de estado armado), las luces estroboscópicas apagadas y buzzer inactivo.                                                                                                                                                                                |
 | Flujo principal   | El personal autorizado se aproxima a la zona de la alarma, se conecta mediante BLE, ingresa su número de usuario y contraseña. Puede dar de alta o de baja usuarios. Tanto la información del personal autorizado como los cambios que realizó, se notifica a la central mediante SMS. |
 | Flujo alternativo | A. El usuario o contraseña son incorrectos, se deniega el acceso y se notifica a la central.                                                                                                                                                                                           |
 |                   | B. Se activa la alarma mientras se están realizando cambios, se cancelan los cambios (no se guardan), y se cierra la comunicación BLE hasta que la alarma se desactive.                                                                                                                |
@@ -250,7 +250,7 @@ En las tablas 2.2, 2.3 y 2.4 se presentan tres casos de uso para ejemplificar un
 
 ### 2.2.1 Diagramas de secuencia del sistema
 
-Previo a empezar a programar el código del sistema, se decidió modelar diagramas de secuancia para las interacciones.
+Previo a empezar a programar el código del sistema, se decidió modelar diagramas de secuencia para las interacciones.
 
 - **Interacción entre los sensores y el sistema:**
 <p align="center">
@@ -321,7 +321,7 @@ VCC/GND: requiere una alimentación entre 3,4 V y 4,4 V. En la implementación s
 TXD/RXD: Son las señales que se utilizan para la comunicación serial mediante comandos AT.
 Se tuvo que hacer un divisor resistivo entre el pin de RX de esta placa y el pin TX de la Núcleo, ya que el nivel alto lógico del módulo GSM es 2,8 V y de la placa Núcleo es 3,3 V.
 NET: es el punto de conexión para la antena GSM. Se usó una de 6 dBi para que la señal se pueda recepcionar sin problemas.
-El funcionamiento de este módulo consta de conectarse a la red 2G para actuar como si fuera un celular (desde el punto de vista de la comunicación). Recibe llamadas que corta luego de un RING si el usuario que llama está en la whitelist, entonces se activa la alarma. También envía mensajes SMS para notificar a la policía y central . Su elección recae en la simpleza del funcionamiento, ya que la prioridad fue atenernos a las funcionalidades pensadas para el trabajo y el módulo en cuestión se ajustaba de manera perfecta para cumplir con estos requisitos.
+El funcionamiento de este módulo consta de conectarse a la red 2G para actuar como si fuera un celular (desde el punto de vista de la comunicación). Recibe llamadas que corta luego de un RING si el usuario que llama está en la _whitelist_, entonces se activa la alarma. También envía mensajes SMS para notificar a la policía y central . Su elección recae en la simpleza del funcionamiento, ya que la prioridad fue atenernos a las funcionalidades pensadas para el trabajo y el módulo en cuestión se ajustaba de manera perfecta para cumplir con estos requisitos.
 Se tiene en cuenta que la red 2G está siendo apagada lentamente pero en ese caso se podrá implementar esta alarma usando el módulo SIM7000G. Aunque, mientras eso no ocurra, por costo y utilidad esta opción es la mejor.
 
 <p align="center">
@@ -456,7 +456,7 @@ Se presenta en la Tabla 3.1 la conexión entre pines del módulo GSM y la placa 
   <em>Tabla 3.1: interconexión de pines del módulo GSM.</em>
 </p>
 
-El módulo GSM es el encargado de gestionar las llamadas de auxilio para la activación de alarma y los mensajes de texto enviados a la policía, central y usuarios admitidos. Este módulo funciona con tensión entre 3,8 V y 4,4 V. Posee una ranura para insertar un chip de alguna compañía telefónica, característica que hace que exista un número de teléfono al cual llamar para que el módulo interactúe con la alarma. La implementación del módulo GSM en este trabajo se basa en que cuando un usuario contacta a la alarma, su llamada llega al módulo como la interrupción más importante, esto se valida mediante el pin RING, corta la llamada, se almacena el número telefónico en cuestión. Acto seguido, ese número es enviado por el puerto serie al microcontrolador de la placa NUCLEO, en donde se compara con los números pertenecientes a la whitelist previamente confeccionada. En caso de ser parte de esa lista, NUCLEO comunica al módulo GSM los números a quienes enviar los mensajes de alerta (policía y central), todo a través de comunicación serial. En caso de no pertenecer, el sistema solo corta la llamada para no interrumpir su funcionamiento.
+El módulo GSM es el encargado de gestionar las llamadas de auxilio para la activación de alarma y los mensajes de texto enviados a la policía, central y usuarios admitidos. Este módulo funciona con tensión entre 3,8 V y 4,4 V. Posee una ranura para insertar un chip de alguna compañía telefónica, característica que hace que exista un número de teléfono al cual llamar para que el módulo interactúe con la alarma. La implementación del módulo GSM en este trabajo se basa en que cuando un usuario contacta a la alarma, su llamada llega al módulo como la interrupción más importante, esto se valida mediante el pin RING, corta la llamada, se almacena el número telefónico en cuestión. Acto seguido, ese número es enviado por el puerto serie al microcontrolador de la placa NUCLEO, en donde se compara con los números pertenecientes a la _whitelist_ previamente confeccionada. En caso de ser parte de esa lista, NUCLEO comunica al módulo GSM los números a quienes enviar los mensajes de alerta (policía y central), todo a través de comunicación serial. En caso de no pertenecer, el sistema solo corta la llamada para no interrumpir su funcionamiento.
 
 #### 3.1.1.1 Problemas con el módulo GSM
 
@@ -492,12 +492,12 @@ El módulo HM-10 es el encargado de comunicar a los técnicos de la empresa y a 
 
 - Admin: nombre de usuario de quien se quiera conectar
 - Fiuba: contraseña de quien se quiera conectar
-- Add: añadir número a la whitelist
-- Del: eliminar número de la whitelist
+- Add: añadir número a la _whitelist_
+- Del: eliminar número de la _whitelist_
 - Out: terminar la conexión.
-- List: muestra la lista de números en la whitelist
+- List: muestra la lista de números en la _whitelist_
 
-Cabe destacar que ningún comando es case-sensitive. Un flujo común de comandos sería: _admin > fiuba > add 1122334455 > out_. En este caso, se ingresó a la administración de la alarma mediante los datos de alta admin y fiuba. Luego, se añadió al número de ejemplo 1122334455 a la whitelist y por último se terminó la conexión.
+Cabe destacar que ningún comando es _case-sensitive_. Un flujo común de comandos sería: _admin > fiuba > add 1122334455 > out_. En este caso, se ingresó a la administración de la alarma mediante los datos de alta admin y fiuba. Luego, se añadió al número de ejemplo 1122334455 a la _whitelist_ y por último se terminó la conexión.
 
 #### 3.1.2.1 Problemas con el módulo HM-10
 
@@ -522,7 +522,7 @@ En la Tabla 3.3 se detallan las interconexiones de pines para el sensor de luz.
   <em>Tabla 3.3: interconexión de pines del módulo sensor de luz LDR.</em>
 </p>
 
-Este sensor determina si es de día o de noche. El sensor de luz LDR convierte cambio de resistencia en cambio de tensión, que la placa puede interpretar y actuar en base a eso. Pueden utilizarse dos pines: AO (Analog Out) y DO (Digital Out). El primer pin es para recuperar la información analógica que emite el sensor: una tensión proporcional a la luz recibida. En nuestro caso, a partir de cierto horario del día (o sea, cierta cantidad de luz) se considera noche (y antes, día), así que una salida analógica sería un gasto de recursos innecesario. Por ese motivo, la salida por la que optamos es DO, que envía un 1 ó un 0 según el umbral configurado por un potenciómetro incluido en el módulo. Ese valor lógico es recibido por la placa, la cual mediante lógica de código envía una señal para que se prenda o no el led asociado a la luz estroboscópica (se prende si es de noche).
+Este sensor determina si es de día o de noche. El sensor de luz LDR convierte cambio de resistencia en cambio de tensión, que la placa puede interpretar y actuar en base a eso. Pueden utilizarse dos pines: AO (Analog Out) y DO (Digital Out). El primer pin es para recuperar la información analógica que emite el sensor: una tensión proporcional a la luz recibida. En nuestro caso, a partir de cierto horario del día (o sea, cierta cantidad de luz) se considera noche (y antes, día), así que una salida analógica sería un gasto de recursos innecesario. Por ese motivo, la salida por la que optamos es DO, que envía un 1 o un 0 según el umbral configurado por un potenciómetro incluido en el módulo. Ese valor lógico es recibido por la placa, la cual mediante lógica de código envía una señal para que se prenda o no el LED asociado a la luz estroboscópica (se prende si es de noche).
 
 #### 3.1.3.1 Problemas con el módulo sensor de luz LDR
 
@@ -546,7 +546,7 @@ En la Tabla 3.4 se detallan las interconexiones de pines para la memoria EEPROM.
   <em>Tabla 3.4: interconexión de pines de la memoria EEPROM.</em>
 </p>
 
-La memoria EEPROM AT24C256 se utiliza para almacenar datos para que al reiniciar el sistema, prevalezcan. Particularmente, en el temprano avance con este módulo, comenzamos a ser conscientes de un detalle importante de la realidad de las villas. La energía eléctrica puede ser discontinua y eso implica que basar parte del proyecto en una memoria volátil es arriesgado ya que la importancia de los datos en el módulo en cuestión son sensibles y no pueden depender del estado de la alarma. Es por eso que decidimos agregar una memoria EEPROM AT24C256, con apagones los teléfonos pre-cargados por el código estarían intactos, pero los añadidos a la whitelist mediante comandos por los usuarios admitidos, no. Es por eso que la simple adquisición de una memoria EEPROM AT24C256 resolvió el problema.
+La memoria EEPROM AT24C256 se utiliza para almacenar datos para que al reiniciar el sistema, prevalezcan. Particularmente, en el temprano avance con este módulo, comenzamos a ser conscientes de un detalle importante de la realidad de las villas. La energía eléctrica puede ser discontinua y eso implica que basar parte del proyecto en una memoria volátil es arriesgado ya que la importancia de los datos en el módulo en cuestión son sensibles y no pueden depender del estado de la alarma. Es por eso que decidimos agregar una memoria EEPROM AT24C256, con apagones los teléfonos pre-cargados por el código estarían intactos, pero los añadidos a la _whitelist_ mediante comandos por los usuarios admitidos, no. Es por eso que la simple adquisición de una memoria EEPROM AT24C256 resolvió el problema.
 
 #### 3.1.4.1 Problemas con la memoria EEPROM AT24C256
 
@@ -558,7 +558,7 @@ Si bien la electrónica para este trabajo fue prioridad y una cuestión a la cua
 
 ### 3.2.1 Main
 
-Esta función, que es la principal del sistema, se encarga de hacer funcionar la alarma en su totalidad. El código se divide en dos grandes partes: la inicialización de bajo nivel y el super-loop. La gran distinción entre estas secciones es que el código previo al while se ejecuta una sola vez al prender la alarma, inicializando a los periféricos (ver las líneas funciones terminadas en `Init`) mientras que lo que está dentro del while (super-loop) se ejecuta muchas veces por segundo siempre y cuando la alarma tenga energía. Luego, se invoca a `app_init()` que inicializa las máquinas de estado de todos los módulos.
+Esta función, que es la principal del sistema, se encarga de hacer funcionar la alarma en su totalidad. El código se divide en dos grandes partes: la inicialización de bajo nivel y el _super-loop_. La gran distinción entre estas secciones es que el código previo al while se ejecuta una sola vez al prender la alarma, inicializando a los periféricos (ver las líneas funciones terminadas en `Init`) mientras que lo que está dentro del while (_super-loop_) se ejecuta muchas veces por segundo siempre y cuando la alarma tenga energía. Luego, se invoca a `app_init()` que inicializa las máquinas de estado de todos los módulos.
 Por último, en el bucle while se repite la llamada a `app_update()`. Esta función implementa un ejecutador cíclico que se ejecuta cada 1 milisegundo, invocando a las funciones de actualización de cada sensor y actuador sin utilizar retardos bloqueantes, permitiendo que el sistema sea realmente concurrente.
 
 ```c
@@ -590,7 +590,7 @@ int main(void)
 Para la implementación del botón de pánico se decidió implementar un código antirrebote. Para esto se definen cuatro estados: ST_BTN_PANIC_UP, ST_BTN_PANIC_FALLING, ST_BTN_PANIC_DOWN y ST_BTN_PANIC_RISING. A continuación se los explica a cada uno y se expone el código en cuestión.
 
 - ST_BTN_PANIC_UP: el sistema está en reposo esperando acciones en el pin. Si la tensión baja (o sea, alguien empezó a presionar el botón), pasa al siguiente estado.
-- ST_BTN_PANIC_FALLING: el sistema descuenta un contador durante `DEBOUNCE_MS`. Si en lo que dura `DBOUNCE_MS` el botón se suelta, se descarta como ruido y vuelve al reposo. Si el tiempo se cumple y sigue presionado, se confirma la acción y se encola el evento `EV_SYS_PANIC_BTN_PRESSED` mediante `put_event_task_system(EV_SYS_PANIC_BTN_PRESSED)`
+- ST_BTN_PANIC_FALLING: el sistema descuenta un contador durante `DEBOUNCE_MS`. Si en lo que dura `DEBOUNCE_MS` el botón se suelta, se descarta como ruido y vuelve al reposo. Si el tiempo se cumple y sigue presionado, se confirma la acción y se encola el evento `EV_SYS_PANIC_BTN_PRESSED` mediante `put_event_task_system(EV_SYS_PANIC_BTN_PRESSED)`
 - ST_PANIC_BTN_DOWN / RISING: la misma lógica que relaciona a los dos primeros estados se aplica a la inversa. El sistema espera que el botón sea soltado y requiere que permanezca en estado alto durante `DEBOUNCE_MS` para confirmar que fue liberado en la realidad.
 
 ```c
@@ -641,7 +641,7 @@ default:
 
 ### 3.2.3 Sensor de luz
 
-La lógica del sensor LDR es sencilla: interpreta un valor lógico del pin físico para determinar si es de día o de noche. Sin embrago, por más que la lógica no suponga problemas, tuvo que ser considerada la problemática relacionada a los reflejos efímeros, luces de autos o sombras momentáneas que puedan activar el sensor sin sentido (y enciendan la luz estroboscópica sin motivo real). Para evitar esto, se definió una ventana temporal de validación de 1000 milisegundos. La máquina de estados verifica que la lectura se mantenga estable durante esos 1000 ticks consecutivos en los estados de transición (`ST_LDR_GOING_NIGHT` o `ST_LDR_GOING_DAY`). Si la luz varía antes de cumplirse el tiempo, el sistema lo considera una anomalía y vuelve al estado anterior. Esta lógica hace que el sistema posea cierta "inteligencia", ya que además evita la retroalimentación de la propia luz de la alarma. En caso de que efectivamente la alarma esté en presencia de día o noche, el código maneja el cambio de estado a `ST_LDR_DAY` y `ST_LDR_NIGHT` respectivamente. Se expone el fragmento de código relacionado a lo mencionado sobre la lógica de código del sensor de luz LDR.
+La lógica del sensor LDR es sencilla: interpreta un valor lógico del pin físico para determinar si es de día o de noche. Sin embargo, por más que la lógica no suponga problemas, tuvo que ser considerada la problemática relacionada a los reflejos efímeros, luces de autos o sombras momentáneas que puedan activar el sensor sin sentido (y enciendan la luz estroboscópica sin motivo real). Para evitar esto, se definió una ventana temporal de validación de 1000 milisegundos. La máquina de estados verifica que la lectura se mantenga estable durante esos 1000 ticks consecutivos en los estados de transición (`ST_LDR_GOING_NIGHT` o `ST_LDR_GOING_DAY`). Si la luz varía antes de cumplirse el tiempo, el sistema lo considera una anomalía y vuelve al estado anterior. Esta lógica hace que el sistema posea cierta "inteligencia", ya que además evita la retroalimentación de la propia luz de la alarma. En caso de que efectivamente la alarma esté en presencia de día o noche, el código maneja el cambio de estado a `ST_LDR_DAY` y `ST_LDR_NIGHT` respectivamente. Se expone el fragmento de código relacionado a lo mencionado sobre la lógica de código del sensor de luz LDR.
 
 ```c
 case ST_LDR_DAY:
@@ -693,7 +693,7 @@ case ST_LDR_DAY:
 
 El código del módulo HM-10 fue pensado y estructurado para operar mediante una máquina de estados y transmisión DMA por el puerto `USART1`, lo que permite recibir comandos sin saturar el microcontrolador. Su seguridad se basa en una autenticación de doble factor (2FA) y control por eventos. Es posible interpretar 3 capas importantes.
 
-- Chequeo y seguridad: en vez de leer pines físicos de estado, el módulo reacciona a los eventos internos URC (Unsolicites Result Code) (`OK+CONN` para conexión exitosa y `OK+LOST` para pérdida de conexión). Además, si la alarma principal se dispara, el sistema central envía un evento `EV_BLE_FORCE_CLOSE` que obliga a la máquina de estados a cortar cualquier sesión de mantenimiento activa por precaución. El siguiente fragmento de código muestra perfectamente cómo el sistema prioriza un evento de seguridad (la alarma disparándose) antes de hacer cualquier otra cosa con el Bluetooth.
+- Chequeo y seguridad: en vez de leer pines físicos de estado, el módulo reacciona a los eventos internos URC (Unsolicited Result Code) (`OK+CONN` para conexión exitosa y `OK+LOST` para pérdida de conexión). Además, si la alarma principal se dispara, el sistema central envía un evento `EV_BLE_FORCE_CLOSE` que obliga a la máquina de estados a cortar cualquier sesión de mantenimiento activa por precaución. El siguiente fragmento de código muestra perfectamente cómo el sistema prioriza un evento de seguridad (la alarma disparándose) antes de hacer cualquier otra cosa con el Bluetooth.
 
 ```c
 if (any_event_task_ble()) {
@@ -706,7 +706,7 @@ if (any_event_task_ble()) {
 }
 ```
 
-- Autenticación doble: al conectarse un dispositivo, el sistema exige un usuario (validado ignorando mayúsculas) y luego una contraseña (respetando case-sensitive). Estos controles son aislados en el archivo `auth_utils.c` explorado a continuación. Puede notarse la buena práctica de _early return_ por longitud al validar la autenticación.
+- Autenticación doble: al conectarse un dispositivo, el sistema exige un usuario (validado ignorando mayúsculas) y luego una contraseña (respetando _case-sensitive_). Estos controles son aislados en el archivo `auth_utils.c` explorado a continuación. Puede notarse la buena práctica de _early return_ por longitud al validar la autenticación.
 
 ```c
 bool auth_user_match(const char *input, const char *expected)
@@ -741,7 +741,7 @@ bool auth_pass_match(const char *input, const char *expected)
 }
 ```
 
-- Comandos de sesión: una vez autenticado (o sea, el usuario es el líder de la red de vecinos o cualquier usuario con privilegios), el usuario puede gestionar la whitelist con los comandos `ADD`, `DEL` y `LIST`. Los cambios exitosos mandan un evento hacia la EEPROM para su guardado asincrónico **no volátil**. En el código que sigue, se puede apreciar la función `handle_session_command` completa y exacta que se diseñó para procesar los comandos `ADD`, `DEL`, `LIST` y `OUT`.
+- Comandos de sesión: una vez autenticado (o sea, el usuario es el líder de la red de vecinos o cualquier usuario con privilegios), el usuario puede gestionar la _whitelist_ con los comandos `ADD`, `DEL` y `LIST`. Los cambios exitosos mandan un evento hacia la EEPROM para su guardado asincrónico **no volátil**. En el código que sigue, se puede apreciar la función `handle_session_command` completa y exacta que se diseñó para procesar los comandos `ADD`, `DEL`, `LIST` y `OUT`.
 
 ```c
 static FSM_STATUS_BLE handle_session_command(const char *linea)
@@ -791,7 +791,7 @@ El módulo GSM es el encargado de proveer la conectividad a larga distancia, ges
 
 El funcionamiento del módulo puede dividirse en dos grandes aspectos.
 
-- Gestión de llamadas (activación): en estado de reposo, el sistema realiza un sondeo (polling) continuo de la red. Al detectar una llamada entrante (evento `RING`), el sistema no atiende inmediatamente. En su lugar, espera el identificador de llamadas mediante el comando `+CLIP`:. El número recibido es normalizado (removiendo códigos de país como el "+54") y comparado con la whitelist en RAM. Si el vecino está autorizado, el sistema dispara la alerta central y envía instantáneamente el comando `ATH` para cortar la llamada. Esta lógica asegura que el vecino pueda activar la alarma sin consumir saldo de su línea telefónica.
+- Gestión de llamadas (activación): en estado de reposo, el sistema realiza un sondeo (_polling_) continuo de la red. Al detectar una llamada entrante (evento `RING`), el sistema no atiende inmediatamente. En su lugar, espera el identificador de llamadas mediante el comando `+CLIP`:. El número recibido es normalizado (removiendo códigos de país como el "+54") y comparado con la _whitelist_ en RAM. Si el vecino está autorizado, el sistema dispara la alerta central y envía instantáneamente el comando `ATH` para cortar la llamada. Esta lógica asegura que el vecino pueda activar la alarma sin consumir saldo de su línea telefónica.
 
 - Gestión de mensajes SMS (alerta): cuando la alarma es disparada (ya sea por el botón de pánico o por una llamada), el sistema central hace que se notifiquen a los contactos de emergencia. La máquina de estados transiciona a un modo iterativo: selecciona el primer destinatario, envía el comando `AT+CMGS` y aguarda asincrónicamente el símbolo prompt (`>`). Una vez inyectado el texto y el carácter de control, la máquina de estados espera la confirmación de la red (`+CMGS:`) antes de avanzar al siguiente número de la lista, procesando toda la cola de mensajes sin detener la ejecución de las luces estroboscópicas ni la sirena.
 
@@ -831,11 +831,11 @@ case ST_GSM_SMS_TEXT_WAITING:
 
 ### 3.2.6 Memoria EEPROM
 
-El almacenamiento de la whitelist (lista de vecinos autorizados) requiere de memoria no volátil para no perder los datos ante cortes de energía. Para ello se utilizó una memoria EEPROM externa. El diseño de este código se centró en evitar que los tiempos físicos de escritura del chip frenen o intercedan con el planificador cíclico del sistema. Sin embargo, es una realidad que escribir datos en una memoria EEPROM es un proceso eléctricamente lento. Es por eso que al hacer la incorporación de la memoria al proyecto, tuvimos que investigar lo siguiente. El chip requiere un tiempo de escritura interno de aproximadamente 6 milisegundos por cada página de datos. Si el microcontrolador utilizara funciones bloqueantes tradicionales (como un `HAL_Delay` o un while de espera), el sistema entero se congelaría durante ese tiempo. Si un vecino presionara el botón de pánico exactamente en esos 6 milisegundos, la alarma no lo detectaría y sería catastrófico .Para solucionar esto, el código se divide en dos etapas.
+El almacenamiento de la _whitelist_ (lista de vecinos autorizados) requiere de memoria no volátil para no perder los datos ante cortes de energía. Para ello se utilizó una memoria EEPROM externa. El diseño de este código se centró en evitar que los tiempos físicos de escritura del chip frenen o intercedan con el planificador cíclico del sistema. Sin embargo, es una realidad que escribir datos en una memoria EEPROM es un proceso eléctricamente lento. Es por eso que al hacer la incorporación de la memoria al proyecto, tuvimos que investigar lo siguiente. El chip requiere un tiempo de escritura interno de aproximadamente 6 milisegundos por cada página de datos. Si el microcontrolador utilizara funciones bloqueantes tradicionales (como un `HAL_Delay` o un while de espera), el sistema entero se congelaría durante ese tiempo. Si un vecino presionara el botón de pánico exactamente en esos 6 milisegundos, la alarma no lo detectaría y sería catastrófico. Para solucionar esto, el código se divide en dos etapas.
 
 - Lectura en el arranque (bloqueante): cuando la alarma recién se enciende y entra a `eeprom_init()`, es seguro detener el procesador porque el bucle principal aún no comenzó. En esta etapa, el sistema lee toda la memoria, verifica mediante un cálculo CRC16 que los datos no estén corruptos, y vuelca la lista de vecinos autorizados a la memoria RAM, donde el acceso es instantáneo.
 
-- Escritura en ejecución (no bloqueante): una vez que la alarma está operando, si el administrador agrega o elimina un vecino por Bluetooth de la whitelist, la memoria debe actualizarse sin frenar los sensores. Este es el momento en el cual entra en acción la máquina de estados junto con el controlador DMA (Direct Memory Access).
+- Escritura en ejecución (no bloqueante): una vez que la alarma está operando, si el administrador agrega o elimina un vecino por Bluetooth de la _whitelist_, la memoria debe actualizarse sin frenar los sensores. Este es el momento en el cual entra en acción la máquina de estados junto con el controlador DMA (Direct Memory Access).
 
 Se pretende concluir la idea con el fragmento de código presentado a continuación, que refleja todas estas cuestiones mencionadas.
 
@@ -893,7 +893,7 @@ Durante el desarrollo de este trabajo fueron realizándose pruebas a medida que 
   <em>Figura 4.1: dispositivo encontrado en la aplicación Serial Bluetooth Terminal.</em>
 </p>
 
-- Módulo HM-10: otra de las pruebas que se realizó con este módulo fue el ingreso de las credenciales autorizadas con nombre de usuario y contraseña. Se probaron casos en los que el usuario ingresa primeramente un nombre no válido, también una contraseña no válida, y también los comandos para añadir y eliminar números de la whitelist y cerrar la sesión. Todo eso puede apreciarse en la Figura 4.2. Cabe mencionar que las pruebas fueron comparadas con el estado de un LED amarillo que se condecía con el estado de la conexión. La evidencia de esto último puede verse en el video al final de este capítulo.
+- Módulo HM-10: otra de las pruebas que se realizó con este módulo fue el ingreso de las credenciales autorizadas con nombre de usuario y contraseña. Se probaron casos en los que el usuario ingresa primeramente un nombre no válido, también una contraseña no válida, y también los comandos para añadir y eliminar números de la _whitelist_ y cerrar la sesión. Todo eso puede apreciarse en la Figura 4.2. Cabe mencionar que las pruebas fueron comparadas con el estado de un LED amarillo que se condecía con el estado de la conexión. La evidencia de esto último puede verse en el video al final de este capítulo.
 
 <p align="center">
   <img src="./img/fig42.png" alt="Placa" width="300">
@@ -905,7 +905,7 @@ Durante el desarrollo de este trabajo fueron realizándose pruebas a medida que 
 
 - Módulo GSM: la prueba que se realizó con este módulo fue el reconocimiento del chip insertado. Para que la conexión pudiera considerarse como realizada, el LED integrado al módulo debía dejar de parpadear cada segundo y pasar a parpadear cada 3 segundos. Probamos con chips de la compañía Movistar y esto nunca sucedía, hasta que investigando los posibles motivos nos percatamos de que Movistar no opera más sus redes 2G, tipo de red crucial para el funcionamiento de este módulo. Migramos a un chip de la compañía Claro y la conexión se dio con éxito en el primer intento. Avanzados con el desarrollo del trabajo se realizaron numerosas pruebas del envío de los mensajes SMS. El éxito de esto puede verse en el video mencionado reiteradamente.
 
-- Memoria EEPROM: para probar el correcto funcionamiento de este dispositivo primero tuvimos que cerciorarnos de que el módulo GSM y los comandos del HM-10 funcionaban correctamente. Una vez verificado esto, añadimos un número telefónico a la whitelist, desconectamos de la corriente a todo el sistema, volvimos a conectar y emitimos una llamada telefónica desde el último número agregado. Para nuestra fortuna, la EEPROM funcionó correctamente y guardó el número de forma tal que al módulo GSM recibir la llamada, se activó el LED de luz estroboscópica y el de la sirena, confirmando así la persistencia del número en la lista de usuarios admitidos.
+- Memoria EEPROM: para probar el correcto funcionamiento de este dispositivo primero tuvimos que cerciorarnos de que el módulo GSM y los comandos del HM-10 funcionaban correctamente. Una vez verificado esto, añadimos un número telefónico a la _whitelist_, desconectamos de la corriente a todo el sistema, volvimos a conectar y emitimos una llamada telefónica desde el último número agregado. Para nuestra fortuna, la EEPROM funcionó correctamente y guardó el número de forma tal que al módulo GSM recibir la llamada, se activó el LED de luz estroboscópica y el de la sirena, confirmando así la persistencia del número en la lista de usuarios admitidos.
 
 ## 4.2 Cumplimiento de requisitos
 
@@ -914,7 +914,7 @@ Finalizado este trabajo, es posible confirmar los requisitos cumplidos previamen
 Acceso
 
 - 1.1 El sistema permitirá el acceso mediante BLE.
-- 1.2 En caso de acceso permitido, el sistema guardará qué usuario root ingresó.
+- 1.2 En caso de acceso permitido, el sistema guardará qué usuario _root_ ingresó.
 
 Indicadores
 
@@ -1118,7 +1118,7 @@ En la Figura 4.9 se observa la salida generada por el compilador y en la Figura 
 
 Para la determinación del factor de carga del procesador se aplica la relación directa entre el tiempo de ejecución en el peor de los casos y la duración total del ciclo del sistema.
 
-- Fórmula aplicada: U = (WCET / T_ciclo) × 100 .
+- Fórmula aplicada: U = (WCET / T_ciclo) × 100
 - Desarrollo del cálculo:
   - WCET: 0,200 ms .
   - Tiempo de ciclo total (T_ciclo): 1,0 ms (período fijo establecido por la interrupción base SysTick).
@@ -1128,7 +1128,7 @@ Para la determinación del factor de carga del procesador se aplica la relación
 
 El código fuente incorpora directrices específicas de administración de energía para optimizar el rendimiento térmico y eléctrico del microcontrolador.
 Modo seleccionado: `C Sleep Mode (__WFI()) `.
-El cálculo del factor de uso demuestra que, fuera de los eventos de crisis (donde el uso alcanza el 20,00 %), la unidad central de procesamiento (CPU) permanece inactiva la mayor parte del tiempo. Sin embargo, por la naturaleza reactiva de la alarma, el sistema demanda mantener operativas las interfaces UART (USART1 para BLE y USART3 para GSM) e I2C (I2C1 para EEPROM) para la recepción asíncrona de comandos y la finalización de transferencias en curso. El modo Sleep, invocado mediante la instrucción \_\_WFI() (Wait For Interrupt), detiene el reloj del núcleo central para el ahorro de energía, pero conserva todos los periféricos y sus interrupciones encendidos. De esta manera, el microcontrolador se despierta automáticamente ante cualquier interrupción habilitada: recepción UART (byte BLE o trama GSM), finalización de transferencia I2C, o al completarse el ciclo del temporizador base SysTick, que restaura la ejecución del bucle principal cada 1 mS.
+El cálculo del factor de uso demuestra que, fuera de los eventos de crisis (donde el uso alcanza el 20,00 %), la unidad central de procesamiento (CPU) permanece inactiva la mayor parte del tiempo. Sin embargo, por la naturaleza reactiva de la alarma, el sistema demanda mantener operativas las interfaces UART (USART1 para BLE y USART3 para GSM) e I2C (I2C1 para EEPROM) para la recepción asíncrona de comandos y la finalización de transferencias en curso. El modo Sleep, invocado mediante la instrucción \_\_WFI() (Wait For Interrupt), detiene el reloj del núcleo central para el ahorro de energía, pero conserva todos los periféricos y sus interrupciones encendidos. De esta manera, el microcontrolador se despierta automáticamente ante cualquier interrupción habilitada: recepción UART (byte BLE o trama GSM), finalización de transferencia I2C, o al completarse el ciclo del temporizador base SysTick, que restaura la ejecución del bucle principal cada 1 ms.
 
 ## 4.4 Documentación del desarrollo realizado
 
@@ -1165,7 +1165,7 @@ Hemos sido capaces de incorporar un entendimiento profundo por la electrónica d
 
 Considerando todo lo realizado hasta el momento, proponemos algunas posibles mejoras para mejorar el producto.
 
-- LED verde indicador de alta y baja de números a la whitelist, variando su patrón de parpadeo según si es alta o baja.
+- LED verde indicador de alta y baja de números a la _whitelist_, variando su patrón de parpadeo según si es alta o baja.
 - Que al módulo Bluetooth solo se puedan conectar dispositivos permitidos. Actualmente puede conectarse cualquier dispositivo cercano al módulo.
 - Que la ubicación del botón de pánico esté ubicado para ser presionado desde abajo, para evitar presiones accidentales.
 - Utilizar la red 4G debido al desmantelamiento avanzado de las redes 2G.
@@ -1174,9 +1174,9 @@ Considerando todo lo realizado hasta el momento, proponemos algunas posibles mej
 
 # CAPÍTULO 6
 
-# Uso de herramientas de la inteligencia artificial.
+# Uso de herramientas de la inteligencia artificial
 
-Para la elaboración de este trabajo en su conjunto fue utilizada la inteligencia artificial Gemini de manera responsable, con el único fin de reducir los tiempos de producción y de eficientizar el aprendizaje sobre los detalles desconocidos. Es importante mencionar que este uso no comprometió bajo ningún concepto nuestro entendimiento sobre el trabajo, sino que nos permitió comprender mejor y más profundamente cuestiones que hubieran sido más complicadas de aprender.
+Para la elaboración de este trabajo en su conjunto fue utilizada la inteligencia artificial Gemini de manera responsable, con el único fin de reducir los tiempos de producción y de optimizar el aprendizaje sobre los detalles desconocidos. Es importante mencionar que este uso no comprometió bajo ningún concepto nuestro entendimiento sobre el trabajo, sino que nos permitió comprender mejor y más profundamente cuestiones que hubieran sido más complicadas de aprender.
 
 ## 6.1 Uso individual
 
