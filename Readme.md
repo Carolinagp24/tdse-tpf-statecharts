@@ -1144,7 +1144,6 @@ En la Tabla 4.1 se presenta un resumen de los parámetros considerados más impo
 | Descripción de los módulos del sistema | 2.3        |
 | Diseño de Hardware                     | 3.1        |
 | Desarrollo del firmware                | 3.2        |
-| Esquema de cableado                    | Fig. 3.2   |
 | Pruebas de funcionamiento              | 4.1        |
 | Mediciones                             | 4.3        |
 
