@@ -1095,9 +1095,9 @@ Mapeando los índices de la captura contra el `enum Wcet_Id` de [App/Inc/wcet.h]
   <em>Tabla 4.1: mapeo de índices de captura con `enum Wcet_Id`.</em>
 </p>
 
-$$U = \frac{4 + 4 + 72 + 51 + 51 + 9 + 3 + 2 + 2 + 2}{1000} = \frac{200}{1000} = 0{,}20 = \mathbf{20}%$$
+$$U = \frac{4 + 4 + 72 + 51 + 51 + 9 + 3 + 2 + 2 + 2}{1000} = \frac{200}{1000} = 0{,}20 = \mathbf{20} \%$$
 
-El sistema consume **20 % de la CPU** en peor caso. El **80 % restante del tick (800 µs cada milisegundo) queda libre** para nuevas tareas o margen ante eventos no medidos, sin riesgo de perder el tick de 1 ms.
+El sistema consume **20% de la CPU** en peor caso. El **80% restante del tick (800 µs cada milisegundo) queda libre** para nuevas tareas o margen ante eventos no medidos, sin riesgo de perder el tick de 1 ms.
 
 ### 4.3.3 Captura de pantalla de "Console & Build Analyzer"
 
