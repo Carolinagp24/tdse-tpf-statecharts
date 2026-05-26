@@ -1023,7 +1023,7 @@ Las pruebas de consumo de corriente sobre la placa NUCLEO-F103RB, realizadas con
 - Consumo sobre la línea de 3,3 V (Microcontrolador STM32):
   - Estado de reposo: 24,3 mA
   - Estado activo: 19,8 mA
-  - Evidencia adjunta en la Figura 4.5 y la Figura 4.5:
+  - Evidencia adjunta en la Figura 4.5 y la Figura 4.6:
 
 <p align="center">
   <img src="./img/3_e_2.jpeg" alt="Placa lateral" width="600">
