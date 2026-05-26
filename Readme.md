@@ -36,7 +36,7 @@
 </table>
 
 <p align="center">
-  <em>Este trabajo fue realizado en la Ciudad Autónoma de Buenos Aires, entre diciembre de 2025 y marzo de 2026.</em>
+  <em>Este trabajo fue realizado en la Ciudad Autónoma de Buenos Aires, entre diciembre de 2025 y mayo de 2026.</em>
 </p>
 
 # Resumen
