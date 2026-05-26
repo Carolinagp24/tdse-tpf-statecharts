@@ -103,7 +103,7 @@ A ambos les agradecemos por la motivación genuina por los sistemas embebidos qu
     - [3.2.3 Sensor de luz](#323-sensor-de-luz)
     - [3.2.4 Módulo Bluetooth](#324-módulo-bluetooth)
     - [3.2.5 Módulo GSM](#325-módulo-gsm)
-    - [3.2.7 Memoria EEPROM](#327-memoria-eeprom)
+    - [3.2.6 Memoria EEPROM](#327-memoria-eeprom)
 - [CAPÍTULO 4](#capítulo-4)
 - [Ensayos y resultados](#ensayos-y-resultados)
   - [4.1 Desarrollo y pruebas de funcionamiento](#41-desarrollo-y-pruebas-de-funcionamiento)
@@ -829,7 +829,7 @@ case ST_GSM_SMS_TEXT_WAITING:
     break;
 ```
 
-### 3.2.7 Memoria EEPROM
+### 3.2.6 Memoria EEPROM
 
 El almacenamiento de la whitelist (lista de vecinos autorizados) requiere de memoria no volátil para no perder los datos ante cortes de energía. Para ello se utilizó una memoria EEPROM externa. El diseño de este código se centró en evitar que los tiempos físicos de escritura del chip frenen o intercedan con el planificador cíclico del sistema. Sin embargo, es una realidad que escribir datos en una memoria EEPROM es un proceso eléctricamente lento. Es por eso que al hacer la incorporación de la memoria al proyecto, tuvimos que investigar lo siguiente. El chip requiere un tiempo de escritura interno de aproximadamente 6 milisegundos por cada página de datos. Si el microcontrolador utilizara funciones bloqueantes tradicionales (como un `HAL_Delay` o un while de espera), el sistema entero se congelaría durante ese tiempo. Si un vecino presionara el botón de pánico exactamente en esos 6 milisegundos, la alarma no lo detectaría y sería catastrófico .Para solucionar esto, el código se divide en dos etapas.
 
