@@ -39,7 +39,7 @@
   <em>Este trabajo fue realizado en la Ciudad Autónoma de Buenos Aires, entre diciembre de 2025 y marzo de 2026.</em>
 </p>
 
-# Resume
+# Resumen
 
 En el presente trabajo se diseñó e implementó una alarma vecinal. Se pretendía solucionar la problemática de inseguridad en barrios comprometidos de la Ciudad de Buenos Aires o sus alrededores.
 Mediante un módulo GSM y un botón de pánico se logró que los usuarios puedan hacer sonar una alarma sonora y con luz estroboscópica para notificar a la policía y a la central inmediatamente. Para su mantenimiento, un vecino encargado puede conectarse a través del módulo BLE con doble factor de autenticación.
@@ -60,12 +60,18 @@ A ambos les agradecemos por la motivación genuina por los sistemas embebidos qu
 
 # Índice general
 
+- [Memoria del trabajo final: **Alarma vecinal**](#memoria-del-trabajo-final-alarma-vecinal)
+- [Resumen](#resumen)
+- [Abstract](#abstract)
 - [Agradecimientos](#agradecimientos)
+- [Índice general](#índice-general)
 - [Registro de versiones](#registro-de-versiones)
+- [CAPÍTULO 1](#capítulo-1)
 - [Introducción general](#introducción-general)
   - [1.1 Problemática a resolver](#11-problemática-a-resolver)
   - [1.2 Solución a implementar](#12-solución-a-implementar)
   - [1.3 Análisis de sistemas similares al desarrollado](#13-análisis-de-sistemas-similares-al-desarrollado)
+- [CAPÍTULO 2](#capítulo-2)
 - [Introducción específica](#introducción-específica)
   - [2.1 Requisitos](#21-requisitos)
   - [2.2 Casos de uso](#22-casos-de-uso)
@@ -80,19 +86,25 @@ A ambos les agradecemos por la motivación genuina por los sistemas embebidos qu
     - [2.3.7 Indicadores](#237-indicadores)
     - [2.3.8 Aplicación de celular](#238-aplicación-de-celular)
     - [2.3.9 Conexionado](#239-conexionado)
+- [CAPÍTULO 3](#capítulo-3)
 - [Diseño e implementación](#diseño-e-implementación)
   - [3.1 Diseño del Hardware](#31-diseño-del-hardware)
     - [3.1.1 Hardware del módulo GSM](#311-hardware-del-módulo-gsm)
+      - [3.1.1.1 Problemas con el módulo GSM](#3111-problemas-con-el-módulo-gsm)
     - [3.1.2 Hardware del módulo HM-10](#312-hardware-del-módulo-hm-10)
+      - [3.1.2.1 Problemas con el módulo HM-10](#3121-problemas-con-el-módulo-hm-10)
     - [3.1.3 Hardware del módulo sensor de luz LDR](#313-hardware-del-módulo-sensor-de-luz-ldr)
+      - [3.1.3.1 Problemas con el módulo sensor de luz LDR](#3131-problemas-con-el-módulo-sensor-de-luz-ldr)
     - [3.1.4 Hardware de la memoria EEPROM AT24C256](#314-hardware-de-la-memoria-eeprom-at24c256)
+      - [3.1.4.1 Problemas con la memoria EEPROM AT24C256](#3141-problemas-con-la-memoria-eeprom-at24c256)
   - [3.2 Diseño del Firmware](#32-diseño-del-firmware)
     - [3.2.1 Main](#321-main)
     - [3.2.2 Botón de pánico](#322-botón-de-pánico)
     - [3.2.3 Sensor de luz](#323-sensor-de-luz)
     - [3.2.4 Módulo Bluetooth](#324-módulo-bluetooth)
     - [3.2.5 Módulo GSM](#325-módulo-gsm)
-    - [3.2.6 Gestión de mensajes SMS](#326-gestión-de-mensajes-sms)
+    - [3.2.7 Memoria EEPROM](#327-memoria-eeprom)
+- [CAPÍTULO 4](#capítulo-4)
 - [Ensayos y resultados](#ensayos-y-resultados)
   - [4.1 Desarrollo y pruebas de funcionamiento](#41-desarrollo-y-pruebas-de-funcionamiento)
   - [4.2 Cumplimiento de requisitos](#42-cumplimiento-de-requisitos)
@@ -101,14 +113,16 @@ A ambos les agradecemos por la motivación genuina por los sistemas embebidos qu
       - [4.3.1.1 Análisis del módulo GSM (SIM800L)](#4311-análisis-del-módulo-gsm-sim800l)
     - [4.3.2 Medición y análisis de tiempos de ejecución de cada tarea (WCET)](#432-medición-y-análisis-de-tiempos-de-ejecución-de-cada-tarea-wcet)
       - [4.3.2.1 Análisis Matemático y Conversión Temporal](#4321-análisis-matemático-y-conversión-temporal)
-    - [4.3.3 Captura de pantalla de "Console & Build Analyzer"](#433-captura-de-pantalla-de-console--build-analyzer)
+    - [4.3.3 Captura de pantalla de "Console \& Build Analyzer"](#433-captura-de-pantalla-de-console--build-analyzer)
     - [4.3.4 Cálculo del Factor de Uso (U) de la CPU](#434-cálculo-del-factor-de-uso-u-de-la-cpu)
     - [4.3.5 Gestión del modo de bajo consumo](#435-gestión-del-modo-de-bajo-consumo)
   - [4.4 Documentación del desarrollo realizado](#44-documentación-del-desarrollo-realizado)
+- [CAPÍTULO 5](#capítulo-5)
 - [Conclusiones](#conclusiones)
   - [5.1 Resultados obtenidos](#51-resultados-obtenidos)
   - [5.2 Próximos pasos](#52-próximos-pasos)
-- [Uso de herramientas de la inteligencia artificial](#uso-de-herramientas-de-la-inteligencia-artificial)
+- [CAPÍTULO 6](#capítulo-6)
+- [Uso de herramientas de la inteligencia artificial.](#uso-de-herramientas-de-la-inteligencia-artificial)
   - [6.1 Uso individual](#61-uso-individual)
 - [Bibliografía](#bibliografía)
 
@@ -124,6 +138,7 @@ A ambos les agradecemos por la motivación genuina por los sistemas embebidos qu
 | 1.5      | Versión final con detalles corregidos para la primer entrega                | 15/03/2026 |
 | 1.6      | Adaptación de la Sección 3.1 y Sección 2.3.9 a la nueva versión de la placa | 20/04/2026 |
 | 1.6      | Adaptación de la Sección 3.2 a la nueva versión del código                  | 22/05/2026 |
+| 1.7      | Agregado de la Sección 4.3 y revisión final                  | 26/05/2026 |
 
 # CAPÍTULO 1
 
@@ -138,7 +153,7 @@ Según estadísticas de la página de la Ciudad de Buenos Aires, las comunas en 
   <img src="./img/mapa_violencia.png" alt="mapa_violencia_caba" width="400">
 </p>
 <p align="center">
-  <em>Figura 1.1: Mapa del delito por comuna. Colores claros indican menos delito, oscuros indican alto.</em>
+  <em>Figura 1.1: mapa del delito por comuna. Colores claros indican menos delito, oscuros indican alto.</em>
 </p>
 
 Nuestro proyecto fue pensado para instalarse en las villas, en donde la comunidad barrial pueda unirse y organizarse. La idea fue crear un dispositivo que cualquier vecino pueda alertar a todo el barrio, aprovechando que una sola persona puede hacer que todos reaccionen.
@@ -153,7 +168,7 @@ Además, la alarma vecinal posee una luz estroboscópica y alarma sonora. Ambas 
 
 ## 1.3 Análisis de sistemas similares al desarrollado
 
-Existen empresas como Global Alarmas [2], Hexacom [3], Alerta Vecinal [4], Safecity [5] y Verisure [6] que ofrecen a grandes rasgos lo mismo que nuestra solución. Habiendo más de un competidor, fue importante para nosotros pensar en alguna característica distintiva que destaque entre las demás. El carácter de red vecinal profunda que promete nuestro producto es, en parte, lo que hace que nuestra alarma vecinal no solo sea una herramienta, sino un símbolo de seguridad comunitaria.
+Existen empresas como [Global Alarmas](https://www.globalalarmas.com.ar/), [Hexacom](https://www.hexaweb.com.ar), [Alerta Vecinal](https://www.alertavecinal.com.ar/), [Safecity](https://www.safecity.com.ar/) y [Verisure](https://www.verisure.com.ar/lp/m/alarmas-verisure.php?gclsrc=aw.ds&gad_source=1&gad_campaignid=16807715275&gbraid=0AAAAACw3x7gDQtUTIJ1kMgXgV-eUjKPse&gclid=CjwKCAjwidXQBhAZEiwA4egw6Dm8fulJ9y4MthYVCVP8YGjSlg73vU4ggWRfdBkmUxDC_UMnSvwsyxoCJXEQAvD_BwE) que ofrecen a grandes rasgos lo mismo que nuestra solución. Habiendo más de un competidor, fue importante para nosotros pensar en alguna característica distintiva que destaque entre las demás. El carácter de red vecinal profunda que promete nuestro producto es, en parte, lo que hace que nuestra alarma vecinal no solo sea una herramienta, sino un símbolo de seguridad comunitaria.
 Entre algunas de las funcionalidades que se ofrecen por estas empresas en sus productos se encuentran: sirena de luz, alerta sonora, botonera y panel de control, rastreo vehicular, emisores de humo denso, whitelist, aplicación móvil y control remoto, entre otras.
 Cabe mencionar que solo una de estas empresas, Alerta Vecinal, está dedicada exclusivamente al desarrollo de alarmas para comunidades y no para domicilios particulares.
 Si bien ya existen alarmas con listas tipo whitelist, nuestro concepto de whitelist descentralizada (que usuarios dentro de la red puedan operar con ella) hace que el sentimiento de comunidad sea más fuerte si se elige nuestra propuesta, además de que la construcción y mantenimiento de la alarma es muy baja. Se suma el hecho de que se puede reportar un acto ilícito de manera silenciosa y anónima mediante una llamada telefónica, solo la central sabrá qué número de la whitelist activó la alarma. Muchas alarmas ofrecen protección exclusivamente a uno mismo, mientras que nosotros brindamos la posibilidad de cuidarnos entre todos.
@@ -174,11 +189,10 @@ En la Tabla 2.1 se detalla la lista de requisitos a cumplimentar, con el objetiv
 |                       | 1.2 | En caso de acceso permitido, el sistema guardará qué usuario root ingresó.                                                                                  |
 | Indicadores           | 2.1 | El sistema contará con un indicador luminoso (luz estroboscópica) para indicar que hay una alerta.                                                          |
 |                       | 2.2 | El sistema contará con un buzzer (sirena) para indicar la activación de la alarma.                                                                          |
-|                       | 2.3 | El sistema contará con un set de leds para indicar que la clave es correcta.                                                                                |
-|                       | 2.4 | El sistema contará con un set de leds para indicar que la clave es incorrecta.                                                                              |
-|                       | 2.5 | El sistema enviará un mensaje a la policía, a todos los usuarios y a la central mediante GSM para indicar qué usuario activó la alarma mediante llamada.    |
-|                       | 2.6 | El sistema enviará un mensaje a la policía, a todos los usuarios y a la central mediante GSM para indicar que la alarma se activó mediante botón de pánico. |
-|                       | 2.7 | El sistema contará con un led para indicar el estado de la alarma (armada o desarmada).                                                                     |
+|                       | 2.3 | El sistema contará con LED para indicar el estado de la red en el módulo GSM                                                                               |
+|                       | 2.4 | El sistema enviará un mensaje a la policía, a todos los usuarios y a la central mediante GSM para indicar qué usuario activó la alarma mediante llamada.    |
+|                       | 2.5 | El sistema enviará un mensaje a la policía, a todos los usuarios y a la central mediante GSM para indicar que la alarma se activó mediante botón de pánico. |
+|                       | 2.6 | El sistema contará con un led para indicar el estado de la alarma (armada o desarmada).                                                                     |
 | Interruptores/Botones | 3.1 | El sistema contará con un botón para accionar la alarma de forma manual (botón de pánico).                                                                  |
 | Memoria               | 4.1 | El sistema contará con una memoria para almacenar datos.                                                                                                    |
 |                       | 4.2 | La memoria almacenará la lista de números telefónicos autorizados.                                                                                          |
@@ -191,7 +205,7 @@ En la Tabla 2.1 se detalla la lista de requisitos a cumplimentar, con el objetiv
 | Sensores              | 8.1 | El sistema contará con un sensor lumínico para validar la luz del día.                                                                                      |
 
 <p align="center">
-  <em>Tabla 2.1: Requisitos del sistema a implementar.</em>
+  <em>Tabla 2.1: requisitos del sistema a implementar.</em>
 </p>
 
 ## 2.2 Casos de uso
@@ -236,7 +250,7 @@ En las tablas 2.2, 2.3 y 2.4 se presentan tres casos de uso para ejemplificar un
 
 ### 2.2.1 Diagramas de secuencia del sistema
 
-Previo a empezar a programar el código del sistema, se decidio modelar diagramas de secuancia para las interacciones.
+Previo a empezar a programar el código del sistema, se decidió modelar diagramas de secuancia para las interacciones.
 
 - **Interacción entre los sensores y el sistema:**
 <p align="center">
@@ -315,20 +329,20 @@ Se tiene en cuenta que la red 2G está siendo apagada lentamente pero en ese cas
 </p>
 
 <p align="center">
-  <em>Figura 2.8: Módulo GSM.</em>
+  <em>Figura 2.8: módulo GSM.</em>
 </p>
 
 ### 2.3.4 Memoria EEPROM AT24C256
 
-Se optó por la EEPROM externa (AT24C256) al descartar otras alternativas por riesgos críticos.
-Una opción era la tarjeta SIM pero leer contactos mediante comandos AT es un proceso demasiado lento que retrasaría inaceptablemente el disparo de la alarma durante una emergencia.
-La otra era la memoria del STM32 y este microcontrolador no tiene EEPROM real. Se usaría la memoria Flash que se observa en la Figura 2.9 para guardar datos lo cual reduciría la vida útil de la placa (soporta pocas escrituras) y genera un alto riesgo de corromper el código principal si se corta la luz mientras se guarda un número.
+Se optó por la EEPROM externa (AT24C256) que se expone en la Figura 2.9, al descartar otras alternativas por riesgos críticos.
+Una opción era la tarjeta SIM, pero leer contactos mediante comandos AT es un proceso demasiado lento que retrasaría inaceptablemente el disparo de la alarma durante una emergencia.
+La otra era la memoria del STM32, pero este microcontrolador no tiene EEPROM real y se usaría la memoria Flash para guardar datos, lo cual reduciría la vida útil de la placa (soporta pocas escrituras) y genera un alto riesgo de corromper el código principal si se corta la luz mientras se guarda un número.
 
 <p align="center">
   <img src="./img/memoria_eeprom.png" alt="modulo_memoria" width="350">
 </p>
 <p align="center">
-  <em>Figura 2.9: Memoria EEPROM AT24C256.</em>
+  <em>Figura 2.9: memoria EEPROM AT24C256.</em>
 </p>
 
 ### 2.3.5 Módulo Bluetooth
@@ -342,7 +356,7 @@ El HM-10 trabaja respetando el estándar BLE (Bluetooth Low Energy), lo que perm
   <img src="./img/modulo_ble.png" alt="modulo_ble" width="350">
 </p>
 <p align="center">
-  <em>Figura 2.10: Módulo Bluetooth HM-10.</em>
+  <em>Figura 2.10: módulo Bluetooth HM-10.</em>
 </p>
 
 ### 2.3.6 Módulo sensor de luz
@@ -393,7 +407,7 @@ Como ha sido mencionado previamente en el apartado 2.3.9, una placa experimental
 </p>
 
 <p align="center">
-  <em>Figura 3.1: Vista general del producto.</em>
+  <em>Figura 3.1: vista general del producto.</em>
 </p>
 
 En la Figura 3.2 se observa la vista lateral de la placa. Se incluyen cuatro separadores de plástico para placas con el fin de lograr un mejor soporte.
@@ -403,13 +417,17 @@ En la Figura 3.2 se observa la vista lateral de la placa. Se incluyen cuatro sep
 </p>
 
 <p align="center">
-  <em>Figura 3.2: Vista lateral del producto.</em>
+  <em>Figura 3.2: vista lateral del producto.</em>
 </p>
 
 A continuación, en la Figura 3.3, se expone un esquema de conexiones entre la placa NUCLEO y los módulos incluidos.
 
 <p align="center">
-  <em>Figura 3.3: Esquema de cableado entre placa y módulos.</em>
+  <img src="./img/conexionado.jpg" alt="Placa lateral" width="600">
+</p>
+
+<p align="center">
+  <em>Figura 3.3: esquema de cableado entre placa y módulos.</em>
 </p>
 
 ### 3.1.1 Hardware del módulo GSM
@@ -443,11 +461,12 @@ El módulo GSM es el encargado de gestionar las llamadas de auxilio para la acti
 #### 3.1.1.1 Problemas con el módulo GSM
 
 Se comprendió el funcionamiento del módulo casi en su totalidad, pero hubo tres grandes problemas a los cuales nos enfrentamos al momento de desarrollar su rol en el trabajo:
-Saldo del chip prepago: al ejecutar pruebas al momento del desarrollo nos encontramos con la realidad económica que podría suponer un producto así. Cada prueba costó aproximadamente 0,35 USD y al ser un chip prepago, el saldo terminó de consumirse sin previo aviso (dejando de enviar mensajes de texto, pero sí recibiendo llamadas) e implicó un problema de mayor porte hasta finalmente poder localizar la fuente del mal funcionamiento temporal. En un producto final sería un chip con plan de mensajes ilimitado a cualquier compañía, que hoy en día el plan más básico lo posee.
 
-Compañía telefónica: el módulo posee un LED que indica si está en correcto funcionamiento una vez instalado el chip. Este LED debe parpadear cada 3 segundos una vez esté conectado a la red. Nuestras pruebas fueron inicialmente con un chip de la compañía Movistar, pero el LED nunca comenzaba a parpadear como corresponde. Pensamos que era algo electrónico de la placa y todas las mediciones de tensión y corriente eran las correctas, luego de una investigación, concluimos que la solución más propensa a funcionar era cambiar de compañía a Claro. Esto derivó a buscar soluciones en código y en conexiones físicas, sólo para reducir el problema a la compatibilidad del módulo con chips de ciertas compañías. El cambio funcionó como solución ya que el módulo GSM funciona con red 2G, y Movistar ha desmantelado ese tipo de redes (aunque decían que la tenían activa), mientras que Claro no.
+- Saldo del chip prepago: al ejecutar pruebas al momento del desarrollo nos encontramos con la realidad económica que podría suponer un producto así. Cada prueba costó aproximadamente 0,35 USD y al ser un chip prepago, el saldo terminó de consumirse sin previo aviso (dejando de enviar mensajes de texto, pero sí recibiendo llamadas) e implicó un problema de mayor porte hasta finalmente poder localizar la fuente del mal funcionamiento temporal. En un producto final sería un chip con plan de mensajes ilimitado a cualquier compañía, que hoy en día el plan más básico lo posee.
 
-Potencia de la antena por defecto: con todas las conexiones bien hechas y sin problemas de código, el sistema podía andar casi en su totalidad, faltando el envío del SMS por parte del GSM. Esto, en la última etapa del desarrollo experimental, se debió al pobre poder de la antena solenoidal que incluye el módulo una vez adquirido. Hubo que acercar todo el sistema a una ventana para poder tener una recepción que permitiera el envío de este mensaje, ya que la ubicación del módulo respecto del aire libre es clave cuando una antena está en el camino.
+- Compañía telefónica: el módulo posee un LED que indica si está en correcto funcionamiento una vez instalado el chip. Este LED debe parpadear cada 3 segundos una vez esté conectado a la red. Nuestras pruebas fueron inicialmente con un chip de la compañía Movistar, pero el LED nunca comenzaba a parpadear como corresponde. Pensamos que era algo electrónico de la placa y todas las mediciones de tensión y corriente eran las correctas, luego de una investigación, concluimos que la solución más propensa a funcionar era cambiar de compañía a Claro. Esto derivó a buscar soluciones en código y en conexiones físicas, sólo para reducir el problema a la compatibilidad del módulo con chips de ciertas compañías. El cambio funcionó como solución ya que el módulo GSM funciona con red 2G, y Movistar ha desmantelado ese tipo de redes (aunque decían que la tenían activa), mientras que Claro no.
+
+- Potencia de la antena por defecto: con todas las conexiones bien hechas y sin problemas de código, el sistema podía andar casi en su totalidad, faltando el envío del SMS por parte del GSM. Esto, en la última etapa del desarrollo experimental, se debió al pobre poder de la antena solenoidal que incluye el módulo una vez adquirido. Hubo que acercar todo el sistema a una ventana para poder tener una recepción que permitiera el envío de este mensaje, ya que la ubicación del módulo respecto del aire libre es clave cuando una antena está en el camino. Finalmente se adquirió otro tipo de antena para últimas pruebas.
 
 ### 3.1.2 Hardware del módulo HM-10
 
@@ -476,6 +495,7 @@ El módulo HM-10 es el encargado de comunicar a los técnicos de la empresa y a 
 - Add: añadir número a la whitelist
 - Del: eliminar número de la whitelist
 - Out: terminar la conexión.
+- List: muestra la lista de números en la whitelist
 
 Cabe destacar que ningún comando es case-sensitive. Un flujo común de comandos sería: _admin > fiuba > add 1122334455 > out_. En este caso, se ingresó a la administración de la alarma mediante los datos de alta admin y fiuba. Luego, se añadió al número de ejemplo 1122334455 a la whitelist y por último se terminó la conexión.
 
@@ -853,10 +873,6 @@ case ST_EEPROM_WAIT_TWR:
     break;
 ```
 
-## 3.3 WCET y consumo
-
-YERSON
-
 # CAPÍTULO 4
 
 # Ensayos y resultados
@@ -870,13 +886,21 @@ Durante el desarrollo de este trabajo fueron realizándose pruebas a medida que 
 - Módulo HM-10: la prueba que se hizo inicialmente que también fue útil ya que hizo notar un mal funcionamiento del dispositivo. A un protoboard fue conectado el módulo para unir pines de tensión y tierra con las conexiones correspondientes. Luego, descargamos la aplicación Serial Bluetooth Terminal para iniciar la conexión. Al momento de buscar el dispositivo HM-10, no figuraba en la lista. Cambiamos de dispositivo y logramos visualizar su nombre en la lista y establecer la conexión. El LED de conexión del módulo cambió su estado de buscando conexión a conectado de manera acorde. En la Figura 4.1 se muestra una captura de pantalla de la interfaz de la aplicación mencionada y el dispositivo en cuestión.
 
 <p align="center">
+  <img src="./img/fig41.png" alt="Placa" width="300">
+</p>
+
+<p align="center">
   <em>Figura 4.1: dispositivo encontrado en la aplicación Serial Bluetooth Terminal.</em>
 </p>
 
 - Módulo HM-10: otra de las pruebas que se realizó con este módulo fue el ingreso de las credenciales autorizadas con nombre de usuario y contraseña. Se probaron casos en los que el usuario ingresa primeramente un nombre no válido, también una contraseña no válida, y también los comandos para añadir y eliminar números de la whitelist y cerrar la sesión. Todo eso puede apreciarse en la Figura 4.2. Cabe mencionar que las pruebas fueron comparadas con el estado de un LED amarillo que se condecía con el estado de la conexión. La evidencia de esto último puede verse en el video al final de este capítulo.
 
 <p align="center">
-  <em>Figura 4.2: Pruebas de comandos con la aplicación Serial Bluetooth Terminal.</em>
+  <img src="./img/fig42.png" alt="Placa" width="300">
+</p>
+
+<p align="center">
+  <em>Figura 4.2: pruebas de comandos con la aplicación Serial Bluetooth Terminal.</em>
 </p>
 
 - Módulo GSM: la prueba que se realizó con este módulo fue el reconocimiento del chip insertado. Para que la conexión pudiera considerarse como realizada, el LED integrado al módulo debía dejar de parpadear cada segundo y pasar a parpadear cada 3 segundos. Probamos con chips de la compañía Movistar y esto nunca sucedía, hasta que investigando los posibles motivos nos percatamos de que Movistar no opera más sus redes 2G, tipo de red crucial para el funcionamiento de este módulo. Migramos a un chip de la compañía Claro y la conexión se dio con éxito en el primer intento. Avanzados con el desarrollo del trabajo se realizaron numerosas pruebas del envío de los mensajes SMS. El éxito de esto puede verse en el video mencionado reiteradamente.
@@ -885,7 +909,7 @@ Durante el desarrollo de este trabajo fueron realizándose pruebas a medida que 
 
 ## 4.2 Cumplimiento de requisitos
 
-Finalizado este trabajo, es posible confirmar los requisitos cumplidos en la Tabla 2.1 previamente establecidos.
+Finalizado este trabajo, es posible confirmar los requisitos cumplidos previamente establecidos. Cabe destacar que el requisito 2.6 fue añadido posteriormente en el desarrollo del código del proyecto.
 
 Acceso
 
@@ -896,11 +920,10 @@ Indicadores
 
 - 2.1 El sistema contará con un indicador luminoso (luz estroboscópica) para indicar que hay una alerta.
 - 2.2 El sistema contará con un buzzer (sirena) para indicar la activación de la alarma.
-- 2.3 El sistema contará con un set de leds para indicar que la clave es correcta.
-- 2.4 El sistema contará con un set de leds para indicar que la clave es incorrecta.
-- 2.5 El sistema enviará un mensaje a la policía, a todos los usuarios y a la central mediante GSM para indicar qué usuario activó la alarma mediante llamada.
-- 2.6 El sistema enviará un mensaje a la policía, a todos los usuarios y a la central mediante GSM para indicar que la alarma se activó mediante botón de pánico.
-- 2.7 El sistema contará con un led para indicar el estado de la alarma (armada o desarmada).
+- 2.3 El sistema enviará un mensaje a la policía, a todos los usuarios y a la central mediante GSM para indicar qué usuario activó la alarma mediante llamada.
+- 2.4 El sistema enviará un mensaje a la policía, a todos los usuarios y a la central mediante GSM para indicar que la alarma se activó mediante botón de pánico.
+- 2.5 El sistema contará con un LED para indicar el estado de la alarma (armada o desarmada).
+- 2.6 El sistema contará con un LED para indicar el estado de la red en el módulo GSM.
 
 Interruptores/Botones
 
@@ -932,18 +955,17 @@ Sensores
 
 Entrega
 
-- 9.1 La entrega del proyecto está prevista para el mes de marzo de 2026.
+- 9.1 La entrega del proyecto está prevista para el primer cuatrimestre de 2026.
 
-Se adjunta el link a un video probando las funcionalidades de la alarma vecinal:
-[Video](https://drive.google.com/file/d/1uOZZpbqjF8vDs1e2KLbU4mORA51s-HUG/view?usp=sharing)
+<mark style="background-color: lightgrey">Se adjunta el link a un video probando las funcionalidades de la alarma vecinal:</mark>
+[**video**](https://drive.google.com/file/d/1E4FhQdIoOGOAXSP66gVUsh2_HZPBHyir/view?usp=sharing)
 
 ## 4.3 Análisis de Ejecución y Consumo Energético
 
-El presente apartado detalla las métricas de rendimiento y el perfil de consumo eléctrico del sistema. La evaluación responde a los requerimientos técnicos de la arquitectura de hardware y software del proyecto.
+Concluyendo con el análisis del proyecto en todas sus aristas, el presente apartado detalla las métricas de rendimiento y el perfil de consumo eléctrico del sistema. La evaluación responde a los requerimientos técnicos de la arquitectura de hardware y software del proyecto.
 Para las mediciones se incorporó al código la gestión del modo de bajo consumo (se justifica la elección de dicho modo en la sección 4.3.5).
 
 ```c
-
 void app_update(void)
 {
     if (bsp_gpio_millis() == ultimo_tick)
@@ -952,26 +974,23 @@ void app_update(void)
     }
     ultimo_tick = bsp_gpio_millis();
 
-
-    /* 1: SCRUTINIZE */
+    /* ESCRUTAR */
     sensor_panic_btn_update();
     sensor_ldr_update();
     gsm_update();
     ble_update();
     eeprom_update();
 
-
-    /* 2: PROCESS */
+    /* PROCESAR */
     system_update();
 
-
-    /* 3: ACT */
+    /* ACTUAR */
     act_led_blue_update();
     act_led_white_update();
     act_led_alarm_update();
     act_led_network_update();
 
-    /*4: LOW-POWER MODE*/
+    /* MODO DE BAJO CONSUMO */
     __WFI();
 }
 
@@ -981,7 +1000,7 @@ void app_update(void)
 
 Las pruebas de consumo de corriente sobre la placa NUCLEO-F103RB, realizadas con el módulo Bluetooth (BLE), sendor LDR y memoria EEPROM conectado al STM permanente durante todas las mediciones, arrojaron los siguientes resultados:
 
-- Consumo sobre la línea de 5 V (Sistema general):
+- Consumo sobre la línea de 5 V (sistema general):
   - Estado de reposo: 28,9 mA
   - Estado activo: 24,0 mA
   - Evidencia adjunta en la Figura 4.3 y la Figura 4.4:
@@ -991,14 +1010,14 @@ Las pruebas de consumo de corriente sobre la placa NUCLEO-F103RB, realizadas con
 </p>
 
 <p align="center">
-  <em>Figura 4.3: Medición de la placa a 5 V en estado activo.</em>
+  <em>Figura 4.3: medición de la placa a 5 V en estado activo.</em>
 </p>
 
 <p align="center">
   <img src="./img/5_e_1.jpeg" alt="Placa lateral" width="600">
 </p>
 <p align="center">
-  <em>Figura 4.4: Medición de la placa a 5 V en estado de reposo.</em>
+  <em>Figura 4.4: medición de la placa a 5 V en estado de reposo.</em>
 </p>
 
 - Consumo sobre la línea de 3,3 V (Microcontrolador STM32):
@@ -1010,44 +1029,40 @@ Las pruebas de consumo de corriente sobre la placa NUCLEO-F103RB, realizadas con
   <img src="./img/3_e_2.jpeg" alt="Placa lateral" width="600">
 </p>
 <p align="center">
-  <em>Figura 4.5: Medición de la placa a 3,3 V en estado activo.</em>
+  <em>Figura 4.5: medición de la placa a 3,3 V en estado activo.</em>
 </p>
 
 <p align="center">
   <img src="./img/3_e_1.jpeg" alt="Placa lateral" width="600">
 </p>
 <p align="center">
-  <em>Figura 4.6: Medición de la placa a 3,3 V en estado de reposo.</em>
+  <em>Figura 4.6: medición de la placa a 3,3 V en estado de reposo.</em>
 </p>
 
 #### 4.3.1.1 Análisis del módulo GSM (SIM800L)
 
-Como se carece de un osciloscopio se omite la medición de los picos transitorios de consumo del módulo GSM SIM800L.
-Para un registro preciso de la energía de este componente, el procedimiento teórico sería la instalación de una resistencia de bajo valor (por ejemplo, 0,1 Ω) en serie con la alimentación positiva (VCC) del módulo. Un osciloscopio, con sus sondas en paralelo a la resistencia, se debería capturar la caída de tensión máxima originada por la ráfaga de transmisión de un SMS o llamada entrante. De esta forma el cálculo de la corriente pico real surge de la división de este voltaje máximo por el valor resistivo, por la Ley de Ohm.
+Como se carece de un osciloscopio, se omite la medición de los picos transitorios de consumo del módulo GSM SIM800L.
+Para un registro preciso de la energía de este componente, el procedimiento teórico implicaría instalar una resistencia de bajo valor (por ejemplo, 0,1 Ω) en serie con la alimentación positiva (VCC) del módulo. Un osciloscopio, con sus sondas en paralelo a la resistencia, se debería capturar la caída de tensión máxima originada por la ráfaga de transmisión de un SMS o llamada entrante. De esta forma el cálculo de la corriente pico real surge de la división de este voltaje máximo por el valor resistivo, por la Ley de Ohm.
 
 ### 4.3.2 Medición y análisis de tiempos de ejecución de cada tarea (WCET)
 
 Para la evaluación temporal del Worst Case Execution Time (WCET) el análisis se aplica con el registro interno DWT del microcontrolador a 64 MHz para registrar los ciclos de reloj exactos del sistema.
-Las mediciones se hicieron en las situaciones de estrés del sistema: activación por botón de pánico y por llamada, SMS a todos los destinatarios, llamada de un número no registrado, alta a un número nuevo y activación por este nuevo número, activación de sirena y luz estroboscópica, ejecutadas sobre hardware con SIM y antena GSM operativas en una sesión previa.
-
-En la Figura 4.7 se observa la evidencia para el tiempo en reposo.
-
-<p align="center">
-  <em>Figura 4.7: Captura de pantalla para el tiempo de ejecución en reposo.</em>
-</p>
+Las mediciones se hicieron en las situaciones de estrés del sistema: activación por botón de pánico y por llamada, SMS a todos los destinatarios, llamada de un número no registrado, alta a un número nuevo y activación por este nuevo número, activación de sirena y luz estroboscópica, ejecutadas sobre hardware con SIM y antena GSM operativas en una sesión previa. En la Figura 4.7 se observa la evidencia para el tiempo en reposo y en la Figura 4.8, la evidencia para el tiempo en estrés (WCET).
 
 <p align="center">
   <img src="./img/wcet_init_0.png" alt="Placa lateral" width="600">
 </p>
 
-En la Figura 4.8 se observa la evidencia para el tiempo en estrés (WCET).
+<p align="center">
+  <em>Figura 4.7: captura de pantalla para el tiempo de ejecución en reposo.</em>
+</p>
 
 <p align="center">
   <img src="./img/wcet_live_expressions.png" alt="Placa lateral" width="600">
 </p>
 
 <p align="center">
-  <em>Figura 4.8: Captura de pantalla para el tiempo de ejecución en estrés.</em>
+  <em>Figura 4.8: captura de pantalla para el tiempo de ejecución en estrés.</em>
 </p>
 
 #### 4.3.2.1 Análisis Matemático y Conversión Temporal
@@ -1060,17 +1075,17 @@ Mapeando los índices de la captura contra el `enum Wcet_Id` de [App/Inc/wcet.h]
 
 | Índice | Tarea (`Wcet_Id`)                | `wcet_max[i]` (µs) | Contribución a U (`/1000`) |
 | :----: | -------------------------------- | :----------------: | :------------------------: |
-|   0    | `WCET_SENSOR_BTN_PANIC`          |         4          |           0.004            |
-|   1    | `WCET_SENSOR_LDR`                |         4          |           0.004            |
-|   2    | `WCET_GSM`                       |         72         |           0.072            |
-|   3    | `WCET_BLE`                       |         51         |           0.051            |
-|   4    | `WCET_EEPROM`                    |         51         |           0.051            |
-|   5    | `WCET_SYSTEM`                    |         9          |           0.009            |
-|   6    | `WCET_ACT_LED_BLUE`              |         3          |           0.003            |
-|   7    | `WCET_ACT_LED_WHITE`             |         2          |           0.002            |
-|   8    | `WCET_ACT_LED_ALARM`             |         2          |           0.002            |
-|   9    | `WCET_ACT_LED_NETWORK`           |         2          |           0.002            |
-|        | **Σ tiempo de cómputo por tick** |     **200 µs**     |         **0.200**          |
+|   0    | `WCET_SENSOR_BTN_PANIC`          |         4          |           0,004            |
+|   1    | `WCET_SENSOR_LDR`                |         4          |           0,004            |
+|   2    | `WCET_GSM`                       |         72         |           0,072            |
+|   3    | `WCET_BLE`                       |         51         |           0,051            |
+|   4    | `WCET_EEPROM`                    |         51         |           0,051            |
+|   5    | `WCET_SYSTEM`                    |         9          |           0,009            |
+|   6    | `WCET_ACT_LED_BLUE`              |         3          |           0,003            |
+|   7    | `WCET_ACT_LED_WHITE`             |         2          |           0,002            |
+|   8    | `WCET_ACT_LED_ALARM`             |         2          |           0,002            |
+|   9    | `WCET_ACT_LED_NETWORK`           |         2          |           0,002            |
+|        | **Σ tiempo de cómputo por tick** |     **200 µs**     |         **0,200**          |
 
 $$U = \frac{4 + 4 + 72 + 51 + 51 + 9 + 3 + 2 + 2 + 2}{1000} = \frac{200}{1000} = 0{,}20 = \mathbf{20}\text{ por ciento}$$
 
@@ -1079,25 +1094,23 @@ El sistema consume **20 % de la CPU** en peor caso. El **80 % restante del tick 
 ### 4.3.3 Captura de pantalla de "Console & Build Analyzer"
 
 El reporte de uso de memoria tras la compilación de la versión final del código fuente expone la distribución de recursos en la memoria FLASH y RAM.
-En la Figura 4.9 se observa la salida generada por el compilador.
+En la Figura 4.9 se observa la salida generada por el compilador y en la Figura 4.10 se observa el Build Analyzer al momento de _debuggear_.
 
 <p align="center">
-  <img src="./img/b_0.png" alt="Placa lateral" width="600">
+  <img src="./img/b_0_new.png" alt="Placa lateral" width="600">
 </p>
 
 <p align="center">
-  <em>Figura 4.9: Captura de pantalla de la consola luego de compilar.
+  <em>Figura 4.9: captura de pantalla de la consola luego de compilar.
 </em>
 </p>
-
-En la Figura 4.10 se observa el Build Analyzer al momento de debuggear.
 
 <p align="center">
   <img src="./img/b_1.png" alt="Placa lateral" width="600">
 </p>
 
 <p align="center">
-  <em>Figura 4.10: Captura de pantalla del Build Analyzer con los parámetros pedidos.
+  <em>Figura 4.10: captura de pantalla del Build Analyzer con los parámetros pedidos.
 </em>
 </p>
 
@@ -1115,7 +1128,7 @@ Para la determinación del factor de carga del procesador se aplica la relación
 
 El código fuente incorpora directrices específicas de administración de energía para optimizar el rendimiento térmico y eléctrico del microcontrolador.
 Modo seleccionado: `C Sleep Mode (__WFI()) `.
-El cálculo del factor de uso demuestra que, fuera de los eventos de crisis (donde el uso alcanza el 20,00 %), la unidad central de procesamiento (CPU) permanece inactiva la mayor parte del tiempo. Sin embargo, por la naturaleza reactiva de la alarma, el sistema demanda mantener operativas las interfaces UART (USART1 para BLE y USART3 para GSM) e I2C (I2C1 para EEPROM) para la recepción asíncrona de comandos y la finalización de transferencias en curso. El modo Sleep, invocado mediante la instrucción \_\_WFI() (Wait For Interrupt), detiene el reloj del núcleo central para el ahorro de energía, pero conserva todos los periféricos y sus interrupciones encendidos. De esta manera, el microcontrolador se despierta automáticamente ante cualquier interrupción habilitada: recepción UART (byte BLE o trama GSM), finalización de transferencia I2C, o al completarse el ciclo del temporizador base SysTick, que restaura la ejecución del bucle principal cada 1 ms.
+El cálculo del factor de uso demuestra que, fuera de los eventos de crisis (donde el uso alcanza el 20,00 %), la unidad central de procesamiento (CPU) permanece inactiva la mayor parte del tiempo. Sin embargo, por la naturaleza reactiva de la alarma, el sistema demanda mantener operativas las interfaces UART (USART1 para BLE y USART3 para GSM) e I2C (I2C1 para EEPROM) para la recepción asíncrona de comandos y la finalización de transferencias en curso. El modo Sleep, invocado mediante la instrucción \_\_WFI() (Wait For Interrupt), detiene el reloj del núcleo central para el ahorro de energía, pero conserva todos los periféricos y sus interrupciones encendidos. De esta manera, el microcontrolador se despierta automáticamente ante cualquier interrupción habilitada: recepción UART (byte BLE o trama GSM), finalización de transferencia I2C, o al completarse el ciclo del temporizador base SysTick, que restaura la ejecución del bucle principal cada 1 mS.
 
 ## 4.4 Documentación del desarrollo realizado
 
@@ -1137,7 +1150,7 @@ En la Tabla 4.1 se presenta un resumen de los parámetros considerados más impo
 
 </div>
 <p align="center">
-  <em>Tabla 4.1: Parámetros que sintetizan lo más importante del proyecto.</em>
+  <em>Tabla 4.1: parámetros que sintetizan lo más importante del proyecto.</em>
 </p>
 
 # CAPÍTULO 5
